@@ -1,0 +1,28 @@
+<!doctype html><html><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Permutation Backtracking Visualizer</title><link rel="stylesheet" href="styles.css"></head>
+<body>
+<div class="app">
+<aside id="sidebar" class="sidebar">
+  <div class="sidebar-head"><span class="sidebar-title">PROBLEMS</span><button id="sidebarToggle" class="icon-btn" title="Collapse menu">◀</button></div>
+  <nav id="problemNav" class="problem-nav"></nav>
+</aside>
+<div class="main-col">
+<header><div><small>ALGORITHM VISUALIZER</small><h1 id="problemTitle">Find All Permutations</h1><p id="problemSubtitle">Python · Backtracking · Recursion Tree</p></div>
+<div class="controls"><button id="reset">↺ Reset</button><button id="step">Step ▶</button><button id="play">▶ Play</button><label>Speed <input id="speed" type="range" min="80" max="1200" value="450"></label></div></header>
+<main>
+<div class="col-left">
+<section id="descPanel" class="panel description open">
+  <div class="title" id="descToggle">DESCRIPTION <span class="chev">▸</span></div>
+  <div class="desc-body"><p id="descText"></p></div>
+</section>
+<section class="panel tree"><div class="title">RECURSION TREE <span id="progress">0 / 0</span></div><svg id="svg" viewBox="0 0 1000 600"></svg>
+<div class="legend">🔴 current call　 🟢 complete permutation　 🔵 visited</div></section>
+</div>
+<aside><section class="panel state"><div class="title">RUNTIME STATE</div>
+<div class="grid"><div><small>candidate</small><b id="candidate">[]</b></div><div><small>used</small><b id="used">∅</b></div><div class="wide"><small>res</small><b id="res">[]</b></div><div class="wide"><small>call stack</small><b id="stack">—</b></div></div><div id="action" class="action">Ready.</div></section>
+<section class="panel code"><div class="title">PYTHON SOURCE <span>Python</span></div><pre id="code"></pre></section></aside>
+</main><footer><span>FastAPI backend · exact Python algorithm trace</span><span>Docker</span></footer>
+</div>
+</div>
+<script src="app.js"></script></body></html>
