@@ -60,11 +60,11 @@ def backtrack(nums: List[int], candidate: List[int], used: Set[int],
             used.remove(num)
 
 
-def run():
+def run(scenario=None):
     T = Tracer()
     nums = [1, 2, 3]
     result = find_all_permutations(nums, T)
-    return {"nums": nums, "result": result, "events": T.events}
+    return {"kind": "tree", "nums": nums, "result": result, "events": T.events}
 
 
 PROBLEM = {
@@ -72,13 +72,11 @@ PROBLEM = {
     "title": "Find All Permutations",
     "category": "Backtracking",
     "description": (
-        "Given an array of distinct integers, return all the possible permutations "
-        "in any order. This implementation solves it with backtracking: it builds a "
-        "candidate permutation one number at a time, tracks which numbers are already "
-        "used, and once the candidate is the same length as the input it records it as "
-        "a full permutation. After exploring a choice, it backtracks — undoing that "
-        "choice (candidate.pop(), used.remove(num)) — before trying the next one, so "
-        "every ordering gets explored exactly once."
+        "Return all possible permutations of a given array of unique integers. "
+        "They can be returned in any order.\n\n"
+        "Example:\n"
+        "Input: nums = [1, 2, 3]\n"
+        "Output: [[1, 2, 3], [1, 3, 2], [2, 1, 3], [2, 3, 1], [3, 1, 2], [3, 2, 1]]"
     ),
     "run": run,
 }

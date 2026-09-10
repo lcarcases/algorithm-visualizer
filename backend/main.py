@@ -20,17 +20,25 @@ def list_problems():
 
 
 @app.get("/api/trace/{slug}")
-def trace(slug: str):
+def trace(slug: str, scenario: str | None = None):
     problem = get_problem(slug)
     if problem is None:
         raise HTTPException(status_code=404, detail=f"Unknown problem: {slug}")
-    return {**problem["run"](), "description": problem.get("description", "")}
+    return {
+        **problem["run"](scenario),
+        "description": problem.get("description", ""),
+        "scenarios": problem.get("scenarios", []),
+    }
 
 
 @app.get("/api/trace")
 def trace_default():
     problem = get_problem("find-all-permutations")
-    return {**problem["run"](), "description": problem.get("description", "")}
+    return {
+        **problem["run"](),
+        "description": problem.get("description", ""),
+        "scenarios": problem.get("scenarios", []),
+    }
 
 
 @app.get("/health")
