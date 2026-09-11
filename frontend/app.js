@@ -60,6 +60,59 @@ const PROBLEM_UI={
   }
  }
 },
+"find-all-subsets":{
+ langs:{
+  python:{
+   src:[
+"def find_all_subsets(nums: List[int]) -> List[List[int]]:",
+"    res = []","    backtrack(0, [], nums, res)","    return res","",
+"def backtrack(i: int, curr_subset: List[int], nums: List[int],",
+"              res: List[List[int]]) -> None:",
+"    if i == len(nums):","        res.append(curr_subset[:])","        return","",
+"    curr_subset.append(nums[i])","    backtrack(i + 1, curr_subset, nums, res)",
+"    curr_subset.pop()","    backtrack(i + 1, curr_subset, nums, res)"
+   ],
+   map:{1:1,2:2,3:2,4:3,5:5,7:7,8:7,9:8,10:9,12:11,13:12,14:13,16:14}
+  },
+  javascript:{
+   src:[
+"function findAllSubsets(nums) {",
+"  const res = [];","  backtrack(0, [], nums, res);","  return res;","}","",
+"function backtrack(i, currSubset, nums, res) {",
+"  if (i === nums.length) {","    res.push([...currSubset]);","    return;","  }","",
+"  currSubset.push(nums[i]);","  backtrack(i + 1, currSubset, nums, res);",
+"  currSubset.pop();","  backtrack(i + 1, currSubset, nums, res);","}"
+   ],
+   map:{1:1,2:2,3:2,4:3,5:6,7:7,8:7,9:8,10:9,12:11,13:12,14:13,16:14}
+  },
+  java:{
+   src:[
+"public static List<List<Integer>> findAllSubsets(int[] nums) {",
+"    List<List<Integer>> res = new ArrayList<>();",
+"    backtrack(0, new ArrayList<>(), nums, res);","    return res;","}","",
+"public static void backtrack(int i, List<Integer> currSubset, int[] nums,",
+"                              List<List<Integer>> res) {",
+"    if (i == nums.length) {","        res.add(new ArrayList<>(currSubset));","        return;","    }","",
+"    currSubset.add(nums[i]);","    backtrack(i + 1, currSubset, nums, res);",
+"    currSubset.remove(currSubset.size() - 1);","    backtrack(i + 1, currSubset, nums, res);","}"
+   ],
+   map:{1:1,2:2,3:2,4:3,5:6,7:8,8:8,9:9,10:10,12:12,13:13,14:14,16:15}
+  },
+  csharp:{
+   src:[
+"public static List<List<int>> FindAllSubsets(int[] nums) {",
+"    var res = new List<List<int>>();",
+"    Backtrack(0, new List<int>(), nums, res);","    return res;","}","",
+"public static void Backtrack(int i, List<int> currSubset, int[] nums,",
+"                              List<List<int>> res) {",
+"    if (i == nums.Length) {","        res.Add(new List<int>(currSubset));","        return;","    }","",
+"    currSubset.Add(nums[i]);","    Backtrack(i + 1, currSubset, nums, res);",
+"    currSubset.RemoveAt(currSubset.Count - 1);","    Backtrack(i + 1, currSubset, nums, res);","}"
+   ],
+   map:{1:1,2:2,3:2,4:3,5:6,7:8,8:8,9:9,10:10,12:12,13:13,14:14,16:15}
+  }
+ }
+},
 "prerequisites":{
  langs:{
   python:{
@@ -158,6 +211,14 @@ function build(){
  for(let n of nodes.values())if(n.parent){let a=pos.get(n.parent),b=pos.get(n.id);svg.appendChild(el("line",{x1:a.x,y1:a.y,x2:b.x,y2:b.y,class:"edge","data-to":n.id}))}
  for(let n of nodes.values()){let p=pos.get(n.id),g=el("g",{class:"node","data-id":n.id});g.append(el("circle",{cx:p.x,cy:p.y,r:24}));let t=el("text",{x:p.x,y:p.y});t.textContent="["+n.path.join(", ")+"]";g.append(t);svg.append(g)}
 }
+function buildSubsetTree(){
+ svg.innerHTML="";nodes.clear();let levels=[];
+ function add(id,path,d,parent=null){(levels[d]??=[]).push({id,path,parent});nodes.set(id,{id,path,parent,d});if(d<nums.length){add(id+"-1",[...path,nums[d]],d+1,id);add(id+"-0",[...path],d+1,id)}}
+ add("root",[],0);let pos=new Map(),H=530;
+ levels.forEach((lv,d)=>lv.forEach((n,k)=>pos.set(n.id,{x:1000*(k+1)/(lv.length+1),y:35+d*H/nums.length})));
+ for(let n of nodes.values())if(n.parent){let a=pos.get(n.parent),b=pos.get(n.id);svg.appendChild(el("line",{x1:a.x,y1:a.y,x2:b.x,y2:b.y,class:"edge","data-to":n.id}))}
+ for(let n of nodes.values()){let p=pos.get(n.id),g=el("g",{class:"node","data-id":n.id});g.append(el("circle",{cx:p.x,cy:p.y,r:24}));let t=el("text",{x:p.x,y:p.y});t.textContent="["+n.path.join(", ")+"]";g.append(t);svg.append(g)}
+}
 function buildGraph(){
  svg.innerHTML=`<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="21" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#4a6280"/></marker></defs>`;
  nodes.clear();
@@ -189,6 +250,10 @@ function applyKindUI(){
   lblA.textContent="queue";lblB.textContent="in-degrees";lblC.textContent="processed";lblD.textContent="enrolled / n";
   treeTitle.textContent="COURSE GRAPH";
   legend.innerHTML="🔴 current course　 🔵 queued　 ⬛ enrolled (removed)　 🟠 in-degree";
+ }else if(kind==="subsets"){
+  lblA.textContent="curr_subset";lblB.textContent="index i";lblC.textContent="res";lblD.textContent="call stack";
+  treeTitle.textContent="SUBSET TREE";
+  legend.innerHTML="🔴 current call　 🟢 complete subset　 🔵 visited";
  }else{
   lblA.textContent="candidate";lblB.textContent="used";lblC.textContent="res";lblD.textContent="call stack";
   treeTitle.textContent="RECURSION TREE";
@@ -210,6 +275,11 @@ function render(e){
   if(e.current_node!=null)document.querySelector(`.node[data-id="n${e.current_node}"]`)?.classList.add("current");
   document.querySelectorAll(".indeg").forEach(b=>b.textContent=e.in_degrees[+b.dataset.node]);
   if(e.current_node!=null&&e.neighbor!=null)document.querySelector(`.edge[data-from="${e.current_node}"][data-to="${e.neighbor}"]`)?.classList.add("active");
+ }else if(kind==="subsets"){
+  candidate.textContent=JSON.stringify(e.curr_subset);used.textContent=e.i==null?"—":e.i;res.textContent=JSON.stringify(e.res);stack.textContent=e.call_stack.join(" → ")||"—";
+  document.querySelectorAll(".node").forEach(x=>x.classList.remove("current","complete","visited"));
+  for(let n of nodes.values())if(n.d===nums.length&&e.res.some(r=>JSON.stringify(r)===JSON.stringify(n.path)))document.querySelector(`.node[data-id="${CSS.escape(n.id)}"]`)?.classList.add("complete");
+  if(e.node_id){let n=document.querySelector(`.node[data-id="${CSS.escape(e.node_id)}"]`);n?.classList.add("current");let c=e.node_id;while(c){document.querySelector(`.node[data-id="${CSS.escape(c)}"]`)?.classList.add("visited");c=nodes.get(c)?.parent}}
  }else{
   candidate.textContent=JSON.stringify(e.candidate);used.textContent=e.used.length?"{"+e.used.join(", ")+"}":"∅";res.textContent=JSON.stringify(e.res);stack.textContent=e.call_stack.join(" → ")||"—";
   document.querySelectorAll(".node").forEach(x=>x.classList.remove("current","complete","visited"));
@@ -226,6 +296,9 @@ function reset(){
  if(kind==="graph"){
   candidate.textContent="[]";used.textContent="[]";res.textContent="[]";stack.textContent=`0 / ${gN}`;
   buildGraph();
+ }else if(kind==="subsets"){
+  candidate.textContent="[]";used.textContent="—";res.textContent="[]";stack.textContent="—";
+  document.querySelectorAll(".node").forEach(x=>x.classList.remove("current","complete","visited"));
  }else{
   candidate.textContent="[]";used.textContent="∅";res.textContent="[]";stack.textContent="—";
   document.querySelectorAll(".node").forEach(x=>x.classList.remove("current","complete","visited"));
@@ -234,7 +307,9 @@ function reset(){
 function applyTraceData(d,slug){
  kind=d.kind||"tree";events=d.events;i=0;
  applyKindUI();
- if(kind==="graph"){gN=d.n;gEdges=d.edges;renderSource(slug);buildGraph()}else{nums=d.nums;renderSource(slug);build()}
+ if(kind==="graph"){gN=d.n;gEdges=d.edges;renderSource(slug);buildGraph()}
+ else if(kind==="subsets"){nums=d.nums;renderSource(slug);buildSubsetTree()}
+ else{nums=d.nums;renderSource(slug);build()}
  reset();
  document.getElementById("descText").textContent=d.description||"No description available for this problem yet.";
  let scenarios=d.scenarios||[];

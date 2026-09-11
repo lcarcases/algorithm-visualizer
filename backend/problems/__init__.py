@@ -1,5 +1,6 @@
 from . import permutations
 from . import prerequisites
+from . import subsets
 
 # Sidebar category order. A category stays in the list (shown empty) even
 # before any problem is registered under it, so the frontend can render it
@@ -7,7 +8,7 @@ from . import prerequisites
 CATEGORY_ORDER = ["Two Pointers", "Sliding Window", "Backtracking", "Graphs", "Heaps"]
 
 # Register new problems here as they're added.
-PROBLEMS = [permutations.PROBLEM, prerequisites.PROBLEM]
+PROBLEMS = [permutations.PROBLEM, subsets.PROBLEM, prerequisites.PROBLEM]
 
 
 def get_problem(slug: str):
