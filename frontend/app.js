@@ -113,6 +113,76 @@ const PROBLEM_UI={
   }
  }
 },
+"n-queens":{
+ langs:{
+  python:{
+   src:[
+"def n_queens(n: int) -> int:",
+"    res = 0","    dfs(0, set(), set(), set(), n)","    return res","",
+"def dfs(r: int, diagonals_set: Set[int], anti_diagonals_set: Set[int],",
+"        cols_set: Set[int], n: int) -> None:",
+"    if r == n:","        res += 1","        return","",
+"    for c in range(n):","        curr_diagonal = r - c","        curr_anti_diagonal = r + c",
+"        if (c in cols_set or curr_diagonal in diagonals_set or",
+"                curr_anti_diagonal in anti_diagonals_set):","            continue",
+"        cols_set.add(c)","        diagonals_set.add(curr_diagonal)","        anti_diagonals_set.add(curr_anti_diagonal)",
+"        dfs(r + 1, diagonals_set, anti_diagonals_set, cols_set, n)",
+"        cols_set.remove(c)","        diagonals_set.remove(curr_diagonal)","        anti_diagonals_set.remove(curr_anti_diagonal)"
+   ],
+   map:{1:1,2:2,3:2,4:3,5:5,7:7,8:8,9:9,11:11,12:12,13:13,14:14,16:16,17:17,18:18,19:19,20:20,21:21,22:22,23:23}
+  },
+  javascript:{
+   src:[
+"function nQueens(n) {",
+"  const counter = { res: 0 };","  dfs(0, new Set(), new Set(), new Set(), n, counter);","  return counter.res;","}","",
+"function dfs(r, diagonalsSet, antiDiagonalsSet, colsSet, n, counter) {",
+"  if (r === n) {","    counter.res += 1;","    return;","  }","",
+"  for (let c = 0; c < n; c++) {","    const currDiagonal = r - c;","    const currAntiDiagonal = r + c;",
+"    if (colsSet.has(c) || diagonalsSet.has(currDiagonal) || antiDiagonalsSet.has(currAntiDiagonal)) {",
+"      continue;","    }",
+"    colsSet.add(c);","    diagonalsSet.add(currDiagonal);","    antiDiagonalsSet.add(currAntiDiagonal);",
+"    dfs(r + 1, diagonalsSet, antiDiagonalsSet, colsSet, n, counter);",
+"    colsSet.delete(c);","    diagonalsSet.delete(currDiagonal);","    antiDiagonalsSet.delete(currAntiDiagonal);",
+"  }","}"
+   ],
+   map:{1:1,2:2,3:2,4:3,5:6,7:7,8:8,9:9,11:12,12:13,13:14,14:15,16:16,17:18,18:19,19:20,20:21,21:22,22:23,23:24}
+  },
+  java:{
+   src:[
+"public static int nQueens(int n) {",
+"    int[] res = new int[1];","    dfs(0, new HashSet<>(), new HashSet<>(), new HashSet<>(), n, res);","    return res[0];","}","",
+"public static void dfs(int r, Set<Integer> diagonalsSet, Set<Integer> antiDiagonalsSet,",
+"                        Set<Integer> colsSet, int n, int[] res) {",
+"    if (r == n) {","        res[0] += 1;","        return;","    }","",
+"    for (int c = 0; c < n; c++) {","        int currDiagonal = r - c;","        int currAntiDiagonal = r + c;",
+"        if (colsSet.contains(c) || diagonalsSet.contains(currDiagonal) || antiDiagonalsSet.contains(currAntiDiagonal)) {",
+"            continue;","        }",
+"        colsSet.add(c);","        diagonalsSet.add(currDiagonal);","        antiDiagonalsSet.add(currAntiDiagonal);",
+"        dfs(r + 1, diagonalsSet, antiDiagonalsSet, colsSet, n, res);",
+"        colsSet.remove(c);","        diagonalsSet.remove(currDiagonal);","        antiDiagonalsSet.remove(currAntiDiagonal);",
+"    }","}"
+   ],
+   map:{1:1,2:2,3:2,4:3,5:6,7:8,8:9,9:10,11:13,12:14,13:15,14:16,16:17,17:19,18:20,19:21,20:22,21:23,22:24,23:25}
+  },
+  csharp:{
+   src:[
+"public static int NQueens(int n) {",
+"    var res = new int[1];","    Dfs(0, new HashSet<int>(), new HashSet<int>(), new HashSet<int>(), n, res);","    return res[0];","}","",
+"public static void Dfs(int r, HashSet<int> diagonalsSet, HashSet<int> antiDiagonalsSet,",
+"                        HashSet<int> colsSet, int n, int[] res) {",
+"    if (r == n) {","        res[0] += 1;","        return;","    }","",
+"    for (int c = 0; c < n; c++) {","        int currDiagonal = r - c;","        int currAntiDiagonal = r + c;",
+"        if (colsSet.Contains(c) || diagonalsSet.Contains(currDiagonal) || antiDiagonalsSet.Contains(currAntiDiagonal)) {",
+"            continue;","        }",
+"        colsSet.Add(c);","        diagonalsSet.Add(currDiagonal);","        antiDiagonalsSet.Add(currAntiDiagonal);",
+"        Dfs(r + 1, diagonalsSet, antiDiagonalsSet, colsSet, n, res);",
+"        colsSet.Remove(c);","        diagonalsSet.Remove(currDiagonal);","        antiDiagonalsSet.Remove(currAntiDiagonal);",
+"    }","}"
+   ],
+   map:{1:1,2:2,3:2,4:3,5:6,7:8,8:9,9:10,11:13,12:14,13:15,14:16,16:17,17:19,18:20,19:21,20:22,21:23,22:24,23:25}
+  }
+ }
+},
 "prerequisites":{
  langs:{
   python:{
@@ -187,7 +257,7 @@ const PROBLEM_UI={
  }
 }
 };
-let events=[],i=0,playing=false,timer,nums=[1,2,3],nodes=new Map(),currentMap={},currentSlug=null,currentLang="python",kind="tree",gN=0,gEdges=[];
+let events=[],i=0,playing=false,timer,nums=[1,2,3],nodes=new Map(),currentMap={},currentSlug=null,currentLang="python",kind="tree",gN=0,gEdges=[],queensSolved=new Set();
 function esc(s){return s.replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]))}
 function el(n,a={}){let x=document.createElementNS("http://www.w3.org/2000/svg",n);for(let[k,v]of Object.entries(a))x.setAttribute(k,v);return x}
 function renderSource(slug){
@@ -218,6 +288,30 @@ function buildSubsetTree(){
  levels.forEach((lv,d)=>lv.forEach((n,k)=>pos.set(n.id,{x:1000*(k+1)/(lv.length+1),y:35+d*H/nums.length})));
  for(let n of nodes.values())if(n.parent){let a=pos.get(n.parent),b=pos.get(n.id);svg.appendChild(el("line",{x1:a.x,y1:a.y,x2:b.x,y2:b.y,class:"edge","data-to":n.id}))}
  for(let n of nodes.values()){let p=pos.get(n.id),g=el("g",{class:"node","data-id":n.id});g.append(el("circle",{cx:p.x,cy:p.y,r:24}));let t=el("text",{x:p.x,y:p.y});t.textContent="["+n.path.join(", ")+"]";g.append(t);svg.append(g)}
+}
+function buildQueensTree(evs){
+ svg.innerHTML="";nodes.clear();let pruned=new Set();
+ for(const e of evs){
+  if(!e.node_id)continue;
+  if(!nodes.has(e.node_id)){
+   let path=e.node_id==="root"?[]:e.node_id.split("-").slice(1).map(Number);
+   let parent=e.node_id==="root"?null:e.node_id.slice(0,e.node_id.lastIndexOf("-"));
+   nodes.set(e.node_id,{id:e.node_id,path,parent,d:path.length});
+  }
+  if(e.action==="pruned")pruned.add(e.node_id);
+ }
+ let levels=[];
+ for(const n of nodes.values())(levels[n.d]??=[]).push(n);
+ let pos=new Map(),H=530,maxD=Math.max(levels.length-1,1);
+ levels.forEach((lv,d)=>lv&&lv.forEach((n,k)=>pos.set(n.id,{x:1000*(k+1)/(lv.length+1),y:35+d*H/maxD})));
+ for(const n of nodes.values())if(n.parent){let a=pos.get(n.parent),b=pos.get(n.id);svg.appendChild(el("line",{x1:a.x,y1:a.y,x2:b.x,y2:b.y,class:"edge","data-to":n.id}))}
+ for(const n of nodes.values()){
+  let p=pos.get(n.id),isPruned=pruned.has(n.id);
+  let g=el("g",{class:"node"+(isPruned?" pruned":""),"data-id":n.id});
+  g.append(el("circle",{cx:p.x,cy:p.y,r:isPruned?14:24}));
+  let t=el("text",{x:p.x,y:p.y});t.textContent=isPruned?"✕":"["+n.path.join(",")+"]";
+  g.append(t);svg.append(g);
+ }
 }
 function buildGraph(){
  svg.innerHTML=`<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="21" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#4a6280"/></marker></defs>`;
@@ -254,6 +348,10 @@ function applyKindUI(){
   lblA.textContent="curr_subset";lblB.textContent="index i";lblC.textContent="res";lblD.textContent="call stack";
   treeTitle.textContent="SUBSET TREE";
   legend.innerHTML="🔴 current call　 🟢 complete subset　 🔵 visited";
+ }else if(kind==="queens"){
+  lblA.textContent="row r";lblB.textContent="cols used";lblC.textContent="solutions (res)";lblD.textContent="call stack";
+  treeTitle.textContent="STATE SPACE TREE";
+  legend.innerHTML="🔴 current call　 🟢 solution　 🔵 visited　 ✕ pruned";
  }else{
   lblA.textContent="candidate";lblB.textContent="used";lblC.textContent="res";lblD.textContent="call stack";
   treeTitle.textContent="RECURSION TREE";
@@ -280,6 +378,12 @@ function render(e){
   document.querySelectorAll(".node").forEach(x=>x.classList.remove("current","complete","visited"));
   for(let n of nodes.values())if(n.d===nums.length&&e.res.some(r=>JSON.stringify(r)===JSON.stringify(n.path)))document.querySelector(`.node[data-id="${CSS.escape(n.id)}"]`)?.classList.add("complete");
   if(e.node_id){let n=document.querySelector(`.node[data-id="${CSS.escape(e.node_id)}"]`);n?.classList.add("current");let c=e.node_id;while(c){document.querySelector(`.node[data-id="${CSS.escape(c)}"]`)?.classList.add("visited");c=nodes.get(c)?.parent}}
+ }else if(kind==="queens"){
+  candidate.textContent=e.r==null?"—":e.r;used.textContent=e.cols.length?"{"+e.cols.join(", ")+"}":"∅";res.textContent=e.res;stack.textContent=e.call_stack.join(" → ")||"—";
+  if(e.action==="solution")queensSolved.add(e.node_id);
+  document.querySelectorAll(".node").forEach(x=>x.classList.remove("current","complete","visited"));
+  queensSolved.forEach(id=>document.querySelector(`.node[data-id="${CSS.escape(id)}"]`)?.classList.add("complete"));
+  if(e.node_id){let n=document.querySelector(`.node[data-id="${CSS.escape(e.node_id)}"]`);n?.classList.add("current");let c=e.node_id;while(c){document.querySelector(`.node[data-id="${CSS.escape(c)}"]`)?.classList.add("visited");c=nodes.get(c)?.parent}}
  }else{
   candidate.textContent=JSON.stringify(e.candidate);used.textContent=e.used.length?"{"+e.used.join(", ")+"}":"∅";res.textContent=JSON.stringify(e.res);stack.textContent=e.call_stack.join(" → ")||"—";
   document.querySelectorAll(".node").forEach(x=>x.classList.remove("current","complete","visited"));
@@ -299,6 +403,10 @@ function reset(){
  }else if(kind==="subsets"){
   candidate.textContent="[]";used.textContent="—";res.textContent="[]";stack.textContent="—";
   document.querySelectorAll(".node").forEach(x=>x.classList.remove("current","complete","visited"));
+ }else if(kind==="queens"){
+  candidate.textContent="—";used.textContent="∅";res.textContent="0";stack.textContent="—";
+  queensSolved=new Set();
+  document.querySelectorAll(".node").forEach(x=>x.classList.remove("current","complete","visited"));
  }else{
   candidate.textContent="[]";used.textContent="∅";res.textContent="[]";stack.textContent="—";
   document.querySelectorAll(".node").forEach(x=>x.classList.remove("current","complete","visited"));
@@ -309,6 +417,7 @@ function applyTraceData(d,slug){
  applyKindUI();
  if(kind==="graph"){gN=d.n;gEdges=d.edges;renderSource(slug);buildGraph()}
  else if(kind==="subsets"){nums=d.nums;renderSource(slug);buildSubsetTree()}
+ else if(kind==="queens"){renderSource(slug);buildQueensTree(events)}
  else{nums=d.nums;renderSource(slug);build()}
  reset();
  document.getElementById("descText").textContent=d.description||"No description available for this problem yet.";
