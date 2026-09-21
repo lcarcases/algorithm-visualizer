@@ -183,6 +183,192 @@ const PROBLEM_UI={
   }
  }
 },
+"matrix-pathways":{
+ langs:{
+  python:{
+   src:[
+"def matrix_pathways(m: int, n: int) -> int:",
+"    dp = [[1] * n for _ in range(m)]",
+"    for r in range(1, m):",
+"        for c in range(1, n):",
+"            dp[r][c] = dp[r - 1][c] + dp[r][c - 1]",
+"    return dp[m - 1][n - 1]"
+   ],
+   map:{1:1,2:2,3:3,4:4,5:5}
+  },
+  javascript:{
+   src:[
+"function matrixPathways(m, n) {",
+"  const dp = Array.from({ length: m }, () => Array(n).fill(1));",
+"  for (let r = 1; r < m; r++) {",
+"    for (let c = 1; c < n; c++) {",
+"      dp[r][c] = dp[r - 1][c] + dp[r][c - 1];",
+"    }","  }",
+"  return dp[m - 1][n - 1];","}"
+   ],
+   map:{1:1,2:2,3:3,4:4,5:7}
+  },
+  java:{
+   src:[
+"public static int matrixPathways(int m, int n) {",
+"    int[][] dp = new int[m][n];",
+"    for (int[] row : dp) Arrays.fill(row, 1);",
+"    for (int r = 1; r < m; r++) {",
+"        for (int c = 1; c < n; c++) {",
+"            dp[r][c] = dp[r - 1][c] + dp[r][c - 1];",
+"        }","    }",
+"    return dp[m - 1][n - 1];","}"
+   ],
+   map:{1:2,2:3,3:4,4:5,5:8}
+  },
+  csharp:{
+   src:[
+"public static int MatrixPathways(int m, int n) {",
+"    var dp = new int[m, n];",
+"    for (int c = 0; c < n; c++) dp[0, c] = 1;",
+"    for (int r = 0; r < m; r++) dp[r, 0] = 1;",
+"    for (int r = 1; r < m; r++) {",
+"        for (int c = 1; c < n; c++) {",
+"            dp[r, c] = dp[r - 1, c] + dp[r, c - 1];",
+"        }","    }",
+"    return dp[m - 1, n - 1];","}"
+   ],
+   map:{1:3,2:4,3:5,4:6,5:9}
+  }
+ }
+},
+"min-coin-combination":{
+ langs:{
+  python:{
+   src:[
+"def min_coin_combination_top_down(coins: List[int], target: int) -> int:",
+"    res = top_down_dp(coins, target, {})",
+"    return -1 if res == float('inf') else res","",
+"def top_down_dp(coins: List[int], target: int,",
+"                 memo: Dict[int, int]) -> int:",
+"    if target == 0:","        return 0",
+"    if target in memo:","        return memo[target]",
+"    min_coins = float('inf')",
+"    for coin in coins:",
+"        if coin <= target:",
+"            min_coins = min(min_coins,",
+"                             1 + top_down_dp(coins, target - coin, memo))",
+"    memo[target] = min_coins",
+"    return memo[target]"
+   ],
+   map:{1:1,2:2,3:4,4:6,5:7,6:8,7:9,8:10,9:11,10:12,11:12,12:13,13:14,14:15,15:16}
+  },
+  javascript:{
+   src:[
+"function minCoinCombinationTopDown(coins, target) {",
+"  const res = topDownDp(coins, target, {});",
+"  return res === Infinity ? -1 : res;","}","",
+"function topDownDp(coins, target, memo) {",
+"  if (target === 0) {","    return 0;","  }",
+"  if (target in memo) {","    return memo[target];","  }",
+"  let minCoins = Infinity;",
+"  for (const coin of coins) {",
+"    if (coin <= target) {",
+"      minCoins = Math.min(minCoins,",
+"        1 + topDownDp(coins, target - coin, memo));","    }","  }",
+"  memo[target] = minCoins;","  return memo[target];","}"
+   ],
+   map:{1:1,2:2,3:5,4:6,5:7,6:9,7:10,8:12,9:13,10:14,11:14,12:15,13:16,14:19,15:20}
+  },
+  java:{
+   src:[
+"public static int minCoinCombinationTopDown(int[] coins, int target) {",
+"    int res = topDownDp(coins, target, new HashMap<>());",
+"    return res == Integer.MAX_VALUE ? -1 : res;","}","",
+"public static int topDownDp(int[] coins, int target, Map<Integer, Integer> memo) {",
+"    if (target == 0) {","        return 0;","    }",
+"    if (memo.containsKey(target)) {","        return memo.get(target);","    }",
+"    int minCoins = Integer.MAX_VALUE;",
+"    for (int coin : coins) {",
+"        if (coin <= target) {",
+"            minCoins = Math.min(minCoins,",
+"                1 + topDownDp(coins, target - coin, memo));","        }","    }",
+"    memo.put(target, minCoins);","    return memo.get(target);","}"
+   ],
+   map:{1:1,2:2,3:5,4:6,5:7,6:9,7:10,8:12,9:13,10:14,11:14,12:15,13:16,14:19,15:20}
+  },
+  csharp:{
+   src:[
+"public static int MinCoinCombinationTopDown(int[] coins, int target) {",
+"    int res = TopDownDp(coins, target, new Dictionary<int, int>());",
+"    return res == int.MaxValue ? -1 : res;","}","",
+"public static int TopDownDp(int[] coins, int target, Dictionary<int, int> memo) {",
+"    if (target == 0) {","        return 0;","    }",
+"    if (memo.ContainsKey(target)) {","        return memo[target];","    }",
+"    int minCoins = int.MaxValue;",
+"    foreach (int coin in coins) {",
+"        if (coin <= target) {",
+"            minCoins = Math.Min(minCoins,",
+"                1 + TopDownDp(coins, target - coin, memo));","        }","    }",
+"    memo[target] = minCoins;","    return memo[target];","}"
+   ],
+   map:{1:1,2:2,3:5,4:6,5:7,6:9,7:10,8:12,9:13,10:14,11:14,12:15,13:16,14:19,15:20}
+  }
+ }
+},
+"climbing-stairs":{
+ langs:{
+  python:{
+   src:[
+"memo = {}","",
+"def climbing_stairs_top_down(n: int) -> int:",
+"    if n <= 2:","        return n",
+"    if n in memo:","        return memo[n]",
+"    memo[n] = (",
+"        climbing_stairs_top_down(n - 1) +",
+"        climbing_stairs_top_down(n - 2)",
+"    )",
+"    return memo[n]"
+   ],
+   map:{1:0,3:2,5:3,6:4,8:5,9:6,11:7,12:8,13:9,15:11}
+  },
+  javascript:{
+   src:[
+"const memo = {};","",
+"function climbingStairsTopDown(n) {",
+"  if (n <= 2) {","    return n;","  }",
+"  if (n in memo) {","    return memo[n];","  }",
+"  memo[n] = (",
+"    climbingStairsTopDown(n - 1) +",
+"    climbingStairsTopDown(n - 2)",
+"  );",
+"  return memo[n];","}"
+   ],
+   map:{1:0,3:2,5:3,6:4,8:6,9:7,11:9,12:10,13:11,15:13}
+  },
+  java:{
+   src:[
+"static Map<Integer, Integer> memo = new HashMap<>();","",
+"public static int climbingStairsTopDown(int n) {",
+"    if (n <= 2) {","        return n;","    }",
+"    if (memo.containsKey(n)) {","        return memo.get(n);","    }",
+"    int left = climbingStairsTopDown(n - 1);",
+"    int right = climbingStairsTopDown(n - 2);",
+"    memo.put(n, left + right);",
+"    return memo.get(n);","}"
+   ],
+   map:{1:0,3:2,5:3,6:4,8:6,9:7,11:11,12:9,13:10,15:12}
+  },
+  csharp:{
+   src:[
+"static Dictionary<int, int> memo = new Dictionary<int, int>();","",
+"public static int ClimbingStairsTopDown(int n) {",
+"    if (n <= 2) {","        return n;","    }",
+"    if (memo.ContainsKey(n)) {","        return memo[n];","    }",
+"    int left = ClimbingStairsTopDown(n - 1);",
+"    int right = ClimbingStairsTopDown(n - 2);",
+"    memo[n] = left + right;",
+"    return memo[n];","}"
+   ],
+   map:{1:0,3:2,5:3,6:4,8:6,9:7,11:11,12:9,13:10,15:12}
+  }
+ }
+},
 "prerequisites":{
  langs:{
   python:{
@@ -257,7 +443,7 @@ const PROBLEM_UI={
  }
 }
 };
-let events=[],i=0,playing=false,timer,nums=[1,2,3],nodes=new Map(),currentMap={},currentSlug=null,currentLang="python",kind="tree",gN=0,gEdges=[],queensSolved=new Set();
+let events=[],i=0,playing=false,timer,nums=[1,2,3],nodes=new Map(),currentMap={},currentSlug=null,currentLang="python",kind="tree",gN=0,gEdges=[],queensSolved=new Set(),memoResolved=new Set(),memoHitNodes=new Set(),gridFinalized=new Set();
 function esc(s){return s.replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]))}
 function el(n,a={}){let x=document.createElementNS("http://www.w3.org/2000/svg",n);for(let[k,v]of Object.entries(a))x.setAttribute(k,v);return x}
 function renderSource(slug){
@@ -313,6 +499,44 @@ function buildQueensTree(evs){
   g.append(t);svg.append(g);
  }
 }
+function buildClimbingTree(n){
+ svg.innerHTML="";nodes.clear();let levels=[];
+ function add(id,val,depth,parent){(levels[depth]??=[]).push({id});nodes.set(id,{id,val,parent,d:depth});if(val>2){add(id+"-0",val-1,depth+1,id);add(id+"-1",val-2,depth+1,id)}}
+ add("root",n,0,null);
+ let pos=new Map(),H=530,maxD=Math.max(levels.length-1,1);
+ levels.forEach((lv,d)=>lv&&lv.forEach((nd,k)=>pos.set(nd.id,{x:1000*(k+1)/(lv.length+1),y:35+d*H/maxD})));
+ for(const nd of nodes.values())if(nd.parent){let a=pos.get(nd.parent),b=pos.get(nd.id);svg.appendChild(el("line",{x1:a.x,y1:a.y,x2:b.x,y2:b.y,class:"edge","data-to":nd.id}))}
+ for(const nd of nodes.values()){let p=pos.get(nd.id),g=el("g",{class:"node","data-id":nd.id});g.append(el("circle",{cx:p.x,cy:p.y,r:22}));let t=el("text",{x:p.x,y:p.y});t.textContent="cs("+nd.val+")";g.append(t);svg.append(g)}
+}
+function buildCoinTree(coins,target){
+ svg.innerHTML="";nodes.clear();let levels=[];
+ function add(id,tgt,depth,parent){(levels[depth]??=[]).push({id});nodes.set(id,{id,tgt,parent,d:depth});if(tgt>0){coins.forEach((c,idx)=>add(id+"-"+idx,tgt-c,depth+1,id))}}
+ add("root",target,0,null);
+ let pos=new Map(),H=530,maxD=Math.max(levels.length-1,1);
+ levels.forEach((lv,d)=>lv&&lv.forEach((nd,k)=>pos.set(nd.id,{x:1000*(k+1)/(lv.length+1),y:35+d*H/maxD})));
+ for(const nd of nodes.values())if(nd.parent){let a=pos.get(nd.parent),b=pos.get(nd.id);svg.appendChild(el("line",{x1:a.x,y1:a.y,x2:b.x,y2:b.y,class:"edge","data-to":nd.id}))}
+ for(const nd of nodes.values()){
+  let p=pos.get(nd.id),isInvalid=nd.tgt<0;
+  let g=el("g",{class:"node"+(isInvalid?" pruned":""),"data-id":nd.id});
+  g.append(el("circle",{cx:p.x,cy:p.y,r:isInvalid?14:22}));
+  let t=el("text",{x:p.x,y:p.y});t.textContent=isInvalid?"✕":"t="+nd.tgt;
+  g.append(t);svg.append(g);
+ }
+}
+function buildMatrixGrid(m,n){
+ svg.innerHTML="";nodes.clear();
+ let W=1000,H=560,pad=50;
+ let cw=Math.min((W-2*pad)/n,(H-2*pad)/m,110);
+ let gw=cw*n,gh=cw*m,ox=(W-gw)/2,oy=(H-gh)/2+15;
+ for(let r=0;r<m;r++)for(let c=0;c<n;c++){
+  let id=r+"-"+c,x=ox+c*cw,y=oy+r*cw;
+  nodes.set(id,{id,r,c});
+  let g=el("g",{class:"cell","data-id":id});
+  g.append(el("rect",{x,y,width:cw-4,height:cw-4,rx:6}));
+  let t=el("text",{x:x+(cw-4)/2,y:y+(cw-4)/2,class:"cell-val"});
+  g.append(t);svg.append(g);
+ }
+}
 function buildGraph(){
  svg.innerHTML=`<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="21" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#4a6280"/></marker></defs>`;
  nodes.clear();
@@ -352,6 +576,18 @@ function applyKindUI(){
   lblA.textContent="row r";lblB.textContent="cols used";lblC.textContent="solutions (res)";lblD.textContent="call stack";
   treeTitle.textContent="STATE SPACE TREE";
   legend.innerHTML="🔴 current call　 🟢 solution　 🔵 visited　 ✕ pruned";
+ }else if(kind==="memo"){
+  lblA.textContent="n";lblB.textContent="memo";lblC.textContent="res";lblD.textContent="call stack";
+  treeTitle.textContent="RECURSION TREE (MEMOIZED)";
+  legend.innerHTML="🔴 current call　 🟢 resolved　 🔵 visited　 🟠 memo hit (reused)";
+ }else if(kind==="coins"){
+  lblA.textContent="target";lblB.textContent="memo";lblC.textContent="res";lblD.textContent="call stack";
+  treeTitle.textContent="RECURSION TREE (MEMOIZED)";
+  legend.innerHTML="🔴 current call　 🟢 resolved　 🔵 visited　 🟠 memo hit (reused)　 ✕ pruned (negative target)";
+ }else if(kind==="grid"){
+  lblA.textContent="row r";lblB.textContent="col c";lblC.textContent="res";lblD.textContent="status";
+  treeTitle.textContent="DP TABLE";
+  legend.innerHTML="🔴 current cell　 🔵 dependency (top/left)　 🟢 filled";
  }else{
   lblA.textContent="candidate";lblB.textContent="used";lblC.textContent="res";lblD.textContent="call stack";
   treeTitle.textContent="RECURSION TREE";
@@ -384,6 +620,47 @@ function render(e){
   document.querySelectorAll(".node").forEach(x=>x.classList.remove("current","complete","visited"));
   queensSolved.forEach(id=>document.querySelector(`.node[data-id="${CSS.escape(id)}"]`)?.classList.add("complete"));
   if(e.node_id){let n=document.querySelector(`.node[data-id="${CSS.escape(e.node_id)}"]`);n?.classList.add("current");let c=e.node_id;while(c){document.querySelector(`.node[data-id="${CSS.escape(c)}"]`)?.classList.add("visited");c=nodes.get(c)?.parent}}
+ }else if(kind==="memo"){
+  candidate.textContent=e.n==null?"—":e.n;
+  used.textContent=e.memo.length?"{"+e.memo.map(([k,v])=>`${k}:${v}`).join(", ")+"}":"∅";
+  res.textContent=e.res==null?"—":e.res;
+  stack.textContent=e.call_stack.join(" → ")||"—";
+  if(e.action==="memo_hit")memoHitNodes.add(e.node_id);
+  else if(e.action==="base_case"||e.action==="return")memoResolved.add(e.node_id);
+  document.querySelectorAll(".node").forEach(x=>x.classList.remove("current","complete","visited","memo-hit"));
+  memoResolved.forEach(id=>document.querySelector(`.node[data-id="${CSS.escape(id)}"]`)?.classList.add("complete"));
+  memoHitNodes.forEach(id=>document.querySelector(`.node[data-id="${CSS.escape(id)}"]`)?.classList.add("memo-hit"));
+  if(e.node_id){let n=document.querySelector(`.node[data-id="${CSS.escape(e.node_id)}"]`);n?.classList.add("current");let c=e.node_id;while(c){document.querySelector(`.node[data-id="${CSS.escape(c)}"]`)?.classList.add("visited");c=nodes.get(c)?.parent}}
+ }else if(kind==="coins"){
+  candidate.textContent=e.target==null?"—":e.target;
+  used.textContent=e.memo.length?"{"+e.memo.map(([k,v])=>`${k}:${v}`).join(", ")+"}":"∅";
+  res.textContent=e.res==null?"—":e.res;
+  stack.textContent=e.call_stack.join(" → ")||"—";
+  if(e.action==="memo_hit")memoHitNodes.add(e.node_id);
+  else if(e.action==="base_case"||e.action==="return")memoResolved.add(e.node_id);
+  document.querySelectorAll(".node").forEach(x=>x.classList.remove("current","complete","visited","memo-hit"));
+  memoResolved.forEach(id=>document.querySelector(`.node[data-id="${CSS.escape(id)}"]`)?.classList.add("complete"));
+  memoHitNodes.forEach(id=>document.querySelector(`.node[data-id="${CSS.escape(id)}"]`)?.classList.add("memo-hit"));
+  if(e.node_id){let n=document.querySelector(`.node[data-id="${CSS.escape(e.node_id)}"]`);n?.classList.add("current");let c=e.node_id;while(c){document.querySelector(`.node[data-id="${CSS.escape(c)}"]`)?.classList.add("visited");c=nodes.get(c)?.parent}}
+ }else if(kind==="grid"){
+  candidate.textContent=e.r==null?"—":e.r;
+  used.textContent=e.c==null?"—":e.c;
+  res.textContent=e.res==null?"—":e.res;
+  stack.textContent=e.action;
+  if(e.action==="init"){for(let c=0;c<e.dp[0].length;c++)gridFinalized.add("0-"+c);for(let r=0;r<e.dp.length;r++)gridFinalized.add(r+"-0")}
+  else if(e.action==="fill")gridFinalized.add(e.r+"-"+e.c);
+  document.querySelectorAll(".cell").forEach(x=>x.classList.remove("current","filled","dep"));
+  gridFinalized.forEach(id=>{
+   let cell=nodes.get(id);
+   let val=document.querySelector(`.cell[data-id="${CSS.escape(id)}"] .cell-val`);
+   if(val)val.textContent=e.dp[cell.r][cell.c];
+   document.querySelector(`.cell[data-id="${CSS.escape(id)}"]`)?.classList.add("filled");
+  });
+  if(e.action==="fill"){
+   document.querySelector(`.cell[data-id="${(e.r-1)+"-"+e.c}"]`)?.classList.add("dep");
+   document.querySelector(`.cell[data-id="${e.r+"-"+(e.c-1)}"]`)?.classList.add("dep");
+   document.querySelector(`.cell[data-id="${e.r+"-"+e.c}"]`)?.classList.add("current");
+  }
  }else{
   candidate.textContent=JSON.stringify(e.candidate);used.textContent=e.used.length?"{"+e.used.join(", ")+"}":"∅";res.textContent=JSON.stringify(e.res);stack.textContent=e.call_stack.join(" → ")||"—";
   document.querySelectorAll(".node").forEach(x=>x.classList.remove("current","complete","visited"));
@@ -407,6 +684,18 @@ function reset(){
   candidate.textContent="—";used.textContent="∅";res.textContent="0";stack.textContent="—";
   queensSolved=new Set();
   document.querySelectorAll(".node").forEach(x=>x.classList.remove("current","complete","visited"));
+ }else if(kind==="memo"){
+  candidate.textContent="—";used.textContent="∅";res.textContent="—";stack.textContent="—";
+  memoResolved=new Set();memoHitNodes=new Set();
+  document.querySelectorAll(".node").forEach(x=>x.classList.remove("current","complete","visited","memo-hit"));
+ }else if(kind==="coins"){
+  candidate.textContent="—";used.textContent="∅";res.textContent="—";stack.textContent="—";
+  memoResolved=new Set();memoHitNodes=new Set();
+  document.querySelectorAll(".node").forEach(x=>x.classList.remove("current","complete","visited","memo-hit"));
+ }else if(kind==="grid"){
+  candidate.textContent="—";used.textContent="—";res.textContent="—";stack.textContent="—";
+  gridFinalized=new Set();
+  document.querySelectorAll(".cell").forEach(x=>{x.classList.remove("current","filled","dep");let v=x.querySelector(".cell-val");if(v)v.textContent=""});
  }else{
   candidate.textContent="[]";used.textContent="∅";res.textContent="[]";stack.textContent="—";
   document.querySelectorAll(".node").forEach(x=>x.classList.remove("current","complete","visited"));
@@ -418,6 +707,9 @@ function applyTraceData(d,slug){
  if(kind==="graph"){gN=d.n;gEdges=d.edges;renderSource(slug);buildGraph()}
  else if(kind==="subsets"){nums=d.nums;renderSource(slug);buildSubsetTree()}
  else if(kind==="queens"){renderSource(slug);buildQueensTree(events)}
+ else if(kind==="memo"){renderSource(slug);buildClimbingTree(d.n)}
+ else if(kind==="coins"){renderSource(slug);buildCoinTree(d.coins,d.target)}
+ else if(kind==="grid"){renderSource(slug);buildMatrixGrid(d.m,d.n)}
  else{nums=d.nums;renderSource(slug);build()}
  reset();
  document.getElementById("descText").textContent=d.description||"No description available for this problem yet.";
