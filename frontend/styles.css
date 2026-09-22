@@ -44,5 +44,7 @@ main aside{display:grid;grid-template-rows:auto 1fr;gap:14px;min-height:0}.grid{
 .node.pruned circle{fill:#2a1013;stroke:#7f1d1d;opacity:.6}.node.pruned text{fill:#f87171;font-size:10px}.node.pruned.current circle{fill:#30151b;stroke:#ef4444;stroke-width:3;opacity:1}
 .node.memo-hit circle{fill:#2a1f0d;stroke:#d97706;stroke-width:2}.node.memo-hit text{fill:#fbbf24;font-size:10px}.node.memo-hit.current circle{fill:#30151b;stroke:#ef4444;stroke-width:3}
 .cell rect{fill:#0d2137;stroke:#31506f;stroke-width:2}.cell text{fill:#6b7f95;font:14px monospace;text-anchor:middle;dominant-baseline:middle}.cell.filled text{fill:#d8e5f3}.cell.filled rect{fill:#0d2a1c;stroke:#22c55e;stroke-width:2}.cell.dep rect{stroke:#3b82f6;stroke-width:3}.cell.current rect{fill:#30151b;stroke:#ef4444;stroke-width:3}
+.cell-sub{fill:#5b7a9b;font-size:11px}
+.hdr-char{fill:#9fb4cc;font:700 14px monospace;text-anchor:middle;dominant-baseline:middle}.hdr-idx{fill:#4f6a87;font:9px monospace;text-anchor:middle;dominant-baseline:middle}
 footer{height:47px;padding:0 20px;border-top:1px solid #1c2a3c;display:flex;justify-content:space-between;align-items:center;color:#62758d;font-size:11px;flex:0 0 auto}
 @media(max-width:1050px){.sidebar{position:fixed;left:0;top:0;bottom:0;z-index:10}main{grid-template-columns:1fr;height:auto}.tree{flex:none;height:650px}main aside{height:850px}}

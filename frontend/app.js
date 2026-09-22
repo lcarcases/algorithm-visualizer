@@ -183,6 +183,172 @@ const PROBLEM_UI={
   }
  }
 },
+"longest-common-subsequence":{
+ langs:{
+  python:{
+   src:[
+"def longest_common_subsequence(s1: str, s2: str) -> int:",
+"    # Base case: Set the last row and last column to 0 by",
+"    # initializing the entire DP table with 0s.",
+"    dp = [[0] * (len(s2) + 1) for _ in range(len(s1) + 1)]",
+"    # Populate the DP table.",
+"    for i in range(len(s1) - 1, -1, -1):",
+"        for j in range(len(s2) - 1, -1, -1):",
+"            # If the characters match, the length of the LCS at",
+"            # 'dp[i][j]' is 1 + the LCS length of the remaining",
+"            # substrings.",
+"            if s1[i] == s2[j]:",
+"                dp[i][j] = 1 + dp[i + 1][j + 1]",
+"            # If the characters don't match, the LCS length at",
+"            # 'dp[i][j]' can be found by either:",
+"            # 1. Excluding the current character of s1.",
+"            # 2. Excluding the current character of s2.",
+"            else:",
+"                dp[i][j] = max(dp[i + 1][j], dp[i][j + 1])",
+"    return dp[0][0]"
+   ],
+   map:{1:3,2:5,3:6,4:10,5:11,6:17,7:18}
+  },
+  javascript:{
+   src:[
+"function longestCommonSubsequence(s1, s2) {",
+"  // Base case: Set the last row and last column to 0 by",
+"  // initializing the entire DP table with 0s.",
+"  const dp = Array.from({ length: s1.length + 1 }, () => Array(s2.length + 1).fill(0));",
+"  // Populate the DP table.",
+"  for (let i = s1.length - 1; i >= 0; i--) {",
+"    for (let j = s2.length - 1; j >= 0; j--) {",
+"      // If the characters match, the length of the LCS at",
+"      // dp[i][j] is 1 + the LCS length of the remaining",
+"      // substrings.",
+"      if (s1[i] === s2[j]) {",
+"        dp[i][j] = 1 + dp[i + 1][j + 1];",
+"      } else {",
+"        // If the characters don't match, the LCS length at",
+"        // dp[i][j] can be found by either:",
+"        // 1. Excluding the current character of s1.",
+"        // 2. Excluding the current character of s2.",
+"        dp[i][j] = Math.max(dp[i + 1][j], dp[i][j + 1]);",
+"      }","    }","  }",
+"  return dp[0][0];","}"
+   ],
+   map:{1:3,2:5,3:6,4:10,5:11,6:17,7:21}
+  },
+  java:{
+   src:[
+"public static int longestCommonSubsequence(String s1, String s2) {",
+"    // Base case: Set the last row and last column to 0 by",
+"    // initializing the entire DP table with 0s.",
+"    int[][] dp = new int[s1.length() + 1][s2.length() + 1];",
+"    // Populate the DP table.",
+"    for (int i = s1.length() - 1; i >= 0; i--) {",
+"        for (int j = s2.length() - 1; j >= 0; j--) {",
+"            // If the characters match, the length of the LCS at",
+"            // dp[i][j] is 1 + the LCS length of the remaining",
+"            // substrings.",
+"            if (s1.charAt(i) == s2.charAt(j)) {",
+"                dp[i][j] = 1 + dp[i + 1][j + 1];",
+"            } else {",
+"                // If the characters don't match, the LCS length at",
+"                // dp[i][j] can be found by either:",
+"                // 1. Excluding the current character of s1.",
+"                // 2. Excluding the current character of s2.",
+"                dp[i][j] = Math.max(dp[i + 1][j], dp[i][j + 1]);",
+"            }","        }","    }",
+"    return dp[0][0];","}"
+   ],
+   map:{1:3,2:5,3:6,4:10,5:11,6:17,7:21}
+  },
+  csharp:{
+   src:[
+"public static int LongestCommonSubsequence(string s1, string s2) {",
+"    // Base case: Set the last row and last column to 0 by",
+"    // initializing the entire DP table with 0s.",
+"    var dp = new int[s1.Length + 1, s2.Length + 1];",
+"    // Populate the DP table.",
+"    for (int i = s1.Length - 1; i >= 0; i--) {",
+"        for (int j = s2.Length - 1; j >= 0; j--) {",
+"            // If the characters match, the length of the LCS at",
+"            // dp[i, j] is 1 + the LCS length of the remaining",
+"            // substrings.",
+"            if (s1[i] == s2[j]) {",
+"                dp[i, j] = 1 + dp[i + 1, j + 1];",
+"            } else {",
+"                // If the characters don't match, the LCS length at",
+"                // dp[i, j] can be found by either:",
+"                // 1. Excluding the current character of s1.",
+"                // 2. Excluding the current character of s2.",
+"                dp[i, j] = Math.Max(dp[i + 1, j], dp[i, j + 1]);",
+"            }","        }","    }",
+"    return dp[0, 0];","}"
+   ],
+   map:{1:3,2:5,3:6,4:10,5:11,6:17,7:21}
+  }
+ }
+},
+"neighborhood-burglary":{
+ langs:{
+  python:{
+   src:[
+"def neighborhood_burglary(houses: List[int]) -> int:",
+"    if not houses:","        return 0",
+"    if len(houses) == 1:","        return houses[0]",
+"    dp = [0] * len(houses)",
+"    dp[0] = houses[0]",
+"    dp[1] = max(houses[0], houses[1])",
+"    for i in range(2, len(houses)):",
+"        dp[i] = max(dp[i - 1], houses[i] + dp[i - 2])",
+"    return dp[len(houses) - 1]"
+   ],
+   map:{1:1,2:2,3:3,4:4,5:5,6:6,7:7,8:8,9:9,10:10}
+  },
+  javascript:{
+   src:[
+"function neighborhoodBurglary(houses) {",
+"  if (houses.length === 0) {","    return 0;","  }",
+"  if (houses.length === 1) {","    return houses[0];","  }",
+"  const dp = new Array(houses.length).fill(0);",
+"  dp[0] = houses[0];",
+"  dp[1] = Math.max(houses[0], houses[1]);",
+"  for (let i = 2; i < houses.length; i++) {",
+"    dp[i] = Math.max(dp[i - 1], houses[i] + dp[i - 2]);",
+"  }",
+"  return dp[houses.length - 1];","}"
+   ],
+   map:{1:1,2:2,3:4,4:5,5:7,6:8,7:9,8:10,9:11,10:13}
+  },
+  java:{
+   src:[
+"public static int neighborhoodBurglary(int[] houses) {",
+"    if (houses.length == 0) {","        return 0;","    }",
+"    if (houses.length == 1) {","        return houses[0];","    }",
+"    int[] dp = new int[houses.length];",
+"    dp[0] = houses[0];",
+"    dp[1] = Math.max(houses[0], houses[1]);",
+"    for (int i = 2; i < houses.length; i++) {",
+"        dp[i] = Math.max(dp[i - 1], houses[i] + dp[i - 2]);",
+"    }",
+"    return dp[houses.length - 1];","}"
+   ],
+   map:{1:1,2:2,3:4,4:5,5:7,6:8,7:9,8:10,9:11,10:13}
+  },
+  csharp:{
+   src:[
+"public static int NeighborhoodBurglary(int[] houses) {",
+"    if (houses.Length == 0) {","        return 0;","    }",
+"    if (houses.Length == 1) {","        return houses[0];","    }",
+"    var dp = new int[houses.Length];",
+"    dp[0] = houses[0];",
+"    dp[1] = Math.Max(houses[0], houses[1]);",
+"    for (int i = 2; i < houses.Length; i++) {",
+"        dp[i] = Math.Max(dp[i - 1], houses[i] + dp[i - 2]);",
+"    }",
+"    return dp[houses.Length - 1];","}"
+   ],
+   map:{1:1,2:2,3:4,4:5,5:7,6:8,7:9,8:10,9:11,10:13}
+  }
+ }
+},
 "matrix-pathways":{
  langs:{
   python:{
@@ -537,6 +703,48 @@ function buildMatrixGrid(m,n){
   g.append(t);svg.append(g);
  }
 }
+function buildHouseArray(houses){
+ svg.innerHTML="";nodes.clear();
+ let n=houses.length,W=1000,H=560,pad=50;
+ let cw=Math.min((W-2*pad)/n,140);
+ let gw=cw*n,ox=(W-gw)/2,oy=H/2-40;
+ for(let i=0;i<n;i++){
+  let id=""+i,x=ox+i*cw,y=oy;
+  nodes.set(id,{id,i});
+  let g=el("g",{class:"cell","data-id":id});
+  g.append(el("rect",{x,y,width:cw-6,height:cw-6,rx:6}));
+  let h=el("text",{x:x+(cw-6)/2,y:y+(cw-6)/2-14,class:"cell-sub"});h.textContent="$"+houses[i];
+  let t=el("text",{x:x+(cw-6)/2,y:y+(cw-6)/2+10,class:"cell-val"});
+  g.append(h);g.append(t);svg.append(g);
+ }
+}
+function buildLCSGrid(s1,s2){
+ svg.innerHTML="";nodes.clear();
+ let m=s1.length+1,n=s2.length+1;
+ let W=1000,H=560,padTop=55,padLeft=60,padRight=30,padBottom=15;
+ let cw=Math.min((W-padLeft-padRight)/n,(H-padTop-padBottom)/m,72);
+ let ox=padLeft,oy=padTop;
+ for(let j=0;j<n;j++){
+  let ch=j<s2.length?s2[j]:"''",x=ox+j*cw+cw/2;
+  let t1=el("text",{x,y:oy-20,class:"hdr-char"});t1.textContent=ch;
+  let t2=el("text",{x,y:oy-7,class:"hdr-idx"});t2.textContent=j;
+  svg.append(t1);svg.append(t2);
+ }
+ for(let i=0;i<m;i++){
+  let ch=i<s1.length?s1[i]:"''",y=oy+i*cw+cw/2;
+  let t1=el("text",{x:ox-26,y,class:"hdr-char"});t1.textContent=ch;
+  let t2=el("text",{x:ox-11,y,class:"hdr-idx"});t2.textContent=i;
+  svg.append(t1);svg.append(t2);
+ }
+ for(let i=0;i<m;i++)for(let j=0;j<n;j++){
+  let id=i+"-"+j,x=ox+j*cw,y=oy+i*cw;
+  nodes.set(id,{id,i,j});
+  let g=el("g",{class:"cell","data-id":id});
+  g.append(el("rect",{x,y,width:cw-4,height:cw-4,rx:5}));
+  let t=el("text",{x:x+(cw-4)/2,y:y+(cw-4)/2,class:"cell-val"});
+  g.append(t);svg.append(g);
+ }
+}
 function buildGraph(){
  svg.innerHTML=`<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="21" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#4a6280"/></marker></defs>`;
  nodes.clear();
@@ -588,6 +796,14 @@ function applyKindUI(){
   lblA.textContent="row r";lblB.textContent="col c";lblC.textContent="res";lblD.textContent="status";
   treeTitle.textContent="DP TABLE";
   legend.innerHTML="🔴 current cell　 🔵 dependency (top/left)　 🟢 filled";
+ }else if(kind==="burglary"){
+  lblA.textContent="index i";lblB.textContent="—";lblC.textContent="res";lblD.textContent="status";
+  treeTitle.textContent="DP ARRAY";
+  legend.innerHTML="🔴 current index　 🔵 dependency (i-1, i-2)　 🟢 filled";
+ }else if(kind==="lcs"){
+  lblA.textContent="i";lblB.textContent="j";lblC.textContent="res";lblD.textContent="status";
+  treeTitle.textContent="DP TABLE (LCS)";
+  legend.innerHTML="🔴 current cell　 🔵 dependency　 🟢 filled";
  }else{
   lblA.textContent="candidate";lblB.textContent="used";lblC.textContent="res";lblD.textContent="call stack";
   treeTitle.textContent="RECURSION TREE";
@@ -661,6 +877,52 @@ function render(e){
    document.querySelector(`.cell[data-id="${e.r+"-"+(e.c-1)}"]`)?.classList.add("dep");
    document.querySelector(`.cell[data-id="${e.r+"-"+e.c}"]`)?.classList.add("current");
   }
+ }else if(kind==="burglary"){
+  candidate.textContent=e.i==null?"—":e.i;
+  used.textContent="—";
+  res.textContent=e.res==null?"—":e.res;
+  stack.textContent=e.action;
+  if(e.action==="base_case"||e.action==="fill")gridFinalized.add(""+e.i);
+  document.querySelectorAll(".cell").forEach(x=>x.classList.remove("current","filled","dep"));
+  gridFinalized.forEach(id=>{
+   let val=document.querySelector(`.cell[data-id="${CSS.escape(id)}"] .cell-val`);
+   if(val)val.textContent=e.dp[+id];
+   document.querySelector(`.cell[data-id="${CSS.escape(id)}"]`)?.classList.add("filled");
+  });
+  if(e.action==="fill"){
+   document.querySelector(`.cell[data-id="${e.i-1}"]`)?.classList.add("dep");
+   document.querySelector(`.cell[data-id="${e.i-2}"]`)?.classList.add("dep");
+  }
+  if((e.action==="fill"||e.action==="base_case")&&e.i!=null){
+   document.querySelector(`.cell[data-id="${e.i}"]`)?.classList.add("current");
+  }
+ }else if(kind==="lcs"){
+  candidate.textContent=e.i==null?"—":e.i;
+  used.textContent=e.j==null?"—":e.j;
+  res.textContent=e.res==null?"—":e.res;
+  stack.textContent=e.action;
+  if(e.action==="init"){
+   let m=e.dp.length,n=e.dp[0].length;
+   for(let j=0;j<n;j++)gridFinalized.add((m-1)+"-"+j);
+   for(let r=0;r<m;r++)gridFinalized.add(r+"-"+(n-1));
+  }else if(e.action==="fill_match"||e.action==="fill_nomatch"){
+   gridFinalized.add(e.i+"-"+e.j);
+  }
+  document.querySelectorAll(".cell").forEach(x=>x.classList.remove("current","filled","dep"));
+  gridFinalized.forEach(id=>{
+   let cell=nodes.get(id);
+   let val=document.querySelector(`.cell[data-id="${CSS.escape(id)}"] .cell-val`);
+   if(val)val.textContent=e.dp[cell.i][cell.j];
+   document.querySelector(`.cell[data-id="${CSS.escape(id)}"]`)?.classList.add("filled");
+  });
+  if(e.action==="fill_match"){
+   document.querySelector(`.cell[data-id="${(e.i+1)+"-"+(e.j+1)}"]`)?.classList.add("dep");
+   document.querySelector(`.cell[data-id="${e.i+"-"+e.j}"]`)?.classList.add("current");
+  }else if(e.action==="fill_nomatch"){
+   document.querySelector(`.cell[data-id="${(e.i+1)+"-"+e.j}"]`)?.classList.add("dep");
+   document.querySelector(`.cell[data-id="${e.i+"-"+(e.j+1)}"]`)?.classList.add("dep");
+   document.querySelector(`.cell[data-id="${e.i+"-"+e.j}"]`)?.classList.add("current");
+  }
  }else{
   candidate.textContent=JSON.stringify(e.candidate);used.textContent=e.used.length?"{"+e.used.join(", ")+"}":"∅";res.textContent=JSON.stringify(e.res);stack.textContent=e.call_stack.join(" → ")||"—";
   document.querySelectorAll(".node").forEach(x=>x.classList.remove("current","complete","visited"));
@@ -696,6 +958,14 @@ function reset(){
   candidate.textContent="—";used.textContent="—";res.textContent="—";stack.textContent="—";
   gridFinalized=new Set();
   document.querySelectorAll(".cell").forEach(x=>{x.classList.remove("current","filled","dep");let v=x.querySelector(".cell-val");if(v)v.textContent=""});
+ }else if(kind==="burglary"){
+  candidate.textContent="—";used.textContent="—";res.textContent="—";stack.textContent="—";
+  gridFinalized=new Set();
+  document.querySelectorAll(".cell").forEach(x=>{x.classList.remove("current","filled","dep");let v=x.querySelector(".cell-val");if(v)v.textContent=""});
+ }else if(kind==="lcs"){
+  candidate.textContent="—";used.textContent="—";res.textContent="—";stack.textContent="—";
+  gridFinalized=new Set();
+  document.querySelectorAll(".cell").forEach(x=>{x.classList.remove("current","filled","dep");let v=x.querySelector(".cell-val");if(v)v.textContent=""});
  }else{
   candidate.textContent="[]";used.textContent="∅";res.textContent="[]";stack.textContent="—";
   document.querySelectorAll(".node").forEach(x=>x.classList.remove("current","complete","visited"));
@@ -710,6 +980,8 @@ function applyTraceData(d,slug){
  else if(kind==="memo"){renderSource(slug);buildClimbingTree(d.n)}
  else if(kind==="coins"){renderSource(slug);buildCoinTree(d.coins,d.target)}
  else if(kind==="grid"){renderSource(slug);buildMatrixGrid(d.m,d.n)}
+ else if(kind==="burglary"){renderSource(slug);buildHouseArray(d.houses)}
+ else if(kind==="lcs"){renderSource(slug);buildLCSGrid(d.s1,d.s2)}
  else{nums=d.nums;renderSource(slug);build()}
  reset();
  document.getElementById("descText").textContent=d.description||"No description available for this problem yet.";

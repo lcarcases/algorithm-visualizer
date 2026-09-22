@@ -5,6 +5,8 @@ from . import n_queens
 from . import climbing_stairs
 from . import min_coin_combination
 from . import matrix_pathways
+from . import neighborhood_burglary
+from . import longest_common_subsequence
 
 # Sidebar category order. A category stays in the list (shown empty) even
 # before any problem is registered under it, so the frontend can render it
@@ -14,7 +16,8 @@ CATEGORY_ORDER = ["Two Pointers", "Sliding Window", "Backtracking", "Graphs", "H
 
 # Register new problems here as they're added.
 PROBLEMS = [permutations.PROBLEM, subsets.PROBLEM, n_queens.PROBLEM, prerequisites.PROBLEM,
-            climbing_stairs.PROBLEM, min_coin_combination.PROBLEM, matrix_pathways.PROBLEM]
+            climbing_stairs.PROBLEM, min_coin_combination.PROBLEM, matrix_pathways.PROBLEM,
+            neighborhood_burglary.PROBLEM, longest_common_subsequence.PROBLEM]
 
 
 def get_problem(slug: str):
