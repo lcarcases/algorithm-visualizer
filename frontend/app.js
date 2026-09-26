@@ -183,6 +183,128 @@ const PROBLEM_UI={
   }
  }
 },
+"knapsack":{
+ langs:{
+  python:{
+   src:[
+"def knapsack(cap: int, weights: List[int], values: List[int]) -> int:",
+"    n = len(values)",
+"    dp = [[0 for _ in range(cap + 1)] for _ in range(n + 1)]",
+"    for i in range(n - 1, -1, -1):",
+"        for c in range(1, cap + 1):",
+"            if weights[i] <= c:",
+"                dp[i][c] = max(values[i] + dp[i + 1][c - weights[i]], dp[i + 1][c])",
+"            else:",
+"                dp[i][c] = dp[i + 1][c]",
+"    return dp[0][cap]"
+   ],
+   map:{1:1,2:2,3:3,4:4,5:5,6:6,8:8,9:9}
+  },
+  javascript:{
+   src:[
+"function knapsack(cap, weights, values) {",
+"  const n = values.length;",
+"  const dp = Array.from({ length: n + 1 }, () => Array(cap + 1).fill(0));",
+"  for (let i = n - 1; i >= 0; i--) {",
+"    for (let c = 1; c <= cap; c++) {",
+"      if (weights[i] <= c) {",
+"        dp[i][c] = Math.max(values[i] + dp[i + 1][c - weights[i]], dp[i + 1][c]);",
+"      } else {",
+"        dp[i][c] = dp[i + 1][c];",
+"      }","    }","  }",
+"  return dp[0][cap];","}"
+   ],
+   map:{1:1,2:2,3:3,4:4,5:5,6:6,8:8,9:12}
+  },
+  java:{
+   src:[
+"public static int knapsack(int cap, int[] weights, int[] values) {",
+"    int n = values.length;",
+"    int[][] dp = new int[n + 1][cap + 1];",
+"    for (int i = n - 1; i >= 0; i--) {",
+"        for (int c = 1; c <= cap; c++) {",
+"            if (weights[i] <= c) {",
+"                dp[i][c] = Math.max(values[i] + dp[i + 1][c - weights[i]], dp[i + 1][c]);",
+"            } else {",
+"                dp[i][c] = dp[i + 1][c];",
+"            }","        }","    }",
+"    return dp[0][cap];","}"
+   ],
+   map:{1:1,2:2,3:3,4:4,5:5,6:6,8:8,9:12}
+  },
+  csharp:{
+   src:[
+"public static int Knapsack(int cap, int[] weights, int[] values) {",
+"    int n = values.Length;",
+"    var dp = new int[n + 1, cap + 1];",
+"    for (int i = n - 1; i >= 0; i--) {",
+"        for (int c = 1; c <= cap; c++) {",
+"            if (weights[i] <= c) {",
+"                dp[i, c] = Math.Max(values[i] + dp[i + 1, c - weights[i]], dp[i + 1, c]);",
+"            } else {",
+"                dp[i, c] = dp[i + 1, c];",
+"            }","        }","    }",
+"    return dp[0, cap];","}"
+   ],
+   map:{1:1,2:2,3:3,4:4,5:5,6:6,8:8,9:12}
+  }
+ }
+},
+"maximum-subarray-sum":{
+ langs:{
+  python:{
+   src:[
+"def maximum_subarray_sum(nums: List[int]) -> int:",
+"    if not nums:","        return 0",
+"    max_sum = current_sum = float('-inf')",
+"    for num in nums:",
+"        current_sum = max(current_sum + num, num)",
+"        max_sum = max(max_sum, current_sum)",
+"    return max_sum"
+   ],
+   map:{1:1,2:2,4:3,6:4,7:5,8:6,9:7}
+  },
+  javascript:{
+   src:[
+"function maximumSubarraySum(nums) {",
+"  if (nums.length === 0) {","    return 0;","  }",
+"  let maxSum = -Infinity, currentSum = -Infinity;",
+"  for (const num of nums) {",
+"    currentSum = Math.max(currentSum + num, num);",
+"    maxSum = Math.max(maxSum, currentSum);",
+"  }",
+"  return maxSum;","}"
+   ],
+   map:{1:1,2:2,4:4,6:5,7:6,8:7,9:9}
+  },
+  java:{
+   src:[
+"public static int maximumSubarraySum(int[] nums) {",
+"    if (nums.length == 0) {","        return 0;","    }",
+"    int maxSum = Integer.MIN_VALUE, currentSum = Integer.MIN_VALUE;",
+"    for (int num : nums) {",
+"        currentSum = Math.max(currentSum + num, num);",
+"        maxSum = Math.max(maxSum, currentSum);",
+"    }",
+"    return maxSum;","}"
+   ],
+   map:{1:1,2:2,4:4,6:5,7:6,8:7,9:9}
+  },
+  csharp:{
+   src:[
+"public static int MaximumSubarraySum(int[] nums) {",
+"    if (nums.Length == 0) {","        return 0;","    }",
+"    int maxSum = int.MinValue, currentSum = int.MinValue;",
+"    foreach (int num in nums) {",
+"        currentSum = Math.Max(currentSum + num, num);",
+"        maxSum = Math.Max(maxSum, currentSum);",
+"    }",
+"    return maxSum;","}"
+   ],
+   map:{1:1,2:2,4:4,6:5,7:6,8:7,9:9}
+  }
+ }
+},
 "longest-common-subsequence":{
  langs:{
   python:{
@@ -718,6 +840,45 @@ function buildHouseArray(houses){
   g.append(h);g.append(t);svg.append(g);
  }
 }
+function buildKnapsackGrid(n,cap){
+ svg.innerHTML="";nodes.clear();
+ let m=n+1,cCount=cap+1;
+ let W=1000,H=560,padTop=45,padLeft=50,padRight=20,padBottom=15;
+ let cw=Math.min((W-padLeft-padRight)/cCount,(H-padTop-padBottom)/m,64);
+ let ox=padLeft,oy=padTop;
+ for(let c=0;c<cCount;c++){
+  let x=ox+c*cw+cw/2;
+  let t=el("text",{x,y:oy-14,class:"hdr-idx"});t.textContent=c;
+  svg.append(t);
+ }
+ for(let i=0;i<m;i++){
+  let y=oy+i*cw+cw/2;
+  let t=el("text",{x:ox-16,y,class:"hdr-idx"});t.textContent=i;
+  svg.append(t);
+ }
+ for(let i=0;i<m;i++)for(let c=0;c<cCount;c++){
+  let id=i+"-"+c,x=ox+c*cw,y=oy+i*cw;
+  nodes.set(id,{id,i,c});
+  let g=el("g",{class:"cell","data-id":id});
+  g.append(el("rect",{x,y,width:cw-4,height:cw-4,rx:5}));
+  let t=el("text",{x:x+(cw-4)/2,y:y+(cw-4)/2,class:"cell-val"});
+  g.append(t);svg.append(g);
+ }
+}
+function buildSubarrayCells(nums){
+ svg.innerHTML="";nodes.clear();
+ let n=nums.length,W=1000,H=560,pad=50;
+ let cw=Math.min((W-2*pad)/n,120);
+ let gw=cw*n,ox=(W-gw)/2,oy=H/2-30;
+ for(let i=0;i<n;i++){
+  let id=""+i,x=ox+i*cw,y=oy;
+  nodes.set(id,{id,i});
+  let g=el("g",{class:"cell","data-id":id});
+  g.append(el("rect",{x,y,width:cw-6,height:cw-6,rx:6}));
+  let t=el("text",{x:x+(cw-6)/2,y:y+(cw-6)/2,class:"cell-val"});t.textContent=nums[i];
+  g.append(t);svg.append(g);
+ }
+}
 function buildLCSGrid(s1,s2){
  svg.innerHTML="";nodes.clear();
  let m=s1.length+1,n=s2.length+1;
@@ -803,6 +964,14 @@ function applyKindUI(){
  }else if(kind==="lcs"){
   lblA.textContent="i";lblB.textContent="j";lblC.textContent="res";lblD.textContent="status";
   treeTitle.textContent="DP TABLE (LCS)";
+  legend.innerHTML="🔴 current cell　 🔵 dependency　 🟢 filled";
+ }else if(kind==="kadane"){
+  lblA.textContent="index i";lblB.textContent="curr_sum";lblC.textContent="max_sum";lblD.textContent="status";
+  treeTitle.textContent="ARRAY SCAN";
+  legend.innerHTML="🔴 current index　 🔵 current subarray　 🟢 best subarray";
+ }else if(kind==="knapsack"){
+  lblA.textContent="item i";lblB.textContent="cap c";lblC.textContent="res";lblD.textContent="status";
+  treeTitle.textContent="DP TABLE (KNAPSACK)";
   legend.innerHTML="🔴 current cell　 🔵 dependency　 🟢 filled";
  }else{
   lblA.textContent="candidate";lblB.textContent="used";lblC.textContent="res";lblD.textContent="call stack";
@@ -923,6 +1092,42 @@ function render(e){
    document.querySelector(`.cell[data-id="${e.i+"-"+(e.j+1)}"]`)?.classList.add("dep");
    document.querySelector(`.cell[data-id="${e.i+"-"+e.j}"]`)?.classList.add("current");
   }
+ }else if(kind==="kadane"){
+  candidate.textContent=e.i==null?"—":e.i;
+  used.textContent=e.curr_sum==null?"—":e.curr_sum;
+  res.textContent=e.max_sum==null?"—":e.max_sum;
+  stack.textContent=e.action;
+  document.querySelectorAll(".cell").forEach(x=>x.classList.remove("current","in-current","in-best"));
+  if(e.curr_start!=null&&e.i!=null)for(let k=e.curr_start;k<=e.i;k++)document.querySelector(`.cell[data-id="${k}"]`)?.classList.add("in-current");
+  if(e.best_start!=null&&e.best_end!=null)for(let k=e.best_start;k<=e.best_end;k++)document.querySelector(`.cell[data-id="${k}"]`)?.classList.add("in-best");
+  if(e.i!=null)document.querySelector(`.cell[data-id="${e.i}"]`)?.classList.add("current");
+ }else if(kind==="knapsack"){
+  candidate.textContent=e.i==null?"—":e.i;
+  used.textContent=e.c==null?"—":e.c;
+  res.textContent=e.res==null?"—":e.res;
+  stack.textContent=e.action;
+  if(e.action==="init"){
+   let m=e.dp.length,cCount=e.dp[0].length;
+   for(let r=0;r<m;r++)gridFinalized.add(r+"-0");
+   for(let cc=0;cc<cCount;cc++)gridFinalized.add((m-1)+"-"+cc);
+  }else if(e.action==="fill_fit"||e.action==="fill_nofit"){
+   gridFinalized.add(e.i+"-"+e.c);
+  }
+  document.querySelectorAll(".cell").forEach(x=>x.classList.remove("current","filled","dep"));
+  gridFinalized.forEach(id=>{
+   let cell=nodes.get(id);
+   let val=document.querySelector(`.cell[data-id="${CSS.escape(id)}"] .cell-val`);
+   if(val)val.textContent=e.dp[cell.i][cell.c];
+   document.querySelector(`.cell[data-id="${CSS.escape(id)}"]`)?.classList.add("filled");
+  });
+  if(e.action==="fill_fit"){
+   document.querySelector(`.cell[data-id="${(e.i+1)+"-"+e.c}"]`)?.classList.add("dep");
+   if(e.dep_c!=null)document.querySelector(`.cell[data-id="${(e.i+1)+"-"+e.dep_c}"]`)?.classList.add("dep");
+   document.querySelector(`.cell[data-id="${e.i+"-"+e.c}"]`)?.classList.add("current");
+  }else if(e.action==="fill_nofit"){
+   document.querySelector(`.cell[data-id="${(e.i+1)+"-"+e.c}"]`)?.classList.add("dep");
+   document.querySelector(`.cell[data-id="${e.i+"-"+e.c}"]`)?.classList.add("current");
+  }
  }else{
   candidate.textContent=JSON.stringify(e.candidate);used.textContent=e.used.length?"{"+e.used.join(", ")+"}":"∅";res.textContent=JSON.stringify(e.res);stack.textContent=e.call_stack.join(" → ")||"—";
   document.querySelectorAll(".node").forEach(x=>x.classList.remove("current","complete","visited"));
@@ -966,6 +1171,13 @@ function reset(){
   candidate.textContent="—";used.textContent="—";res.textContent="—";stack.textContent="—";
   gridFinalized=new Set();
   document.querySelectorAll(".cell").forEach(x=>{x.classList.remove("current","filled","dep");let v=x.querySelector(".cell-val");if(v)v.textContent=""});
+ }else if(kind==="kadane"){
+  candidate.textContent="—";used.textContent="—";res.textContent="—";stack.textContent="—";
+  document.querySelectorAll(".cell").forEach(x=>x.classList.remove("current","in-current","in-best"));
+ }else if(kind==="knapsack"){
+  candidate.textContent="—";used.textContent="—";res.textContent="—";stack.textContent="—";
+  gridFinalized=new Set();
+  document.querySelectorAll(".cell").forEach(x=>{x.classList.remove("current","filled","dep");let v=x.querySelector(".cell-val");if(v)v.textContent=""});
  }else{
   candidate.textContent="[]";used.textContent="∅";res.textContent="[]";stack.textContent="—";
   document.querySelectorAll(".node").forEach(x=>x.classList.remove("current","complete","visited"));
@@ -982,6 +1194,8 @@ function applyTraceData(d,slug){
  else if(kind==="grid"){renderSource(slug);buildMatrixGrid(d.m,d.n)}
  else if(kind==="burglary"){renderSource(slug);buildHouseArray(d.houses)}
  else if(kind==="lcs"){renderSource(slug);buildLCSGrid(d.s1,d.s2)}
+ else if(kind==="kadane"){renderSource(slug);buildSubarrayCells(d.nums)}
+ else if(kind==="knapsack"){renderSource(slug);buildKnapsackGrid(d.weights.length,d.cap)}
  else{nums=d.nums;renderSource(slug);build()}
  reset();
  document.getElementById("descText").textContent=d.description||"No description available for this problem yet.";
