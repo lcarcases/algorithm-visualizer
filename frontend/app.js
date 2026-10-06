@@ -183,6 +183,121 @@ const PROBLEM_UI={
   }
  }
 },
+"gas-stations":{
+ langs:{
+  python:{
+   src:[
+"def gas_stations(gas: List[int], cost: List[int]) -> int:",
+"    if sum(gas) < sum(cost):","        return -1",
+"    start = tank = 0",
+"    for i in range(len(gas)):",
+"        tank += gas[i] - cost[i]",
+"        if tank < 0:",
+"            start, tank = i + 1, 0",
+"    return start"
+   ],
+   map:{1:1,2:2,3:3,4:4,5:5,6:6,7:7,8:8}
+  },
+  javascript:{
+   src:[
+"function gasStations(gas, cost) {",
+"  const totalGas = gas.reduce((a, b) => a + b, 0);",
+"  const totalCost = cost.reduce((a, b) => a + b, 0);",
+"  if (totalGas < totalCost) {","    return -1;","  }",
+"  let start = 0, tank = 0;",
+"  for (let i = 0; i < gas.length; i++) {",
+"    tank += gas[i] - cost[i];",
+"    if (tank < 0) {",
+"      start = i + 1;","      tank = 0;","    }","  }",
+"  return start;","}"
+   ],
+   map:{1:3,2:4,3:6,4:7,5:8,6:9,7:10,8:14}
+  },
+  java:{
+   src:[
+"public static int gasStations(int[] gas, int[] cost) {",
+"    int totalGas = 0, totalCost = 0;",
+"    for (int i = 0; i < gas.length; i++) {",
+"        totalGas += gas[i];","        totalCost += cost[i];","    }",
+"    if (totalGas < totalCost) {","        return -1;","    }",
+"    int start = 0, tank = 0;",
+"    for (int i = 0; i < gas.length; i++) {",
+"        tank += gas[i] - cost[i];",
+"        if (tank < 0) {",
+"            start = i + 1;","            tank = 0;","        }","    }",
+"    return start;","}"
+   ],
+   map:{1:6,2:7,3:9,4:10,5:11,6:12,7:13,8:17}
+  },
+  csharp:{
+   src:[
+"public static int GasStations(int[] gas, int[] cost) {",
+"    int totalGas = 0, totalCost = 0;",
+"    for (int i = 0; i < gas.Length; i++) {",
+"        totalGas += gas[i];","        totalCost += cost[i];","    }",
+"    if (totalGas < totalCost) {","        return -1;","    }",
+"    int start = 0, tank = 0;",
+"    for (int i = 0; i < gas.Length; i++) {",
+"        tank += gas[i] - cost[i];",
+"        if (tank < 0) {",
+"            start = i + 1;","            tank = 0;","        }","    }",
+"    return start;","}"
+   ],
+   map:{1:6,2:7,3:9,4:10,5:11,6:12,7:13,8:17}
+  }
+ }
+},
+"jump-to-the-end":{
+ langs:{
+  python:{
+   src:[
+"def jump_to_the_end(nums: List[int]) -> bool:",
+"    destination = len(nums) - 1",
+"    for i in range(len(nums) - 1, -1, -1):",
+"        if i + nums[i] >= destination:",
+"            destination = i",
+"    return destination == 0"
+   ],
+   map:{1:1,2:2,3:3,4:4,5:5}
+  },
+  javascript:{
+   src:[
+"function jumpToTheEnd(nums) {",
+"  let destination = nums.length - 1;",
+"  for (let i = nums.length - 1; i >= 0; i--) {",
+"    if (i + nums[i] >= destination) {",
+"      destination = i;",
+"    }","  }",
+"  return destination === 0;","}"
+   ],
+   map:{1:1,2:2,3:3,4:4,5:7}
+  },
+  java:{
+   src:[
+"public static boolean jumpToTheEnd(int[] nums) {",
+"    int destination = nums.length - 1;",
+"    for (int i = nums.length - 1; i >= 0; i--) {",
+"        if (i + nums[i] >= destination) {",
+"            destination = i;",
+"        }","    }",
+"    return destination == 0;","}"
+   ],
+   map:{1:1,2:2,3:3,4:4,5:7}
+  },
+  csharp:{
+   src:[
+"public static bool JumpToTheEnd(int[] nums) {",
+"    int destination = nums.Length - 1;",
+"    for (int i = nums.Length - 1; i >= 0; i--) {",
+"        if (i + nums[i] >= destination) {",
+"            destination = i;",
+"        }","    }",
+"    return destination == 0;","}"
+   ],
+   map:{1:1,2:2,3:3,4:4,5:7}
+  }
+ }
+},
 "knapsack":{
  langs:{
   python:{
@@ -865,6 +980,21 @@ function buildKnapsackGrid(n,cap){
   g.append(t);svg.append(g);
  }
 }
+function buildGasCells(gas,cost){
+ svg.innerHTML="";nodes.clear();
+ let n=gas.length,W=1000,H=560,pad=50;
+ let cw=Math.min((W-2*pad)/n,130);
+ let gw=cw*n,ox=(W-gw)/2,oy=H/2-40;
+ for(let i=0;i<n;i++){
+  let id=""+i,x=ox+i*cw,y=oy,net=gas[i]-cost[i];
+  nodes.set(id,{id,i,cx:x+(cw-6)/2,cy:y});
+  let g=el("g",{class:"cell","data-id":id});
+  g.append(el("rect",{x,y,width:cw-6,height:cw-6,rx:6}));
+  let h=el("text",{x:x+(cw-6)/2,y:y+(cw-6)/2-14,class:"cell-sub"});h.textContent="+"+gas[i]+" -"+cost[i];
+  let t=el("text",{x:x+(cw-6)/2,y:y+(cw-6)/2+10,class:"cell-val"});t.textContent=(net>=0?"+":"")+net;
+  g.append(h);g.append(t);svg.append(g);
+ }
+}
 function buildSubarrayCells(nums){
  svg.innerHTML="";nodes.clear();
  let n=nums.length,W=1000,H=560,pad=50;
@@ -872,7 +1002,7 @@ function buildSubarrayCells(nums){
  let gw=cw*n,ox=(W-gw)/2,oy=H/2-30;
  for(let i=0;i<n;i++){
   let id=""+i,x=ox+i*cw,y=oy;
-  nodes.set(id,{id,i});
+  nodes.set(id,{id,i,cx:x+(cw-6)/2,cy:y});
   let g=el("g",{class:"cell","data-id":id});
   g.append(el("rect",{x,y,width:cw-6,height:cw-6,rx:6}));
   let t=el("text",{x:x+(cw-6)/2,y:y+(cw-6)/2,class:"cell-val"});t.textContent=nums[i];
@@ -973,6 +1103,14 @@ function applyKindUI(){
   lblA.textContent="item i";lblB.textContent="cap c";lblC.textContent="res";lblD.textContent="status";
   treeTitle.textContent="DP TABLE (KNAPSACK)";
   legend.innerHTML="🔴 current cell　 🔵 dependency　 🟢 filled";
+ }else if(kind==="jump"){
+  lblA.textContent="index i";lblB.textContent="destination";lblC.textContent="res";lblD.textContent="status";
+  treeTitle.textContent="ARRAY SCAN (RIGHT TO LEFT)";
+  legend.innerHTML="🔴 current index　 🟡 destination　 🟢 can reach　 🔴 can't reach";
+ }else if(kind==="gas"){
+  lblA.textContent="index i";lblB.textContent="tank";lblC.textContent="start";lblD.textContent="status";
+  treeTitle.textContent="ARRAY SCAN (LEFT TO RIGHT)";
+  legend.innerHTML="🔴 current index　 🟡 start candidate　 🔵 current window";
  }else{
   lblA.textContent="candidate";lblB.textContent="used";lblC.textContent="res";lblD.textContent="call stack";
   treeTitle.textContent="RECURSION TREE";
@@ -1128,6 +1266,32 @@ function render(e){
    document.querySelector(`.cell[data-id="${(e.i+1)+"-"+e.c}"]`)?.classList.add("dep");
    document.querySelector(`.cell[data-id="${e.i+"-"+e.c}"]`)?.classList.add("current");
   }
+ }else if(kind==="jump"){
+  candidate.textContent=e.i==null?"—":e.i;
+  used.textContent=e.destination==null?"—":e.destination;
+  res.textContent=e.res==null?"—":e.res;
+  stack.textContent=e.action;
+  document.querySelectorAll(".cell").forEach(x=>x.classList.remove("current","destination"));
+  document.querySelectorAll(".jump-arc").forEach(x=>x.remove());
+  if(e.destination!=null)document.querySelector(`.cell[data-id="${e.destination}"]`)?.classList.add("destination");
+  if(e.i!=null)document.querySelector(`.cell[data-id="${e.i}"]`)?.classList.add("current");
+  if(e.action==="condition"){
+   let a=nodes.get(""+e.i),b=nodes.get(""+e.destination);
+   if(a&&b){
+    let midx=(a.cx+b.cx)/2,dy=Math.min(a.cy,b.cy)-40;
+    let path=el("path",{d:`M${a.cx},${a.cy} Q${midx},${dy} ${b.cx},${b.cy}`,class:"jump-arc"+(e.reachable?" reachable":" unreachable"),fill:"none"});
+    svg.appendChild(path);
+   }
+  }
+ }else if(kind==="gas"){
+  candidate.textContent=e.i==null?"—":e.i;
+  used.textContent=e.tank==null?"—":e.tank;
+  res.textContent=e.start==null?"—":e.start;
+  stack.textContent=e.action;
+  document.querySelectorAll(".cell").forEach(x=>x.classList.remove("current","in-current","destination"));
+  if(e.start!=null&&e.i!=null&&e.i>=e.start)for(let k=e.start;k<=e.i;k++)document.querySelector(`.cell[data-id="${k}"]`)?.classList.add("in-current");
+  if(e.start!=null)document.querySelector(`.cell[data-id="${e.start}"]`)?.classList.add("destination");
+  if(e.i!=null)document.querySelector(`.cell[data-id="${e.i}"]`)?.classList.add("current");
  }else{
   candidate.textContent=JSON.stringify(e.candidate);used.textContent=e.used.length?"{"+e.used.join(", ")+"}":"∅";res.textContent=JSON.stringify(e.res);stack.textContent=e.call_stack.join(" → ")||"—";
   document.querySelectorAll(".node").forEach(x=>x.classList.remove("current","complete","visited"));
@@ -1178,6 +1342,13 @@ function reset(){
   candidate.textContent="—";used.textContent="—";res.textContent="—";stack.textContent="—";
   gridFinalized=new Set();
   document.querySelectorAll(".cell").forEach(x=>{x.classList.remove("current","filled","dep");let v=x.querySelector(".cell-val");if(v)v.textContent=""});
+ }else if(kind==="jump"){
+  candidate.textContent="—";used.textContent="—";res.textContent="—";stack.textContent="—";
+  document.querySelectorAll(".cell").forEach(x=>x.classList.remove("current","destination"));
+  document.querySelectorAll(".jump-arc").forEach(x=>x.remove());
+ }else if(kind==="gas"){
+  candidate.textContent="—";used.textContent="—";res.textContent="—";stack.textContent="—";
+  document.querySelectorAll(".cell").forEach(x=>x.classList.remove("current","in-current","destination"));
  }else{
   candidate.textContent="[]";used.textContent="∅";res.textContent="[]";stack.textContent="—";
   document.querySelectorAll(".node").forEach(x=>x.classList.remove("current","complete","visited"));
@@ -1196,6 +1367,8 @@ function applyTraceData(d,slug){
  else if(kind==="lcs"){renderSource(slug);buildLCSGrid(d.s1,d.s2)}
  else if(kind==="kadane"){renderSource(slug);buildSubarrayCells(d.nums)}
  else if(kind==="knapsack"){renderSource(slug);buildKnapsackGrid(d.weights.length,d.cap)}
+ else if(kind==="jump"){renderSource(slug);buildSubarrayCells(d.nums)}
+ else if(kind==="gas"){renderSource(slug);buildGasCells(d.gas,d.cost)}
  else{nums=d.nums;renderSource(slug);build()}
  reset();
  document.getElementById("descText").textContent=d.description||"No description available for this problem yet.";
