@@ -183,6 +183,747 @@ const PROBLEM_UI={
   }
  }
 },
+"reverse-32-bit-integer":{
+ langs:{
+  python:{
+   src:[
+"def reverse_32_bit_integer(n: int) -> int:",
+"    INT_MAX = 2**31 - 1","    INT_MIN = -2**31","    reversed_n = 0",
+"    # Keep looping until we've added all digits of 'n' to 'reversed_n'",
+"    # in reverse order.",
+"    while n != 0:",
+"        # digit = n % 10",
+"        digit = int(math.fmod(n, 10))",
+"        # n = n // 10",
+"        n = int(n / 10)",
+"        # Check for integer overflow or underflow.",
+"        if (reversed_n > int(INT_MAX / 10)",
+"                or reversed_n < int(INT_MIN / 10)):",
+"            return 0",
+"        # Add the current digit to 'reversed_n'.",
+"        reversed_n = reversed_n * 10 + digit",
+"    return reversed_n"
+   ],
+   map:{1:1,2:2,3:3,4:6,5:8,6:10,7:12,8:14,9:16,10:17}
+  },
+  javascript:{
+   src:[
+"function reverse32BitInteger(n) {",
+"  const INT_MAX = 2 ** 31 - 1;","  const INT_MIN = -(2 ** 31);","  let reversedN = 0;",
+"  // Keep looping until we've added all digits of 'n' to 'reversedN'",
+"  // in reverse order.",
+"  while (n !== 0) {",
+"    const digit = n % 10;",
+"    n = Math.trunc(n / 10);",
+"    // Check for integer overflow or underflow.",
+"    if (reversedN > Math.trunc(INT_MAX / 10) ||",
+"        reversedN < Math.trunc(INT_MIN / 10)) {",
+"      return 0;","    }",
+"    // Add the current digit to 'reversedN'.",
+"    reversedN = reversedN * 10 + digit;",
+"  }","  return reversedN;","}"
+   ],
+   map:{1:1,2:2,3:3,4:6,5:7,6:8,7:10,8:12,9:15,10:17}
+  },
+  java:{
+   src:[
+"public static int reverse32BitInteger(int n) {",
+"    int INT_MAX = Integer.MAX_VALUE;","    int INT_MIN = Integer.MIN_VALUE;","    int reversedN = 0;",
+"    // Keep looping until we've added all digits of 'n' to 'reversedN'",
+"    // in reverse order.",
+"    while (n != 0) {",
+"        int digit = n % 10;","        n = n / 10;",
+"        // Check for integer overflow or underflow.",
+"        if (reversedN > INT_MAX / 10 || reversedN < INT_MIN / 10) {",
+"            return 0;","        }",
+"        // Add the current digit to 'reversedN'.",
+"        reversedN = reversedN * 10 + digit;",
+"    }","    return reversedN;","}"
+   ],
+   map:{1:1,2:2,3:3,4:6,5:7,6:8,7:10,8:11,9:14,10:16}
+  },
+  csharp:{
+   src:[
+"public static int Reverse32BitInteger(int n) {",
+"    int INT_MAX = int.MaxValue;","    int INT_MIN = int.MinValue;","    int reversedN = 0;",
+"    // Keep looping until we've added all digits of 'n' to 'reversedN'",
+"    // in reverse order.",
+"    while (n != 0) {",
+"        int digit = n % 10;","        n = n / 10;",
+"        // Check for integer overflow or underflow.",
+"        if (reversedN > INT_MAX / 10 || reversedN < INT_MIN / 10) {",
+"            return 0;","        }",
+"        // Add the current digit to 'reversedN'.",
+"        reversedN = reversedN * 10 + digit;",
+"    }","    return reversedN;","}"
+   ],
+   map:{1:1,2:2,3:3,4:6,5:7,6:8,7:10,8:11,9:14,10:16}
+  }
+ }
+},
+"spiral-matrix":{
+ langs:{
+  python:{
+   src:[
+"def spiral_matrix(matrix: List[List[int]]) -> List[int]:",
+"    if not matrix:","        return []",
+"    result = []",
+"    # Initialize the matrix boundaries.",
+"    top, bottom = 0, len(matrix) - 1",
+"    left, right = 0, len(matrix[0]) - 1",
+"    # Traverse the matrix in spiral order.",
+"    while top <= bottom and left <= right:",
+"        # Move from left to right along the top boundary.",
+"        for i in range(left, right + 1):",
+"            result.append(matrix[top][i])","        top += 1",
+"        # Move from top to bottom along the right boundary.",
+"        for i in range(top, bottom + 1):",
+"            result.append(matrix[i][right])","        right -= 1",
+"        # Check that the bottom boundary hasn't passed the top boundary",
+"        # before moving from right to left along the bottom boundary.",
+"        if top <= bottom:",
+"            for i in range(right, left - 1, -1):",
+"                result.append(matrix[bottom][i])","            bottom -= 1",
+"        # Check that the left boundary hasn't passed the right boundary",
+"        # before moving from bottom to top along the left boundary.",
+"        if left <= right:",
+"            for i in range(bottom, top - 1, -1):",
+"                result.append(matrix[i][left])","            left += 1",
+"    return result"
+   ],
+   map:{1:1,2:2,3:3,4:5,5:6,6:8,7:10,8:11,9:12,10:14,11:15,12:16,13:19,14:20,15:21,16:22,17:25,18:26,19:27,20:28,21:29}
+  },
+  javascript:{
+   src:[
+"function spiralMatrix(matrix) {",
+"  if (matrix.length === 0) {","    return [];","  }",
+"  const result = [];",
+"  // Initialize the matrix boundaries.",
+"  let top = 0, bottom = matrix.length - 1;",
+"  let left = 0, right = matrix[0].length - 1;",
+"  // Traverse the matrix in spiral order.",
+"  while (top <= bottom && left <= right) {",
+"    // Move from left to right along the top boundary.",
+"    for (let i = left; i <= right; i++) {",
+"      result.push(matrix[top][i]);","    }","    top++;",
+"    // Move from top to bottom along the right boundary.",
+"    for (let i = top; i <= bottom; i++) {",
+"      result.push(matrix[i][right]);","    }","    right--;",
+"    // Check that the bottom boundary hasn't passed the top boundary",
+"    // before moving from right to left along the bottom boundary.",
+"    if (top <= bottom) {",
+"      for (let i = right; i >= left; i--) {",
+"        result.push(matrix[bottom][i]);","      }","      bottom--;","    }",
+"    // Check that the left boundary hasn't passed the right boundary",
+"    // before moving from bottom to top along the left boundary.",
+"    if (left <= right) {",
+"      for (let i = bottom; i >= top; i--) {",
+"        result.push(matrix[i][left]);","      }","      left++;","    }",
+"  }","  return result;","}"
+   ],
+   map:{1:1,2:2,3:4,4:6,5:7,6:9,7:11,8:12,9:14,10:16,11:17,12:19,13:22,14:23,15:24,16:26,17:30,18:31,19:32,20:34,21:37}
+  },
+  java:{
+   src:[
+"public static List<Integer> spiralMatrix(int[][] matrix) {",
+"    if (matrix.length == 0) {","        return new ArrayList<>();","    }",
+"    List<Integer> result = new ArrayList<>();",
+"    // Initialize the matrix boundaries.",
+"    int top = 0, bottom = matrix.length - 1;",
+"    int left = 0, right = matrix[0].length - 1;",
+"    // Traverse the matrix in spiral order.",
+"    while (top <= bottom && left <= right) {",
+"        // Move from left to right along the top boundary.",
+"        for (int i = left; i <= right; i++) {",
+"            result.add(matrix[top][i]);","        }","        top++;",
+"        // Move from top to bottom along the right boundary.",
+"        for (int i = top; i <= bottom; i++) {",
+"            result.add(matrix[i][right]);","        }","        right--;",
+"        // Check that the bottom boundary hasn't passed the top boundary",
+"        // before moving from right to left along the bottom boundary.",
+"        if (top <= bottom) {",
+"            for (int i = right; i >= left; i--) {",
+"                result.add(matrix[bottom][i]);","            }","            bottom--;","        }",
+"        // Check that the left boundary hasn't passed the right boundary",
+"        // before moving from bottom to top along the left boundary.",
+"        if (left <= right) {",
+"            for (int i = bottom; i >= top; i--) {",
+"                result.add(matrix[i][left]);","            }","            left++;","        }",
+"    }","    return result;","}"
+   ],
+   map:{1:1,2:2,3:4,4:6,5:7,6:9,7:11,8:12,9:14,10:16,11:17,12:19,13:22,14:23,15:24,16:26,17:30,18:31,19:32,20:34,21:37}
+  },
+  csharp:{
+   src:[
+"public static List<int> SpiralMatrix(int[][] matrix) {",
+"    if (matrix.Length == 0) {","        return new List<int>();","    }",
+"    var result = new List<int>();",
+"    // Initialize the matrix boundaries.",
+"    int top = 0, bottom = matrix.Length - 1;",
+"    int left = 0, right = matrix[0].Length - 1;",
+"    // Traverse the matrix in spiral order.",
+"    while (top <= bottom && left <= right) {",
+"        // Move from left to right along the top boundary.",
+"        for (int i = left; i <= right; i++) {",
+"            result.Add(matrix[top][i]);","        }","        top++;",
+"        // Move from top to bottom along the right boundary.",
+"        for (int i = top; i <= bottom; i++) {",
+"            result.Add(matrix[i][right]);","        }","        right--;",
+"        // Check that the bottom boundary hasn't passed the top boundary",
+"        // before moving from right to left along the bottom boundary.",
+"        if (top <= bottom) {",
+"            for (int i = right; i >= left; i--) {",
+"                result.Add(matrix[bottom][i]);","            }","            bottom--;","        }",
+"        // Check that the left boundary hasn't passed the right boundary",
+"        // before moving from bottom to top along the left boundary.",
+"        if (left <= right) {",
+"            for (int i = bottom; i >= top; i--) {",
+"                result.Add(matrix[i][left]);","            }","            left++;","        }",
+"    }","    return result;","}"
+   ],
+   map:{1:1,2:2,3:4,4:6,5:7,6:9,7:11,8:12,9:14,10:16,11:17,12:19,13:22,14:23,15:24,16:26,17:30,18:31,19:32,20:34,21:37}
+  }
+ }
+},
+"kth-largest-integer-quickselect":{
+ langs:{
+  python:{
+   src:[
+"def kth_largest_integer_quickselect(nums: List[int], k: int) -> int:",
+"    return quickselect(nums, 0, len(nums) - 1, k)","",
+"def quickselect(nums: List[int], left: int, right: int, k: int) -> int:",
+"    n = len(nums)",
+"    if left >= right:","        return nums[left]",
+"    random_index = random.randint(left, right)",
+"    nums[random_index], nums[right] = nums[right], nums[random_index]",
+"    pivot_index = partition(nums, left, right)",
+"    # If the pivot comes before 'n - k', the ('n - k')th smallest",
+"    # integer is somewhere to its right. Perform quickselect on the",
+"    # right part.",
+"    if pivot_index < n - k:",
+"        return quickselect(nums, pivot_index + 1, right, k)",
+"    # If the pivot comes after 'n - k', the ('n - k')th smallest integer",
+"    # is somewhere to its left. Perform quickselect on the left part.",
+"    elif pivot_index > n - k:",
+"        return quickselect(nums, left, pivot_index - 1, k)",
+"    # If the pivot is at index 'n - k', it's the ('n - k')th smallest",
+"    # integer.",
+"    else:","        return nums[pivot_index]","",
+"def partition(nums: List[int], left: int, right: int) -> int:",
+"    pivot = nums[right]","    lo = left",
+"    for i in range(left, right):",
+"        if nums[i] < pivot:",
+"            nums[lo], nums[i] = nums[i], nums[lo]","            lo += 1",
+"    nums[lo], nums[right] = nums[right], nums[lo]","    return lo"
+   ],
+   map:{1:1,2:4,3:5,4:6,5:7,6:8,7:9,8:13,9:14,10:17,11:18,12:22,13:25,14:26,15:27,16:28,17:29,18:30,19:31,20:32}
+  },
+  javascript:{
+   src:[
+"function kthLargestIntegerQuickselect(nums, k) {",
+"  return quickselect(nums, 0, nums.length - 1, k);","}","",
+"function quickselect(nums, left, right, k) {",
+"  const n = nums.length;",
+"  if (left >= right) {","    return nums[left];","  }",
+"  const randomIndex = left + Math.floor(Math.random() * (right - left + 1));",
+"  [nums[randomIndex], nums[right]] = [nums[right], nums[randomIndex]];",
+"  const pivotIndex = partition(nums, left, right);",
+"  // If the pivot comes before 'n - k', the ('n - k')th smallest",
+"  // integer is somewhere to its right. Perform quickselect on the",
+"  // right part.",
+"  if (pivotIndex < n - k) {",
+"    return quickselect(nums, pivotIndex + 1, right, k);",
+"  // If the pivot comes after 'n - k', the ('n - k')th smallest integer",
+"  // is somewhere to its left. Perform quickselect on the left part.",
+"  } else if (pivotIndex > n - k) {",
+"    return quickselect(nums, left, pivotIndex - 1, k);",
+"  // If the pivot is at index 'n - k', it's the ('n - k')th smallest",
+"  // integer.",
+"  } else {","    return nums[pivotIndex];","  }","}","",
+"function partition(nums, left, right) {",
+"  const pivot = nums[right];","  let lo = left;",
+"  for (let i = left; i < right; i++) {",
+"    if (nums[i] < pivot) {",
+"      [nums[lo], nums[i]] = [nums[i], nums[lo]];","      lo++;","    }","  }",
+"  [nums[lo], nums[right]] = [nums[right], nums[lo]];","  return lo;","}"
+   ],
+   map:{1:1,2:5,3:6,4:7,5:9,6:10,7:11,8:15,9:16,10:19,11:20,12:24,13:29,14:30,15:31,16:32,17:33,18:34,19:37,20:38}
+  },
+  java:{
+   src:[
+"public static int kthLargestIntegerQuickselect(int[] nums, int k) {",
+"    return quickselect(nums, 0, nums.length - 1, k);","}","",
+"public static int quickselect(int[] nums, int left, int right, int k) {",
+"    int n = nums.length;",
+"    if (left >= right) {","        return nums[left];","    }",
+"    int randomIndex = left + new Random().nextInt(right - left + 1);",
+"    int temp = nums[randomIndex];","    nums[randomIndex] = nums[right];","    nums[right] = temp;",
+"    int pivotIndex = partition(nums, left, right);",
+"    // If the pivot comes before 'n - k', the ('n - k')th smallest",
+"    // integer is somewhere to its right. Perform quickselect on the",
+"    // right part.",
+"    if (pivotIndex < n - k) {",
+"        return quickselect(nums, pivotIndex + 1, right, k);",
+"    // If the pivot comes after 'n - k', the ('n - k')th smallest integer",
+"    // is somewhere to its left. Perform quickselect on the left part.",
+"    } else if (pivotIndex > n - k) {",
+"        return quickselect(nums, left, pivotIndex - 1, k);",
+"    // If the pivot is at index 'n - k', it's the ('n - k')th smallest",
+"    // integer.",
+"    } else {","        return nums[pivotIndex];","    }","}","",
+"public static int partition(int[] nums, int left, int right) {",
+"    int pivot = nums[right];","    int lo = left;",
+"    for (int i = left; i < right; i++) {",
+"        if (nums[i] < pivot) {",
+"            int temp = nums[lo];","            nums[lo] = nums[i];","            nums[i] = temp;",
+"            lo++;","        }","    }",
+"    int temp = nums[lo];","    nums[lo] = nums[right];","    nums[right] = temp;",
+"    return lo;","}"
+   ],
+   map:{1:1,2:5,3:6,4:7,5:9,6:10,7:13,8:17,9:18,10:21,11:22,12:26,13:31,14:32,15:33,16:34,17:35,18:38,19:41,20:44}
+  },
+  csharp:{
+   src:[
+"public static int KthLargestIntegerQuickselect(int[] nums, int k) {",
+"    return Quickselect(nums, 0, nums.Length - 1, k);","}","",
+"public static int Quickselect(int[] nums, int left, int right, int k) {",
+"    int n = nums.Length;",
+"    if (left >= right) {","        return nums[left];","    }",
+"    int randomIndex = left + new Random().Next(right - left + 1);",
+"    (nums[randomIndex], nums[right]) = (nums[right], nums[randomIndex]);",
+"    int pivotIndex = Partition(nums, left, right);",
+"    // If the pivot comes before 'n - k', the ('n - k')th smallest",
+"    // integer is somewhere to its right. Perform quickselect on the",
+"    // right part.",
+"    if (pivotIndex < n - k) {",
+"        return Quickselect(nums, pivotIndex + 1, right, k);",
+"    // If the pivot comes after 'n - k', the ('n - k')th smallest integer",
+"    // is somewhere to its left. Perform quickselect on the left part.",
+"    } else if (pivotIndex > n - k) {",
+"        return Quickselect(nums, left, pivotIndex - 1, k);",
+"    // If the pivot is at index 'n - k', it's the ('n - k')th smallest",
+"    // integer.",
+"    } else {","        return nums[pivotIndex];","    }","}","",
+"public static int Partition(int[] nums, int left, int right) {",
+"    int pivot = nums[right];","    int lo = left;",
+"    for (int i = left; i < right; i++) {",
+"        if (nums[i] < pivot) {",
+"            (nums[lo], nums[i]) = (nums[i], nums[lo]);","            lo++;","        }","    }",
+"    (nums[lo], nums[right]) = (nums[right], nums[lo]);","    return lo;","}"
+   ],
+   map:{1:1,2:5,3:6,4:7,5:9,6:10,7:11,8:15,9:16,10:19,11:20,12:24,13:29,14:30,15:31,16:32,17:33,18:34,19:37,20:38}
+  }
+ }
+},
+"kth-largest-integer-min-heap":{
+ langs:{
+  python:{
+   src:[
+"def kth_largest_integer_min_heap(nums: List[int], k: int) -> int:",
+"    min_heap = []","    heapq.heapify(min_heap)",
+"    for num in nums:",
+"        # Ensure the heap has at least 'k' integers.",
+"        if len(min_heap) < k:","            heapq.heappush(min_heap, num)",
+"        # If 'num' is greater than the smallest integer in the heap, pop",
+"        # off this smallest integer from the heap and push in 'num'.",
+"        elif num > min_heap[0]:",
+"            heapq.heappop(min_heap)","            heapq.heappush(min_heap, num)",
+"    return min_heap[0]"
+   ],
+   map:{1:1,2:2,3:3,4:5,5:6,6:9,7:10,8:11,9:12}
+  },
+  javascript:{
+   src:[
+"function kthLargestIntegerMinHeap(nums, k) {",
+"  const minHeap = new MinHeap();",
+"  for (const num of nums) {",
+"    // Ensure the heap has at least 'k' integers.",
+"    if (minHeap.size() < k) {","      minHeap.push(num);",
+"    // If 'num' is greater than the smallest integer in the heap, pop",
+"    // off this smallest integer from the heap and push in 'num'.",
+"    } else if (num > minHeap.top()) {",
+"      minHeap.pop();","      minHeap.push(num);","    }","  }",
+"  return minHeap.top();","}"
+   ],
+   map:{1:1,2:1,3:2,4:4,5:5,6:8,7:9,8:10,9:13}
+  },
+  java:{
+   src:[
+"public static int kthLargestIntegerMinHeap(int[] nums, int k) {",
+"    PriorityQueue<Integer> minHeap = new PriorityQueue<>();",
+"    for (int num : nums) {",
+"        // Ensure the heap has at least 'k' integers.",
+"        if (minHeap.size() < k) {","            minHeap.offer(num);",
+"        // If 'num' is greater than the smallest integer in the heap, pop",
+"        // off this smallest integer from the heap and push in 'num'.",
+"        } else if (num > minHeap.peek()) {",
+"            minHeap.poll();","            minHeap.offer(num);","        }","    }",
+"    return minHeap.peek();","}"
+   ],
+   map:{1:1,2:1,3:2,4:4,5:5,6:8,7:9,8:10,9:13}
+  },
+  csharp:{
+   src:[
+"public static int KthLargestIntegerMinHeap(int[] nums, int k) {",
+"    var minHeap = new PriorityQueue<int, int>();",
+"    foreach (int num in nums) {",
+"        // Ensure the heap has at least 'k' integers.",
+"        if (minHeap.Count < k) {","            minHeap.Enqueue(num, num);",
+"        // If 'num' is greater than the smallest integer in the heap, pop",
+"        // off this smallest integer from the heap and push in 'num'.",
+"        } else if (num > minHeap.Peek()) {",
+"            minHeap.Dequeue();","            minHeap.Enqueue(num, num);","        }","    }",
+"    return minHeap.Peek();","}"
+   ],
+   map:{1:1,2:1,3:2,4:4,5:5,6:8,7:9,8:10,9:13}
+  }
+ }
+},
+"sort-array":{
+ langs:{
+  python:{
+   src:[
+"def sort_array(nums: List[int]) -> List[int]:",
+"    quicksort_optimized(nums, 0, len(nums) - 1)",
+"    return nums","",
+"def quicksort_optimized(nums: List[int], left: int, right: int) -> None:",
+"    if left >= right:","        return",
+"    # Choose a pivot at a random index.",
+"    random_index = random.randint(left, right)",
+"    # Swap the randomly chosen pivot with the rightmost element to",
+"    # position the pivot at the rightmost index.",
+"    nums[random_index], nums[right] = nums[right], nums[random_index]",
+"    pivot_index = partition(nums, left, right)",
+"    quicksort_optimized(nums, left, pivot_index - 1)",
+"    quicksort_optimized(nums, pivot_index + 1, right)","",
+"def partition(nums: List[int], left: int, right: int) -> int:",
+"    pivot = nums[right]","    lo = left",
+"    # Move all numbers less than the pivot to the left, which",
+"    # consequently positions all numbers greater than or equal to the",
+"    # pivot to the right.",
+"    for i in range(left, right):",
+"        if nums[i] < pivot:",
+"            nums[lo], nums[i] = nums[i], nums[lo]","            lo += 1",
+"    # After partitioning, 'lo' will be positioned where the pivot should",
+"    # be. So, swap the pivot number with the number at the 'lo' pointer.",
+"    nums[lo], nums[right] = nums[right], nums[lo]","    return lo"
+   ],
+   map:{1:1,2:2,3:5,4:6,5:8,6:11,7:12,8:13,9:14,10:17,11:18,12:22,13:23,14:24,15:25,16:28,17:29}
+  },
+  javascript:{
+   src:[
+"function sortArray(nums) {",
+"  quicksortOptimized(nums, 0, nums.length - 1);","  return nums;","}","",
+"function quicksortOptimized(nums, left, right) {",
+"  if (left >= right) {","    return;","  }",
+"  // Choose a pivot at a random index.",
+"  const randomIndex = left + Math.floor(Math.random() * (right - left + 1));",
+"  // Swap the randomly chosen pivot with the rightmost element to",
+"  // position the pivot at the rightmost index.",
+"  [nums[randomIndex], nums[right]] = [nums[right], nums[randomIndex]];",
+"  const pivotIndex = partition(nums, left, right);",
+"  quicksortOptimized(nums, left, pivotIndex - 1);",
+"  quicksortOptimized(nums, pivotIndex + 1, right);","}","",
+"function partition(nums, left, right) {",
+"  const pivot = nums[right];","  let lo = left;",
+"  // Move all numbers less than the pivot to the left, which",
+"  // consequently positions all numbers greater than or equal to the",
+"  // pivot to the right.",
+"  for (let i = left; i < right; i++) {",
+"    if (nums[i] < pivot) {",
+"      [nums[lo], nums[i]] = [nums[i], nums[lo]];","      lo++;","    }","  }",
+"  // After partitioning, 'lo' will be positioned where the pivot should",
+"  // be. So, swap the pivot number with the number at the 'lo' pointer.",
+"  [nums[lo], nums[right]] = [nums[right], nums[lo]];","  return lo;","}"
+   ],
+   map:{1:1,2:2,3:6,4:7,5:10,6:13,7:14,8:15,9:16,10:20,11:21,12:25,13:26,14:27,15:28,16:33,17:34}
+  },
+  java:{
+   src:[
+"public static int[] sortArray(int[] nums) {",
+"    quicksortOptimized(nums, 0, nums.length - 1);","    return nums;","}","",
+"public static void quicksortOptimized(int[] nums, int left, int right) {",
+"    if (left >= right) {","        return;","    }",
+"    // Choose a pivot at a random index.",
+"    int randomIndex = left + new Random().nextInt(right - left + 1);",
+"    // Swap the randomly chosen pivot with the rightmost element to",
+"    // position the pivot at the rightmost index.",
+"    int temp = nums[randomIndex];","    nums[randomIndex] = nums[right];","    nums[right] = temp;",
+"    int pivotIndex = partition(nums, left, right);",
+"    quicksortOptimized(nums, left, pivotIndex - 1);",
+"    quicksortOptimized(nums, pivotIndex + 1, right);","}","",
+"public static int partition(int[] nums, int left, int right) {",
+"    int pivot = nums[right];","    int lo = left;",
+"    // Move all numbers less than the pivot to the left, which",
+"    // consequently positions all numbers greater than or equal to the",
+"    // pivot to the right.",
+"    for (int i = left; i < right; i++) {",
+"        if (nums[i] < pivot) {",
+"            int temp = nums[lo];","            nums[lo] = nums[i];","            nums[i] = temp;",
+"            lo++;","        }","    }",
+"    // After partitioning, 'lo' will be positioned where the pivot should",
+"    // be. So, swap the pivot number with the number at the 'lo' pointer.",
+"    int temp = nums[lo];","    nums[lo] = nums[right];","    nums[right] = temp;",
+"    return lo;","}"
+   ],
+   map:{1:1,2:2,3:6,4:7,5:10,6:13,7:16,8:17,9:18,10:22,11:23,12:27,13:28,14:29,15:32,16:37,17:40}
+  },
+  csharp:{
+   src:[
+"public static int[] SortArray(int[] nums) {",
+"    QuicksortOptimized(nums, 0, nums.Length - 1);","    return nums;","}","",
+"public static void QuicksortOptimized(int[] nums, int left, int right) {",
+"    if (left >= right) {","        return;","    }",
+"    // Choose a pivot at a random index.",
+"    int randomIndex = left + new Random().Next(right - left + 1);",
+"    // Swap the randomly chosen pivot with the rightmost element to",
+"    // position the pivot at the rightmost index.",
+"    (nums[randomIndex], nums[right]) = (nums[right], nums[randomIndex]);",
+"    int pivotIndex = Partition(nums, left, right);",
+"    QuicksortOptimized(nums, left, pivotIndex - 1);",
+"    QuicksortOptimized(nums, pivotIndex + 1, right);","}","",
+"public static int Partition(int[] nums, int left, int right) {",
+"    int pivot = nums[right];","    int lo = left;",
+"    // Move all numbers less than the pivot to the left, which",
+"    // consequently positions all numbers greater than or equal to the",
+"    // pivot to the right.",
+"    for (int i = left; i < right; i++) {",
+"        if (nums[i] < pivot) {",
+"            (nums[lo], nums[i]) = (nums[i], nums[lo]);","            lo++;","        }","    }",
+"    // After partitioning, 'lo' will be positioned where the pivot should",
+"    // be. So, swap the pivot number with the number at the 'lo' pointer.",
+"    (nums[lo], nums[right]) = (nums[right], nums[lo]);","    return lo;","}"
+   ],
+   map:{1:1,2:2,3:6,4:7,5:10,6:13,7:14,8:15,9:16,10:20,11:21,12:25,13:26,14:27,15:28,16:33,17:34}
+  }
+ }
+},
+"sort-linked-list":{
+ langs:{
+  python:{
+   src:[
+"def sort_linked_list(head: ListNode) -> ListNode:",
+"    # If the linked list is empty or has only one element, it's already",
+"    # sorted.",
+"    if not head or not head.next:","        return head",
+"    # Split the linked list into halves using the fast and slow pointer",
+"    # technique.",
+"    second_head = split_list(head)",
+"    # Recursively sort both halves.",
+"    first_half_sorted = sort_linked_list(head)",
+"    second_half_sorted = sort_linked_list(second_head)",
+"    # Merge the sorted sublists.",
+"    return merge(first_half_sorted, second_half_sorted)","",
+"def split_list(head: ListNode) -> ListNode:",
+"    slow = fast = head",
+"    while fast.next and fast.next.next:",
+"        slow = slow.next","        fast = fast.next.next",
+"    second_head = slow.next","    slow.next = None","    return second_head","",
+"def merge(l1: ListNode, l2: ListNode) -> ListNode:",
+"    dummy = ListNode(0)",
+"    # This pointer will be used to append nodes to the tail of the",
+"    # merged linked list.",
+"    tail = dummy",
+"    # Continually append the node with the smaller value from each",
+"    # linked list to the merged linked list until one of the linked",
+"    # lists has no more nodes to merge.",
+"    while l1 and l2:",
+"        if l1.val < l2.val:","            tail.next = l1","            l1 = l1.next",
+"        else:","            tail.next = l2","            l2 = l2.next",
+"        tail = tail.next",
+"    # One of the two linked lists could still have nodes remaining.",
+"    # Attach those nodes to the end of the merged linked list.",
+"    tail.next = l1 or l2","    return dummy.next"
+   ],
+   map:{1:0,2:3,3:4,4:7,5:9,6:10,7:12,8:12,9:14,10:15,11:16,12:17,13:18,14:19,15:20,16:21,17:23,18:24,19:27,20:31,21:32,22:33,23:34,24:36,25:37,26:38,27:41,28:42}
+  },
+  javascript:{
+   src:[
+"function sortLinkedList(head) {",
+"  // If the linked list is empty or has only one element, it's already",
+"  // sorted.",
+"  if (!head || !head.next) {","    return head;","  }",
+"  // Split the linked list into halves using the fast and slow pointer",
+"  // technique.",
+"  const secondHead = splitList(head);",
+"  // Recursively sort both halves.",
+"  const firstHalfSorted = sortLinkedList(head);",
+"  const secondHalfSorted = sortLinkedList(secondHead);",
+"  // Merge the sorted sublists.",
+"  return merge(firstHalfSorted, secondHalfSorted);","}","",
+"function splitList(head) {",
+"  let slow = head, fast = head;",
+"  while (fast.next && fast.next.next) {",
+"    slow = slow.next;","    fast = fast.next.next;","  }",
+"  const secondHead = slow.next;","  slow.next = null;","  return secondHead;","}","",
+"function merge(l1, l2) {",
+"  const dummy = new ListNode(0);",
+"  // This pointer will be used to append nodes to the tail of the",
+"  // merged linked list.",
+"  let tail = dummy;",
+"  // Continually append the node with the smaller value from each",
+"  // linked list to the merged linked list until one of the linked",
+"  // lists has no more nodes to merge.",
+"  while (l1 && l2) {",
+"    if (l1.val < l2.val) {","      tail.next = l1;","      l1 = l1.next;",
+"    } else {","      tail.next = l2;","      l2 = l2.next;","    }",
+"    tail = tail.next;","  }",
+"  // One of the two linked lists could still have nodes remaining.",
+"  // Attach those nodes to the end of the merged linked list.",
+"  tail.next = l1 || l2;","  return dummy.next;","}"
+   ],
+   map:{1:0,2:3,3:4,4:8,5:10,6:11,7:13,8:13,9:16,10:17,11:18,12:19,13:20,14:22,15:23,16:24,17:27,18:28,19:31,20:35,21:36,22:37,23:38,24:40,25:41,26:43,27:47,28:48}
+  },
+  java:{
+   src:[
+"public static ListNode sortLinkedList(ListNode head) {",
+"    // If the linked list is empty or has only one element, it's already",
+"    // sorted.",
+"    if (head == null || head.next == null) {","        return head;","    }",
+"    // Split the linked list into halves using the fast and slow pointer",
+"    // technique.",
+"    ListNode secondHead = splitList(head);",
+"    // Recursively sort both halves.",
+"    ListNode firstHalfSorted = sortLinkedList(head);",
+"    ListNode secondHalfSorted = sortLinkedList(secondHead);",
+"    // Merge the sorted sublists.",
+"    return merge(firstHalfSorted, secondHalfSorted);","}","",
+"public static ListNode splitList(ListNode head) {",
+"    ListNode slow = head, fast = head;",
+"    while (fast.next != null && fast.next.next != null) {",
+"        slow = slow.next;","        fast = fast.next.next;","    }",
+"    ListNode secondHead = slow.next;","    slow.next = null;","    return secondHead;","}","",
+"public static ListNode merge(ListNode l1, ListNode l2) {",
+"    ListNode dummy = new ListNode(0);",
+"    // This pointer will be used to append nodes to the tail of the",
+"    // merged linked list.",
+"    ListNode tail = dummy;",
+"    // Continually append the node with the smaller value from each",
+"    // linked list to the merged linked list until one of the linked",
+"    // lists has no more nodes to merge.",
+"    while (l1 != null && l2 != null) {",
+"        if (l1.val < l2.val) {","            tail.next = l1;","            l1 = l1.next;",
+"        } else {","            tail.next = l2;","            l2 = l2.next;","        }",
+"        tail = tail.next;","    }",
+"    // One of the two linked lists could still have nodes remaining.",
+"    // Attach those nodes to the end of the merged linked list.",
+"    tail.next = (l1 != null) ? l1 : l2;","    return dummy.next;","}"
+   ],
+   map:{1:0,2:3,3:4,4:8,5:10,6:11,7:13,8:13,9:16,10:17,11:18,12:19,13:20,14:22,15:23,16:24,17:27,18:28,19:31,20:35,21:36,22:37,23:38,24:40,25:41,26:43,27:47,28:48}
+  },
+  csharp:{
+   src:[
+"public static ListNode SortLinkedList(ListNode head) {",
+"    // If the linked list is empty or has only one element, it's already",
+"    // sorted.",
+"    if (head == null || head.Next == null) {","        return head;","    }",
+"    // Split the linked list into halves using the fast and slow pointer",
+"    // technique.",
+"    ListNode secondHead = SplitList(head);",
+"    // Recursively sort both halves.",
+"    ListNode firstHalfSorted = SortLinkedList(head);",
+"    ListNode secondHalfSorted = SortLinkedList(secondHead);",
+"    // Merge the sorted sublists.",
+"    return Merge(firstHalfSorted, secondHalfSorted);","}","",
+"public static ListNode SplitList(ListNode head) {",
+"    ListNode slow = head, fast = head;",
+"    while (fast.Next != null && fast.Next.Next != null) {",
+"        slow = slow.Next;","        fast = fast.Next.Next;","    }",
+"    ListNode secondHead = slow.Next;","    slow.Next = null;","    return secondHead;","}","",
+"public static ListNode Merge(ListNode l1, ListNode l2) {",
+"    ListNode dummy = new ListNode(0);",
+"    // This pointer will be used to append nodes to the tail of the",
+"    // merged linked list.",
+"    ListNode tail = dummy;",
+"    // Continually append the node with the smaller value from each",
+"    // linked list to the merged linked list until one of the linked",
+"    // lists has no more nodes to merge.",
+"    while (l1 != null && l2 != null) {",
+"        if (l1.Val < l2.Val) {","            tail.Next = l1;","            l1 = l1.Next;",
+"        } else {","            tail.Next = l2;","            l2 = l2.Next;","        }",
+"        tail = tail.Next;","    }",
+"    // One of the two linked lists could still have nodes remaining.",
+"    // Attach those nodes to the end of the merged linked list.",
+"    tail.Next = l1 ?? l2;","    return dummy.Next;","}"
+   ],
+   map:{1:0,2:3,3:4,4:8,5:10,6:11,7:13,8:13,9:16,10:17,11:18,12:19,13:20,14:22,15:23,16:24,17:27,18:28,19:31,20:35,21:36,22:37,23:38,24:40,25:41,26:43,27:47,28:48}
+  }
+ }
+},
+"candies":{
+ langs:{
+  python:{
+   src:[
+"def candies(ratings: List[int]) -> int:",
+"    n = len(ratings)",
+"    candies = [1] * n",
+"    for i in range(1, n):",
+"        if ratings[i] > ratings[i - 1]:",
+"            candies[i] = candies[i - 1] + 1",
+"    for i in range(n - 2, -1, -1):",
+"        if ratings[i] > ratings[i + 1]:",
+"            candies[i] = max(candies[i], candies[i + 1] + 1)",
+"    return sum(candies)"
+   ],
+   map:{1:1,2:2,3:3,4:4,5:5,6:6,7:7,8:8,9:9}
+  },
+  javascript:{
+   src:[
+"function candies(ratings) {",
+"  const n = ratings.length;",
+"  const candies = new Array(n).fill(1);",
+"  for (let i = 1; i < n; i++) {",
+"    if (ratings[i] > ratings[i - 1]) {",
+"      candies[i] = candies[i - 1] + 1;",
+"    }","  }",
+"  for (let i = n - 2; i >= 0; i--) {",
+"    if (ratings[i] > ratings[i + 1]) {",
+"      candies[i] = Math.max(candies[i], candies[i + 1] + 1);",
+"    }","  }",
+"  return candies.reduce((a, b) => a + b, 0);","}"
+   ],
+   map:{1:1,2:2,3:3,4:4,5:5,6:8,7:9,8:10,9:13}
+  },
+  java:{
+   src:[
+"public static int candies(int[] ratings) {",
+"    int n = ratings.length;",
+"    int[] candies = new int[n];",
+"    Arrays.fill(candies, 1);",
+"    for (int i = 1; i < n; i++) {",
+"        if (ratings[i] > ratings[i - 1]) {",
+"            candies[i] = candies[i - 1] + 1;",
+"        }","    }",
+"    for (int i = n - 2; i >= 0; i--) {",
+"        if (ratings[i] > ratings[i + 1]) {",
+"            candies[i] = Math.max(candies[i], candies[i + 1] + 1);",
+"        }","    }",
+"    int total = 0;",
+"    for (int c : candies) total += c;",
+"    return total;","}"
+   ],
+   map:{1:1,2:3,3:4,4:5,5:6,6:9,7:10,8:11,9:16}
+  },
+  csharp:{
+   src:[
+"public static int Candies(int[] ratings) {",
+"    int n = ratings.Length;",
+"    var candies = new int[n];",
+"    Array.Fill(candies, 1);",
+"    for (int i = 1; i < n; i++) {",
+"        if (ratings[i] > ratings[i - 1]) {",
+"            candies[i] = candies[i - 1] + 1;",
+"        }","    }",
+"    for (int i = n - 2; i >= 0; i--) {",
+"        if (ratings[i] > ratings[i + 1]) {",
+"            candies[i] = Math.Max(candies[i], candies[i + 1] + 1);",
+"        }","    }",
+"    return candies.Sum();","}"
+   ],
+   map:{1:1,2:3,3:4,4:5,5:6,6:9,7:10,8:11,9:14}
+  }
+ }
+},
 "gas-stations":{
  langs:{
   python:{
@@ -902,6 +1643,140 @@ function buildQueensTree(evs){
   g.append(t);svg.append(g);
  }
 }
+let mergeResolved=new Set(),mergeFinal=null,quickSorted=new Set(),quickLen=0,quickOriginal=[];
+let heapTreeG=null;
+function paintHeap(heapArr,highlightTop){
+ heapTreeG.innerHTML="";
+ let n=heapArr.length;
+ if(n===0){
+  let t=el("text",{x:500,y:320,class:"ax-label"});t.textContent="(empty heap)";
+  heapTreeG.append(t);return;
+ }
+ let top=190,levelH=85,pos=new Array(n);
+ function layout(i,xMin,xMax,depth){
+  if(i>=n)return;
+  let x=(xMin+xMax)/2,y=top+depth*levelH;
+  pos[i]={x,y};
+  layout(2*i+1,xMin,x,depth+1);
+  layout(2*i+2,x,xMax,depth+1);
+ }
+ layout(0,60,940,0);
+ for(let i=1;i<n;i++){
+  let p=pos[i],pp=pos[Math.floor((i-1)/2)];
+  heapTreeG.appendChild(el("line",{x1:pp.x,y1:pp.y,x2:p.x,y2:p.y,class:"edge"}));
+ }
+ for(let i=0;i<n;i++){
+  let p=pos[i],g=el("g",{class:"node"+(i===0&&highlightTop?" current":"")});
+  g.append(el("circle",{cx:p.x,cy:p.y,r:22}));
+  let t=el("text",{x:p.x,y:p.y});t.textContent=heapArr[i];
+  g.append(t);heapTreeG.append(g);
+ }
+}
+let spiralBoundary=null,spiralVisited=new Set();
+function paintSpiralBoundaries(e){
+ let s=spiralBoundary,hasRow=e.top!=null&&e.bottom!=null&&e.top<=e.bottom,hasCol=e.left!=null&&e.right!=null&&e.left<=e.right;
+ s.top.style.display=hasRow?"":"none";
+ if(hasRow){s.top.setAttribute("x",s.ox+s.n*s.cw/2);s.top.setAttribute("y",s.oy+e.top*s.cw-12);s.top.textContent="top";}
+ s.bottom.style.display=hasRow?"":"none";
+ if(hasRow){s.bottom.setAttribute("x",s.ox+s.n*s.cw/2);s.bottom.setAttribute("y",s.oy+(e.bottom+1)*s.cw+16);s.bottom.textContent="bottom";}
+ s.left.style.display=hasCol?"":"none";
+ if(hasCol){s.left.setAttribute("x",s.ox+e.left*s.cw-30);s.left.setAttribute("y",s.oy+s.m*s.cw/2);s.left.textContent="left";}
+ s.right.style.display=hasCol?"":"none";
+ if(hasCol){s.right.setAttribute("x",s.ox+(e.right+1)*s.cw+30);s.right.setAttribute("y",s.oy+s.m*s.cw/2);s.right.textContent="right";}
+}
+let reverseN_G=null,reverseR_G=null,reverseInitialN=0;
+function paintDigitRow(g,value,y,highlight){
+ g.innerHTML="";
+ let s=String(value),neg=s.startsWith("-"),digits=(neg?s.slice(1):s).split("");
+ let cw=54,total=(digits.length+(neg?1:0))*cw,ox=500-total/2,x=ox;
+ if(neg){
+  let t=el("text",{x:x+cw/2,y,class:"cell-val"});t.textContent="-";g.append(t);x+=cw;
+ }
+ digits.forEach((d,i)=>{
+  let isLast=i===digits.length-1,cur=highlight==="last"&&isLast;
+  let cell=el("g",{class:"cell"+(cur?" current":"")});
+  cell.append(el("rect",{x,y:y-22,width:cw-6,height:44,rx:6}));
+  let t=el("text",{x:x+(cw-6)/2,y,class:"cell-val"});t.textContent=d;
+  cell.append(t);g.append(cell);x+=cw;
+ });
+}
+function buildReverseDigits(n){
+ svg.innerHTML="";nodes.clear();
+ let lblN=el("text",{x:500,y:130,class:"ax-label"});lblN.textContent="n";
+ let lblR=el("text",{x:500,y:300,class:"ax-label"});lblR.textContent="reversed_n";
+ svg.append(lblN);svg.append(lblR);
+ reverseN_G=el("g");reverseR_G=el("g");
+ svg.append(reverseN_G);svg.append(reverseR_G);
+ reverseInitialN=n;
+ paintDigitRow(reverseN_G,n,190,"last");
+ paintDigitRow(reverseR_G,0,360,null);
+}
+function buildSpiralGrid(matrix){
+ svg.innerHTML="";nodes.clear();
+ let m=matrix.length,n=matrix[0].length;
+ let W=1000,H=560,pad=60;
+ let cw=Math.min((W-2*pad)/n,(H-2*pad)/m,80);
+ let gw=cw*n,gh=cw*m,ox=(W-gw)/2,oy=(H-gh)/2+10;
+ for(let r=0;r<m;r++)for(let c=0;c<n;c++){
+  let id=r+"-"+c,x=ox+c*cw,y=oy+r*cw;
+  nodes.set(id,{id,r,c});
+  let g=el("g",{class:"cell","data-id":id});
+  g.append(el("rect",{x,y,width:cw-4,height:cw-4,rx:5}));
+  let t=el("text",{x:x+(cw-4)/2,y:y+(cw-4)/2,class:"cell-val"});t.textContent=matrix[r][c];
+  g.append(t);svg.append(g);
+ }
+ spiralBoundary={ox,oy,cw,m,n,
+  top:el("text",{class:"ax-label"}),bottom:el("text",{class:"ax-label"}),
+  left:el("text",{class:"ax-label"}),right:el("text",{class:"ax-label"})};
+ svg.append(spiralBoundary.top);svg.append(spiralBoundary.bottom);
+ svg.append(spiralBoundary.left);svg.append(spiralBoundary.right);
+ spiralVisited=new Set();
+ paintSpiralBoundaries({top:null,bottom:null,left:null,right:null});
+}
+function buildHeapView(nums){
+ svg.innerHTML="";nodes.clear();
+ let n=nums.length,W=1000,pad=50;
+ let cw=Math.min((W-2*pad)/n,110);
+ let gw=cw*n,ox=(W-gw)/2,oy=55;
+ for(let i=0;i<n;i++){
+  let id="a"+i,x=ox+i*cw,y=oy;
+  nodes.set(id,{id,i});
+  let g=el("g",{class:"cell","data-id":id});
+  g.append(el("rect",{x,y,width:cw-6,height:cw-6,rx:6}));
+  let t=el("text",{x:x+(cw-6)/2,y:y+(cw-6)/2,class:"cell-val"});t.textContent=nums[i];
+  g.append(t);svg.append(g);
+ }
+ let lbl=el("text",{x:ox+gw/2,y:oy-14,class:"ax-label"});lbl.textContent="nums";
+ heapTreeG=el("g",{id:"heapTreeG"});
+ svg.append(heapTreeG);
+ paintHeap([],false);
+}
+function buildMergeTree(evs){
+ svg.innerHTML="";nodes.clear();
+ let initial=new Map();
+ for(const e of evs){
+  if(!e.node_id)continue;
+  if(!nodes.has(e.node_id)){
+   let parent=e.node_id==="root"?null:e.node_id.slice(0,e.node_id.lastIndexOf("-"));
+   let d=e.node_id==="root"?0:e.node_id.split("-").length-1;
+   nodes.set(e.node_id,{id:e.node_id,parent,d});
+  }
+  if(e.action==="enter"&&e.list&&!initial.has(e.node_id))initial.set(e.node_id,e.list);
+ }
+ let levels=[];
+ for(const n of nodes.values())(levels[n.d]??=[]).push(n);
+ let pos=new Map(),H=480,maxD=Math.max(levels.length-1,1);
+ levels.forEach((lv,d)=>lv&&lv.forEach((n,k)=>pos.set(n.id,{x:1000*(k+1)/(lv.length+1),y:35+d*H/maxD})));
+ for(const n of nodes.values())if(n.parent){let a=pos.get(n.parent),b=pos.get(n.id);svg.appendChild(el("line",{x1:a.x,y1:a.y,x2:b.x,y2:b.y,class:"edge","data-to":n.id}))}
+ for(const n of nodes.values()){
+  let p=pos.get(n.id),txt="["+(initial.get(n.id)||[]).join(",")+"]";
+  let rx=Math.max(26,txt.length*4.2);
+  let g=el("g",{class:"node","data-id":n.id});
+  g.append(el("ellipse",{cx:p.x,cy:p.y,rx,ry:22}));
+  let t=el("text",{x:p.x,y:p.y,class:"node-list"});t.textContent=txt;
+  g.append(t);svg.append(g);
+ }
+}
 function buildClimbingTree(n){
  svg.innerHTML="";nodes.clear();let levels=[];
  function add(id,val,depth,parent){(levels[depth]??=[]).push({id});nodes.set(id,{id,val,parent,d:depth});if(val>2){add(id+"-0",val-1,depth+1,id);add(id+"-1",val-2,depth+1,id)}}
@@ -979,6 +1854,40 @@ function buildKnapsackGrid(n,cap){
   let t=el("text",{x:x+(cw-4)/2,y:y+(cw-4)/2,class:"cell-val"});
   g.append(t);svg.append(g);
  }
+}
+let candyEls=null;
+function paintCandies(c){
+ let s=candyEls;
+ s.line.setAttribute("points",c.map((v,k)=>`${s.ox+k*s.stepX+s.stepX/2},${s.oy-(v/s.maxC)*s.span}`).join(" "));
+ c.forEach((v,k)=>{let y=s.oy-(v/s.maxC)*s.span;s.dots[k].setAttribute("cy",y);s.vals[k].setAttribute("y",y-14);s.vals[k].textContent=v});
+}
+function buildCandyChart(ratings,maxC){
+ svg.innerHTML="";nodes.clear();
+ let n=ratings.length,W=1000,H=560,ox=110,oy=H-90,span=H-190,stepX=(W-ox-60)/n;
+ let yOf=v=>oy-(v/maxC)*span;
+ candyEls={oy,span,maxC,ox,stepX,dots:[],vals:[]};
+ svg.append(el("line",{x1:ox-20,y1:oy,x2:ox-20,y2:oy-span-30,class:"axis"}));
+ svg.append(el("line",{x1:ox-20,y1:oy,x2:W-40,y2:oy,class:"axis"}));
+ for(let v=0;v<=maxC;v++){let t=el("text",{x:ox-34,y:yOf(v)+4,class:"ax-tick"});t.textContent=v;svg.append(t)}
+ let ylab=el("text",{x:ox-60,y:oy-span/2,class:"ax-label"});ylab.textContent="candies";svg.append(ylab);
+ let xlab=el("text",{x:(ox+W-40)/2,y:oy+70,class:"ax-label"});xlab.textContent="ratings";svg.append(xlab);
+ candyEls.line=el("polyline",{class:"candy-line",fill:"none"});svg.append(candyEls.line);
+ for(let k=0;k<n;k++){
+  let x=ox+k*stepX+stepX/2;
+  nodes.set(""+k,{id:""+k,x});
+  let r=el("text",{x,y:oy+26,class:"ax-val"});r.textContent=ratings[k];
+  let idx=el("text",{x,y:oy+42,class:"ax-idx"});idx.textContent=k;
+  svg.append(r);svg.append(idx);
+  let d=el("circle",{cx:x,cy:yOf(1),r:6,class:"cdot"});svg.append(d);candyEls.dots.push(d);
+  let v=el("text",{x,y:yOf(1)-14,class:"cval"});v.textContent=1;svg.append(v);candyEls.vals.push(v);
+ }
+ candyEls.cmp=el("text",{class:"cmp"});svg.append(candyEls.cmp);
+ candyEls.ptrLine=el("line",{class:"cptr-line"});svg.append(candyEls.ptrLine);
+ candyEls.ptr=el("g",{class:"cptr"});
+ let box=el("rect",{x:-16,y:0,width:32,height:24,rx:5});
+ let bt=el("text",{x:0,y:12,class:"cptr-txt"});bt.textContent="i";
+ candyEls.ptr.append(box);candyEls.ptr.append(bt);svg.append(candyEls.ptr);
+ paintCandies(new Array(n).fill(1));
 }
 function buildGasCells(gas,cost){
  svg.innerHTML="";nodes.clear();
@@ -1107,6 +2016,34 @@ function applyKindUI(){
   lblA.textContent="index i";lblB.textContent="destination";lblC.textContent="res";lblD.textContent="status";
   treeTitle.textContent="ARRAY SCAN (RIGHT TO LEFT)";
   legend.innerHTML="🔴 current index　 🟡 destination　 🟢 can reach　 🔴 can't reach";
+ }else if(kind==="candies"){
+  lblA.textContent="index i";lblB.textContent="candies";lblC.textContent="res";lblD.textContent="status";
+  treeTitle.textContent="CANDY CHART";
+  legend.innerHTML="🔴 current child　 📈 candies per child";
+ }else if(kind==="merge"){
+  lblA.textContent="list / l1";lblB.textContent="slow,fast / l2";lblC.textContent="merged";lblD.textContent="status";
+  treeTitle.textContent="MERGE SORT TREE";
+  legend.innerHTML="🔴 current call　 🟢 sorted (resolved)　 🔵 visited";
+ }else if(kind==="quicksort"){
+  lblA.textContent="i";lblB.textContent="lo";lblC.textContent="result";lblD.textContent="status";
+  treeTitle.textContent="QUICKSORT ARRAY";
+  legend.innerHTML="🔴 scanning (i)　 🔵 boundary (lo)　 🟡 pivot　 🟢 in final position";
+ }else if(kind==="quickselect"){
+  lblA.textContent="i";lblB.textContent="lo";lblC.textContent="result";lblD.textContent="status";
+  treeTitle.textContent="QUICKSELECT ARRAY";
+  legend.innerHTML="🔴 scanning (i)　 🔵 boundary (lo)　 🟡 pivot　 🟢 in final position";
+ }else if(kind==="heap"){
+  lblA.textContent="index i";lblB.textContent="num";lblC.textContent="res";lblD.textContent="status";
+  treeTitle.textContent="MIN-HEAP (top k largest)";
+  legend.innerHTML="🔴 scanning index / heap top　 ⚪ heap node";
+ }else if(kind==="spiral"){
+  lblA.textContent="row";lblB.textContent="col";lblC.textContent="result";lblD.textContent="status";
+  treeTitle.textContent="SPIRAL TRAVERSAL";
+  legend.innerHTML="🔴 current cell　 🟢 visited";
+ }else if(kind==="reverse_int"){
+  lblA.textContent="n";lblB.textContent="digit";lblC.textContent="res";lblD.textContent="status";
+  treeTitle.textContent="DIGIT REVERSAL";
+  legend.innerHTML="🔴 digit just extracted";
  }else if(kind==="gas"){
   lblA.textContent="index i";lblB.textContent="tank";lblC.textContent="start";lblD.textContent="status";
   treeTitle.textContent="ARRAY SCAN (LEFT TO RIGHT)";
@@ -1283,6 +2220,90 @@ function render(e){
     svg.appendChild(path);
    }
   }
+ }else if(kind==="candies"){
+  let s=candyEls,c=e.candies||[];
+  candidate.textContent=e.i==null?"—":e.i;
+  used.textContent=c.length?JSON.stringify(c):"—";
+  res.textContent=e.res==null?"—":e.res;
+  stack.textContent=e.action;
+  paintCandies(c);
+  let hasI=e.i!=null&&e.i>=0&&e.i<c.length;
+  s.dots.forEach(d=>d.classList.remove("cur"));
+  s.ptr.style.display=hasI?"":"none";
+  s.ptrLine.style.display=hasI?"":"none";
+  s.cmp.textContent="";
+  if(hasI){
+   let x=s.ox+e.i*s.stepX+s.stepX/2,yd=s.oy-(c[e.i]/s.maxC)*s.span,top=s.oy-s.span-45;
+   s.ptr.setAttribute("transform",`translate(${x},${top})`);
+   s.ptrLine.setAttribute("x1",x);s.ptrLine.setAttribute("x2",x);
+   s.ptrLine.setAttribute("y1",top+24);s.ptrLine.setAttribute("y2",yd-10);
+   s.dots[e.i].classList.add("cur");
+  }
+  if(e.action==="condition"&&e.cmp!=null){
+   let L=e.phase==="pass1"?e.i-1:e.i,R=e.phase==="pass1"?e.i:e.i+1;
+   let xL=s.ox+L*s.stepX+s.stepX/2,xR=s.ox+R*s.stepX+s.stepX/2;
+   let yy=Math.min(s.oy-(c[L]/s.maxC)*s.span,s.oy-(c[R]/s.maxC)*s.span)-30;
+   s.cmp.setAttribute("x",(xL+xR)/2);s.cmp.setAttribute("y",yy);
+   s.cmp.textContent=e.cmp?"higher":"not higher";
+  }
+ }else if(kind==="merge"){
+  candidate.textContent=e.list?JSON.stringify(e.list):(e.l1?JSON.stringify(e.l1):"—");
+  used.textContent=(e.slow!=null)?`slow=${e.slow}, fast=${e.fast}`:(e.l2?JSON.stringify(e.l2):"—");
+  if(e.node_id==="root"&&(e.action==="merged"||e.action==="base_case"))mergeFinal=e.list;
+  res.textContent=mergeFinal?JSON.stringify(mergeFinal):(e.merged?JSON.stringify(e.merged):"—");
+  stack.textContent=e.action;
+  document.querySelectorAll(".node").forEach(x=>x.classList.remove("current","complete","visited"));
+  if(e.action==="merged"||e.action==="base_case"){
+   mergeResolved.add(e.node_id);
+   let t=document.querySelector(`.node[data-id="${CSS.escape(e.node_id)}"] .node-list`);
+   if(t&&e.list)t.textContent="["+e.list.join(",")+"]";
+  }
+  mergeResolved.forEach(id=>document.querySelector(`.node[data-id="${CSS.escape(id)}"]`)?.classList.add("complete"));
+  if(e.node_id){let n=document.querySelector(`.node[data-id="${CSS.escape(e.node_id)}"]`);n?.classList.add("current");let c=e.node_id;while(c){document.querySelector(`.node[data-id="${CSS.escape(c)}"]`)?.classList.add("visited");c=nodes.get(c)?.parent}}
+ }else if(kind==="quicksort"||kind==="quickselect"){
+  candidate.textContent=e.i==null?"—":e.i;
+  used.textContent=e.lo==null?"—":e.lo;
+  res.textContent=e.res?JSON.stringify(e.res):"—";
+  stack.textContent=e.action;
+  e.array.forEach((v,k)=>{let t=document.querySelector(`.cell[data-id="${k}"] .cell-val`);if(t)t.textContent=v});
+  if(e.action==="return_partition")quickSorted.add(e.lo);
+  if(e.action==="base_case"&&e.left!=null&&e.left===e.right)quickSorted.add(e.left);
+  document.querySelectorAll(".cell").forEach(x=>x.classList.remove("current","dep","destination","dim"));
+  if(e.left!=null&&e.right!=null){
+   for(let k=0;k<quickLen;k++)if((k<e.left||k>e.right)&&!quickSorted.has(k))document.querySelector(`.cell[data-id="${k}"]`)?.classList.add("dim");
+  }
+  quickSorted.forEach(idx=>document.querySelector(`.cell[data-id="${idx}"]`)?.classList.add("filled"));
+  if(e.pivot!=null){
+   let pivotPos=(e.action==="finalize"||e.action==="return_partition")?e.lo:e.right;
+   if(pivotPos!=null)document.querySelector(`.cell[data-id="${pivotPos}"]`)?.classList.add("destination");
+  }
+  if(e.lo!=null)document.querySelector(`.cell[data-id="${e.lo}"]`)?.classList.add("dep");
+  if(e.i!=null)document.querySelector(`.cell[data-id="${e.i}"]`)?.classList.add("current");
+ }else if(kind==="heap"){
+  candidate.textContent=e.i==null?"—":e.i;
+  used.textContent=e.num==null?"—":e.num;
+  res.textContent=e.res==null?"—":e.res;
+  stack.textContent=e.action;
+  document.querySelectorAll(".cell").forEach(x=>x.classList.remove("current"));
+  if(e.i!=null)document.querySelector(`.cell[data-id="a${e.i}"]`)?.classList.add("current");
+  paintHeap(e.heap,true);
+ }else if(kind==="spiral"){
+  candidate.textContent=e.row==null?"—":e.row;
+  used.textContent=e.col==null?"—":e.col;
+  res.textContent=e.result?JSON.stringify(e.result):"—";
+  stack.textContent=e.action;
+  document.querySelectorAll(".cell").forEach(x=>x.classList.remove("current"));
+  if(e.action==="visit")spiralVisited.add(e.row+"-"+e.col);
+  spiralVisited.forEach(id=>document.querySelector(`.cell[data-id="${CSS.escape(id)}"]`)?.classList.add("filled"));
+  if(e.row!=null&&e.col!=null)document.querySelector(`.cell[data-id="${e.row}-${e.col}"]`)?.classList.add("current");
+  paintSpiralBoundaries(e);
+ }else if(kind==="reverse_int"){
+  candidate.textContent=e.n==null?"—":e.n;
+  used.textContent=e.digit==null?"—":e.digit;
+  res.textContent=e.res==null?"—":e.res;
+  stack.textContent=e.action;
+  paintDigitRow(reverseN_G,e.n==null?0:e.n,190,e.action==="extract"?"last":null);
+  paintDigitRow(reverseR_G,e.reversed_n==null?0:e.reversed_n,360,null);
  }else if(kind==="gas"){
   candidate.textContent=e.i==null?"—":e.i;
   used.textContent=e.tank==null?"—":e.tank;
@@ -1346,6 +2367,33 @@ function reset(){
   candidate.textContent="—";used.textContent="—";res.textContent="—";stack.textContent="—";
   document.querySelectorAll(".cell").forEach(x=>x.classList.remove("current","destination"));
   document.querySelectorAll(".jump-arc").forEach(x=>x.remove());
+ }else if(kind==="candies"){
+  candidate.textContent="—";used.textContent="—";res.textContent="—";stack.textContent="—";
+  paintCandies(candyEls.dots.map(()=>1));
+  candyEls.dots.forEach(d=>d.classList.remove("cur"));
+  candyEls.ptr.style.display="none";candyEls.ptrLine.style.display="none";candyEls.cmp.textContent="";
+ }else if(kind==="merge"){
+  candidate.textContent="—";used.textContent="—";res.textContent="—";stack.textContent="—";
+  mergeResolved=new Set();mergeFinal=null;
+  buildMergeTree(events);
+ }else if(kind==="quicksort"||kind==="quickselect"){
+  candidate.textContent="—";used.textContent="—";res.textContent="—";stack.textContent="—";
+  quickSorted=new Set();
+  quickOriginal.forEach((v,k)=>{let t=document.querySelector(`.cell[data-id="${k}"] .cell-val`);if(t)t.textContent=v});
+  document.querySelectorAll(".cell").forEach(x=>x.classList.remove("current","dep","destination","dim","filled"));
+ }else if(kind==="heap"){
+  candidate.textContent="—";used.textContent="—";res.textContent="—";stack.textContent="—";
+  document.querySelectorAll(".cell").forEach(x=>x.classList.remove("current"));
+  paintHeap([],false);
+ }else if(kind==="spiral"){
+  candidate.textContent="—";used.textContent="—";res.textContent="—";stack.textContent="—";
+  spiralVisited=new Set();
+  document.querySelectorAll(".cell").forEach(x=>x.classList.remove("current","filled"));
+  paintSpiralBoundaries({top:null,bottom:null,left:null,right:null});
+ }else if(kind==="reverse_int"){
+  candidate.textContent="—";used.textContent="—";res.textContent="—";stack.textContent="—";
+  paintDigitRow(reverseN_G,reverseInitialN,190,"last");
+  paintDigitRow(reverseR_G,0,360,null);
  }else if(kind==="gas"){
   candidate.textContent="—";used.textContent="—";res.textContent="—";stack.textContent="—";
   document.querySelectorAll(".cell").forEach(x=>x.classList.remove("current","in-current","destination"));
@@ -1369,6 +2417,22 @@ function applyTraceData(d,slug){
  else if(kind==="knapsack"){renderSource(slug);buildKnapsackGrid(d.weights.length,d.cap)}
  else if(kind==="jump"){renderSource(slug);buildSubarrayCells(d.nums)}
  else if(kind==="gas"){renderSource(slug);buildGasCells(d.gas,d.cost)}
+ else if(kind==="candies"){renderSource(slug);buildCandyChart(d.ratings,Math.max(3,...d.events.map(e=>Math.max(...e.candies))))}
+ else if(kind==="merge"){mergeResolved=new Set();mergeFinal=null;renderSource(slug);buildMergeTree(events)}
+ else if(kind==="quicksort"){quickSorted=new Set();quickOriginal=d.nums;quickLen=d.nums.length;renderSource(slug);buildSubarrayCells(d.nums)}
+ else if(kind==="quickselect"){
+  quickSorted=new Set();quickOriginal=d.nums;quickLen=d.nums.length;
+  renderSource(slug);buildSubarrayCells(d.nums);
+  let targetIdx=d.nums.length-d.k,tc=nodes.get(""+targetIdx);
+  if(tc){
+   let t1=el("text",{x:tc.cx,y:tc.cy-34,class:"ax-label"});t1.textContent="target";
+   let t2=el("text",{x:tc.cx,y:tc.cy-20,class:"ax-idx"});t2.textContent="n-k="+targetIdx;
+   svg.append(t1);svg.append(t2);
+  }
+ }
+ else if(kind==="heap"){renderSource(slug);buildHeapView(d.nums)}
+ else if(kind==="spiral"){renderSource(slug);buildSpiralGrid(d.matrix)}
+ else if(kind==="reverse_int"){renderSource(slug);buildReverseDigits(d.n)}
  else{nums=d.nums;renderSource(slug);build()}
  reset();
  document.getElementById("descText").textContent=d.description||"No description available for this problem yet.";
