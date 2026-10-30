@@ -2,7 +2,17 @@ services:
   api:
     build: ./backend
     ports: ["8000:8000"]
+    volumes:
+      - ./backend/main.py:/app/main.py
+      - ./backend/problems:/app/problems
+    environment:
+      - WATCHFILES_FORCE_POLLING=true
+    command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
   web:
     build: ./frontend
     ports: ["8080:80"]
     depends_on: [api]
+    volumes:
+      - ./frontend/index.html:/usr/share/nginx/html/index.html
+      - ./frontend/app.js:/usr/share/nginx/html/app.js
+      - ./frontend/styles.css:/usr/share/nginx/html/styles.css

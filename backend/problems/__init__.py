@@ -18,6 +18,7 @@ from . import kth_largest_integer
 from . import kth_largest_integer_quickselect
 from . import spiral_matrix
 from . import reverse_32_bit_integer
+from . import remove_nth_last_node
 
 # Sidebar category order. A category stays in the list (shown empty) even
 # before any problem is registered under it, so the frontend can render it
@@ -32,7 +33,8 @@ PROBLEMS = [permutations.PROBLEM, subsets.PROBLEM, n_queens.PROBLEM, prerequisit
             maximum_subarray_sum.PROBLEM, knapsack.PROBLEM, jump_to_the_end.PROBLEM,
             gas_stations.PROBLEM, candies.PROBLEM, sort_linked_list.PROBLEM, sort_array.PROBLEM,
             kth_largest_integer.PROBLEM, kth_largest_integer_quickselect.PROBLEM,
-            spiral_matrix.PROBLEM, reverse_32_bit_integer.PROBLEM]
+            spiral_matrix.PROBLEM, reverse_32_bit_integer.PROBLEM,
+            remove_nth_last_node.PROBLEM]
 
 
 def get_problem(slug: str):

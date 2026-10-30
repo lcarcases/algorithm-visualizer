@@ -183,6 +183,86 @@ const PROBLEM_UI={
   }
  }
 },
+"remove-nth-node-from-end-of-list":{
+ langs:{
+  python:{
+   src:[
+"def remove_nth_last_node(head: ListNode, n: int) -> ListNode:",
+"    # A dummy node points to the head of the linked list.",
+"    dummy = ListNode(0, head)",
+"    fast = slow = dummy",
+"    # Move fast n + 1 steps ahead.",
+"    for _ in range(n + 1):",
+"        fast = fast.next",
+"    # Move both pointers until fast reaches the end.",
+"    while fast:",
+"        fast = fast.next",
+"        slow = slow.next",
+"    # slow is now one node before the target. Bypass it.",
+"    slow.next = slow.next.next",
+"    return dummy.next"
+   ],
+   map:{1:0,2:2,3:3,4:5,5:6,6:8,7:9,8:10,9:12,10:13}
+  },
+  javascript:{
+   src:[
+"function removeNthLastNode(head, n) {",
+"  // A dummy node points to the head of the linked list.",
+"  const dummy = new ListNode(0, head);",
+"  let fast = dummy, slow = dummy;",
+"  // Move fast n + 1 steps ahead.",
+"  for (let i = 0; i < n + 1; i++) {",
+"    fast = fast.next;","  }",
+"  // Move both pointers until fast reaches the end.",
+"  while (fast !== null) {",
+"    fast = fast.next;",
+"    slow = slow.next;","  }",
+"  // slow is now one node before the target. Bypass it.",
+"  slow.next = slow.next.next;",
+"  return dummy.next;","}"
+   ],
+   map:{1:0,2:2,3:3,4:5,5:6,6:9,7:10,8:11,9:14,10:15}
+  },
+  java:{
+   src:[
+"public ListNode removeNthLastNode(ListNode head, int n) {",
+"    // A dummy node points to the head of the linked list.",
+"    ListNode dummy = new ListNode(0, head);",
+"    ListNode fast = dummy;","    ListNode slow = dummy;",
+"    // Move fast n + 1 steps ahead.",
+"    for (int i = 0; i < n + 1; i++) {",
+"        fast = fast.next;","    }",
+"    // Move both pointers until fast reaches the end.",
+"    while (fast != null) {",
+"        fast = fast.next;",
+"        slow = slow.next;","    }",
+"    // slow is now one node before the target. Bypass it.",
+"    slow.next = slow.next.next;",
+"    return dummy.next;","}"
+   ],
+   map:{1:0,2:2,3:3,4:6,5:7,6:10,7:11,8:12,9:15,10:16}
+  },
+  csharp:{
+   src:[
+"public ListNode RemoveNthLastNode(ListNode head, int n) {",
+"    // A dummy node points to the head of the linked list.",
+"    ListNode dummy = new ListNode(0, head);",
+"    ListNode fast = dummy;","    ListNode slow = dummy;",
+"    // Move fast n + 1 steps ahead.",
+"    for (int i = 0; i < n + 1; i++) {",
+"        fast = fast.next;","    }",
+"    // Move both pointers until fast reaches the end.",
+"    while (fast != null) {",
+"        fast = fast.next;",
+"        slow = slow.next;","    }",
+"    // slow is now one node before the target. Bypass it.",
+"    slow.next = slow.next.next;",
+"    return dummy.next;","}"
+   ],
+   map:{1:0,2:2,3:3,4:6,5:7,6:10,7:11,8:12,9:15,10:16}
+  }
+ }
+},
 "reverse-32-bit-integer":{
  langs:{
   python:{
@@ -1711,6 +1791,84 @@ function buildReverseDigits(n){
  paintDigitRow(reverseN_G,n,190,"last");
  paintDigitRow(reverseR_G,0,360,null);
 }
+// Linked list (two pointers): slots 0 = dummy, 1..L = nodes, L+1 = NULL.
+// Pointer labels are <g> elements moved with CSS transforms so they slide.
+let llVals=[],llN=0,llG=null,llRowY=270,llDrop=110;
+function llX(k){let slots=llVals.length+2,w=Math.min(110,920/slots);return (1000-slots*w)/2+w*k+w/2}
+function llBoxW(){return Math.min(76,920/(llVals.length+2)-32)}
+function llPtr(name,cls){
+ let g=el("g",{class:"ll-ptr ll-move "+cls,"data-ptr":name});
+ llG.append(g);return g;
+}
+function paintPtr(g,text,x,side,extra,visible){
+ g.style.opacity=visible?1:0;
+ g.style.transform=`translate(${x}px,0px)`;
+ let key=text+"|"+side+"|"+extra;
+ if(g.dataset.key===key)return;
+ g.dataset.key=key;g.innerHTML="";
+ let w=18+text.length*11,h=38,sign=side==="above"?-1:1;
+ let near=llRowY+sign*30,labelEdge=llRowY+sign*(96+extra),cy=labelEdge+sign*h/2;
+ g.append(el("line",{x1:0,y1:labelEdge,x2:0,y2:near+sign*4,class:"ll-ptr-line","marker-end":"url(#llArrow)"}));
+ g.append(el("rect",{x:-w/2,y:cy-h/2,width:w,height:h,rx:6}));
+ let t=el("text",{x:0,y:cy});t.textContent=text;g.append(t);
+}
+function buildLinkedList(values,n){
+ svg.innerHTML="";nodes.clear();llVals=values;llN=n;
+ let defs=el("defs"),m=el("marker",{id:"llArrow",viewBox:"0 0 10 10",refX:9,refY:5,markerWidth:7,markerHeight:7,orient:"auto-start-reverse"});
+ m.append(el("path",{d:"M0,0 L10,5 L0,10 z",class:"ll-arrowhead"}));defs.append(m);svg.append(defs);
+ llG=el("g");svg.append(llG);
+ let bw=llBoxW(),L=values.length;
+ for(let k=0;k<=L;k++){
+  let end=k===L?llX(k+1)-32:llX(k+1)-bw/2-3;
+  llG.append(el("line",{x1:llX(k)+bw/2,y1:llRowY,x2:end,y2:llRowY,class:"ll-edge","data-from":k,"marker-end":"url(#llArrow)"}));
+ }
+ for(let k=0;k<=L;k++){
+  let g=el("g",{class:"ll-node ll-move"+(k===0?" dummy":""),"data-slot":k});
+  g.append(el("rect",{x:llX(k)-bw/2,y:llRowY-28,width:bw,height:56,rx:8}));
+  let t=el("text",{x:llX(k),y:llRowY});t.textContent=k===0?"0":values[k-1];g.append(t);
+  llG.append(g);
+ }
+ let nt=el("text",{x:llX(L+1),y:llRowY,class:"ll-null"});nt.textContent="NULL";llG.append(nt);
+ let nb=el("g",{class:"ll-nbox"});
+ nb.append(el("rect",{x:40,y:500,width:110,height:52,class:"ll-nbox-key"}));
+ nb.append(el("rect",{x:150,y:500,width:76,height:52,class:"ll-nbox-val"}));
+ let k1=el("text",{x:95,y:526});k1.textContent="n";let k2=el("text",{x:188,y:526});k2.textContent=n;
+ nb.append(k1,k2);llG.append(nb);
+ let st=el("text",{x:252,y:526,class:"ll-step"});llG.append(st);
+ llPtr("head","head");llPtr("slow","slow");llPtr("fast","fast");
+ paintLinkedList(null);
+}
+function paintLinkedList(e){
+ let L=llVals.length,bw=llBoxW();
+ let started=e&&e.action!=="enter",removed=e?e.removed:null,target=null;
+ if(e&&e.line===6&&e.action==="loop_end"&&e.slow!=null)target=e.slow+1;
+ if(removed!=null)target=removed;
+ llG.querySelectorAll(".ll-node").forEach(g=>{
+  let k=+g.dataset.slot;
+  g.classList.toggle("hidden",k===0&&!started);
+  g.classList.toggle("target",k===target&&removed==null);
+  g.classList.toggle("removed",k===removed);
+  g.style.transform=k===removed?`translate(0px,${llDrop}px)`:"translate(0px,0px)";
+ });
+ llG.querySelectorAll(".ll-edge").forEach(ln=>{
+  let k=+ln.dataset.from;
+  ln.classList.toggle("hidden",(k===0&&!started)||k===removed);
+  let to=removed!=null&&k===removed-1?k+2:k+1;
+  ln.setAttribute("x2",to===L+1?llX(to)-32:llX(to)-bw/2-3);
+  ln.classList.toggle("bypass",removed!=null&&k===removed-1);
+ });
+ let ptr=n=>llG.querySelector(`[data-ptr="${n}"]`);
+ let ret=e&&e.action==="return",headSlot=ret?(removed===1?2:1):1;
+ paintPtr(ptr("head"),ret?"dummy.next":"head",llX(headSlot),"above",0,true);
+ let hasP=e&&e.slow!=null;
+ let slowSide=hasP&&e.slow===0?"above":"below";
+ paintPtr(ptr("slow"),"slow",llX(hasP?e.slow:0),slowSide,0,hasP);
+ let stack=hasP&&slowSide==="below"&&e.fast===e.slow?60:0;
+ paintPtr(ptr("fast"),"fast",llX(hasP?e.fast:0),"below",stack,hasP);
+ llG.querySelector(".ll-step").textContent=e&&e.step!=null?`fast step ${e.step} / n + 1 = ${llN+1}`:"";
+}
+function llDescribe(p){return p==null?"—":p===0?"dummy (0)":p===llVals.length+1?"NULL":String(llVals[p-1])}
+function llListText(removed){return llVals.filter((_,k)=>k+1!==removed).concat("NULL").join(" → ")}
 function buildSpiralGrid(matrix){
  svg.innerHTML="";nodes.clear();
  let m=matrix.length,n=matrix[0].length;
@@ -2044,6 +2202,10 @@ function applyKindUI(){
   lblA.textContent="n";lblB.textContent="digit";lblC.textContent="res";lblD.textContent="status";
   treeTitle.textContent="DIGIT REVERSAL";
   legend.innerHTML="🔴 digit just extracted";
+ }else if(kind==="linked_list"){
+  lblA.textContent="slow";lblB.textContent="fast";lblC.textContent="list (from dummy.next)";lblD.textContent="status";
+  treeTitle.textContent="LINKED LIST · TWO POINTERS";
+  legend.innerHTML="🟢 head　 🟣 slow　 🔵 fast　 ⬜ dummy　 🔴 node to remove";
  }else if(kind==="gas"){
   lblA.textContent="index i";lblB.textContent="tank";lblC.textContent="start";lblD.textContent="status";
   treeTitle.textContent="ARRAY SCAN (LEFT TO RIGHT)";
@@ -2304,6 +2466,12 @@ function render(e){
   stack.textContent=e.action;
   paintDigitRow(reverseN_G,e.n==null?0:e.n,190,e.action==="extract"?"last":null);
   paintDigitRow(reverseR_G,e.reversed_n==null?0:e.reversed_n,360,null);
+ }else if(kind==="linked_list"){
+  candidate.textContent=llDescribe(e.slow);
+  used.textContent=llDescribe(e.fast);
+  res.textContent=llListText(e.removed);
+  stack.textContent=e.action;
+  paintLinkedList(e);
  }else if(kind==="gas"){
   candidate.textContent=e.i==null?"—":e.i;
   used.textContent=e.tank==null?"—":e.tank;
@@ -2394,6 +2562,9 @@ function reset(){
   candidate.textContent="—";used.textContent="—";res.textContent="—";stack.textContent="—";
   paintDigitRow(reverseN_G,reverseInitialN,190,"last");
   paintDigitRow(reverseR_G,0,360,null);
+ }else if(kind==="linked_list"){
+  candidate.textContent="—";used.textContent="—";res.textContent=llListText(null);stack.textContent="—";
+  paintLinkedList(null);
  }else if(kind==="gas"){
   candidate.textContent="—";used.textContent="—";res.textContent="—";stack.textContent="—";
   document.querySelectorAll(".cell").forEach(x=>x.classList.remove("current","in-current","destination"));
@@ -2433,6 +2604,7 @@ function applyTraceData(d,slug){
  else if(kind==="heap"){renderSource(slug);buildHeapView(d.nums)}
  else if(kind==="spiral"){renderSource(slug);buildSpiralGrid(d.matrix)}
  else if(kind==="reverse_int"){renderSource(slug);buildReverseDigits(d.n)}
+ else if(kind==="linked_list"){renderSource(slug);buildLinkedList(d.values,d.n)}
  else{nums=d.nums;renderSource(slug);build()}
  reset();
  document.getElementById("descText").textContent=d.description||"No description available for this problem yet.";
