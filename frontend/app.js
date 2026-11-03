@@ -183,6 +183,80 @@ const PROBLEM_UI={
   }
  }
 },
+"middle-of-the-linked-list":{
+ langs:{
+  python:{
+   src:[
+"def middle_node(head: ListNode) -> ListNode:",
+"    slow = head","    fast = head",
+"    while fast and fast.next:",
+"        slow = slow.next","        fast = fast.next.next",
+"    return slow"
+   ],
+   map:{1:0,2:1,3:2,4:3,5:4,6:5,7:6}
+  },
+  javascript:{
+   src:[
+"function middleNode(head) {",
+"  let slow = head;","  let fast = head;",
+"  while (fast && fast.next) {",
+"    slow = slow.next;","    fast = fast.next.next;","  }",
+"  return slow;","}"
+   ],
+   map:{1:0,2:1,3:2,4:3,5:4,6:5,7:7}
+  },
+  java:{
+   src:[
+"public static ListNode middleNode(ListNode head) {",
+"    ListNode slow = head;","    ListNode fast = head;",
+"    while (fast != null && fast.next != null) {",
+"        slow = slow.next;","        fast = fast.next.next;","    }",
+"    return slow;","}",
+"",
+"// Reference: ListNode / LinkedList / PrintList used by the driver code above.",
+"class ListNode {",
+"    int val;","    ListNode next;","",
+"    // Constructor",
+"    public ListNode(int val) {",
+"        this.val = val;","        this.next = null;","    }","}","",
+"class LinkedList {",
+"    ListNode head;","",
+"    // Default constructor",
+"    public LinkedList() {","        head = null;","    }","",
+"    // Constructor to initialize from a list of values",
+"    public LinkedList(List<Integer> values) {",
+"        head = null;","        createLinkedList(values);","    }","",
+"    // Function to create a linked list from a list of values",
+"    private void createLinkedList(List<Integer> values) {",
+"        if (values.isEmpty()) {","            head = null;","            return;","        }","",
+"        head = new ListNode(values.get(0));",
+"        ListNode current = head;",
+"        for (int i = 1; i < values.size(); i++) {",
+"            current.next = new ListNode(values.get(i));",
+"            current = current.next;","        }","    }","}","",
+"class PrintList {",
+"    // Function to display the linked list",
+"    public static void display(ListNode head) {",
+"        ListNode current = head;",
+"        while (current != null) {",
+"            System.out.print(current.val + \" -> \");",
+"            current = current.next;","        }",
+"        System.out.println(\"None\");","    }","}"
+   ],
+   map:{1:0,2:1,3:2,4:3,5:4,6:5,7:7}
+  },
+  csharp:{
+   src:[
+"public static ListNode MiddleNode(ListNode head) {",
+"    ListNode slow = head;","    ListNode fast = head;",
+"    while (fast != null && fast.Next != null) {",
+"        slow = slow.Next;","        fast = fast.Next.Next;","    }",
+"    return slow;","}"
+   ],
+   map:{1:0,2:1,3:2,4:3,5:4,6:5,7:7}
+  }
+ }
+},
 "remove-nth-node-from-end-of-list":{
  langs:{
   python:{
@@ -238,7 +312,37 @@ const PROBLEM_UI={
 "        slow = slow.next;","    }",
 "    // slow is now one node before the target. Bypass it.",
 "    slow.next = slow.next.next;",
-"    return dummy.next;","}"
+"    return dummy.next;","}",
+"",
+"// Reference: ListNode / LinkedList / PrintList used by the driver code above.",
+"class ListNode {",
+"    int val;","    ListNode next;","",
+"    // Constructor",
+"    public ListNode(int val) {",
+"        this.val = val;","        this.next = null;","    }","}","",
+"class LinkedList {",
+"    ListNode head;","",
+"    // Default constructor",
+"    public LinkedList() {","        head = null;","    }","",
+"    // Constructor to initialize from a list of values",
+"    public LinkedList(List<Integer> values) {",
+"        head = null;","        createLinkedList(values);","    }","",
+"    // Function to create a linked list from a list of values",
+"    private void createLinkedList(List<Integer> values) {",
+"        if (values.isEmpty()) {","            head = null;","            return;","        }","",
+"        head = new ListNode(values.get(0));",
+"        ListNode current = head;",
+"        for (int i = 1; i < values.size(); i++) {",
+"            current.next = new ListNode(values.get(i));",
+"            current = current.next;","        }","    }","}","",
+"class PrintList {",
+"    // Function to display the linked list",
+"    public static void display(ListNode head) {",
+"        ListNode current = head;",
+"        while (current != null) {",
+"            System.out.print(current.val + \" -> \");",
+"            current = current.next;","        }",
+"        System.out.println(\"None\");","    }","}"
    ],
    map:{1:0,2:2,3:3,4:6,5:7,6:10,7:11,8:12,9:15,10:16}
   },
@@ -887,7 +991,37 @@ const PROBLEM_UI={
 "        tail = tail.next;","    }",
 "    // One of the two linked lists could still have nodes remaining.",
 "    // Attach those nodes to the end of the merged linked list.",
-"    tail.next = (l1 != null) ? l1 : l2;","    return dummy.next;","}"
+"    tail.next = (l1 != null) ? l1 : l2;","    return dummy.next;","}",
+"",
+"// Reference: ListNode / LinkedList / PrintList used by the driver code above.",
+"class ListNode {",
+"    int val;","    ListNode next;","",
+"    // Constructor",
+"    public ListNode(int val) {",
+"        this.val = val;","        this.next = null;","    }","}","",
+"class LinkedList {",
+"    ListNode head;","",
+"    // Default constructor",
+"    public LinkedList() {","        head = null;","    }","",
+"    // Constructor to initialize from a list of values",
+"    public LinkedList(List<Integer> values) {",
+"        head = null;","        createLinkedList(values);","    }","",
+"    // Function to create a linked list from a list of values",
+"    private void createLinkedList(List<Integer> values) {",
+"        if (values.isEmpty()) {","            head = null;","            return;","        }","",
+"        head = new ListNode(values.get(0));",
+"        ListNode current = head;",
+"        for (int i = 1; i < values.size(); i++) {",
+"            current.next = new ListNode(values.get(i));",
+"            current = current.next;","        }","    }","}","",
+"class PrintList {",
+"    // Function to display the linked list",
+"    public static void display(ListNode head) {",
+"        ListNode current = head;",
+"        while (current != null) {",
+"            System.out.print(current.val + \" -> \");",
+"            current = current.next;","        }",
+"        System.out.println(\"None\");","    }","}"
    ],
    map:{1:0,2:3,3:4,4:8,5:10,6:11,7:13,8:13,9:16,10:17,11:18,12:19,13:20,14:22,15:23,16:24,17:27,18:28,19:31,20:35,21:36,22:37,23:38,24:40,25:41,26:43,27:47,28:48}
   },
@@ -1665,6 +1799,131 @@ const PROBLEM_UI={
    map:{1:0,2:1,3:2,4:3,5:6,6:7,7:9,8:10,9:11,10:12,11:15,12:16,13:17,14:18,15:19,16:20,17:21,18:22,19:26}
   }
  }
+},
+"minimum-window-subsequence":{
+ langs:{
+  python:{
+   src:[
+"def min_window(s1, s2):",
+"    length = float('inf')",
+"    min_subsequence = \"\"",
+"    index_s1 = index_s2 = 0",
+"    while index_s1 < len(s1):",
+"        if s1[index_s1] == s2[index_s2]:",
+"            index_s2 += 1",
+"            if index_s2 == len(s2):",
+"                start = end = index_s1; index_s2 -= 1",
+"                while index_s2 >= 0:",
+"                    if s1[start] == s2[index_s2]:",
+"                        index_s2 -= 1",
+"                    start -= 1",
+"                start += 1",
+"                if (end - start + 1) < length:",
+"                    length = end - start + 1",
+"                    min_subsequence = s1[start:end + 1]",
+"                index_s1 = start; index_s2 = 0",
+"        index_s1 += 1",
+"    return min_subsequence"
+   ],
+   map:{1:0,2:1,3:2,4:3,5:4,6:5,7:6,8:7,9:8,10:9,11:10,12:11,13:12,14:13,15:14,16:15,17:16,18:17,19:18,20:19}
+  },
+  javascript:{
+   src:[
+"function minWindow(s1, s2) {",
+"  let length = Infinity;",
+"  let minSubsequence = \"\";",
+"  let indexS1 = 0, indexS2 = 0;",
+"  while (indexS1 < s1.length) {",
+"    if (s1[indexS1] === s2[indexS2]) {",
+"      indexS2 += 1;",
+"      if (indexS2 === s2.length) {",
+"        let start = indexS1, end = indexS1; indexS2 -= 1;",
+"        while (indexS2 >= 0) {",
+"          if (s1[start] === s2[indexS2]) {",
+"            indexS2 -= 1;",
+"          }",
+"          start -= 1;",
+"        }",
+"        start += 1;",
+"        if ((end - start + 1) < length) {",
+"          length = end - start + 1;",
+"          minSubsequence = s1.substring(start, end + 1);",
+"        }",
+"        indexS1 = start; indexS2 = 0;",
+"      }",
+"    }",
+"    indexS1 += 1;",
+"  }",
+"  return minSubsequence;",
+"}"
+   ],
+   map:{1:0,2:1,3:2,4:3,5:4,6:5,7:6,8:7,9:8,10:9,11:10,12:11,13:13,14:15,15:16,16:17,17:18,18:20,19:23,20:25}
+  },
+  java:{
+   src:[
+"public static String minWindow(String s1, String s2) {",
+"    double length = Double.POSITIVE_INFINITY;",
+"    String minSubsequence = \"\";",
+"    int indexS1 = 0, indexS2 = 0;",
+"    while (indexS1 < s1.length()) {",
+"        if (s1.charAt(indexS1) == s2.charAt(indexS2)) {",
+"            indexS2 += 1;",
+"            if (indexS2 == s2.length()) {",
+"                int start = indexS1, end = indexS1; indexS2 -= 1;",
+"                while (indexS2 >= 0) {",
+"                    if (s1.charAt(start) == s2.charAt(indexS2)) {",
+"                        indexS2 -= 1;",
+"                    }",
+"                    start -= 1;",
+"                }",
+"                start += 1;",
+"                if ((end - start + 1) < length) {",
+"                    length = end - start + 1;",
+"                    minSubsequence = s1.substring(start, end + 1);",
+"                }",
+"                indexS1 = start; indexS2 = 0;",
+"            }",
+"        }",
+"        indexS1 += 1;",
+"    }",
+"    return minSubsequence;",
+"}"
+   ],
+   map:{1:0,2:1,3:2,4:3,5:4,6:5,7:6,8:7,9:8,10:9,11:10,12:11,13:13,14:15,15:16,16:17,17:18,18:20,19:23,20:25}
+  },
+  csharp:{
+   src:[
+"public static string MinWindow(string s1, string s2) {",
+"    double length = double.PositiveInfinity;",
+"    string minSubsequence = \"\";",
+"    int indexS1 = 0, indexS2 = 0;",
+"    while (indexS1 < s1.Length) {",
+"        if (s1[indexS1] == s2[indexS2]) {",
+"            indexS2 += 1;",
+"            if (indexS2 == s2.Length) {",
+"                int start = indexS1, end = indexS1; indexS2 -= 1;",
+"                while (indexS2 >= 0) {",
+"                    if (s1[start] == s2[indexS2]) {",
+"                        indexS2 -= 1;",
+"                    }",
+"                    start -= 1;",
+"                }",
+"                start += 1;",
+"                if ((end - start + 1) < length) {",
+"                    length = end - start + 1;",
+"                    minSubsequence = s1.Substring(start, end - start + 1);",
+"                }",
+"                indexS1 = start; indexS2 = 0;",
+"            }",
+"        }",
+"        indexS1 += 1;",
+"    }",
+"    return minSubsequence;",
+"}"
+   ],
+   map:{1:0,2:1,3:2,4:3,5:4,6:5,7:6,8:7,9:8,10:9,11:10,12:11,13:13,14:15,15:16,16:17,17:18,18:20,19:23,20:25}
+  }
+ }
 }
 };
 let events=[],i=0,playing=false,timer,nums=[1,2,3],nodes=new Map(),currentMap={},currentSlug=null,currentLang="python",kind="tree",gN=0,gEdges=[],queensSolved=new Set(),memoResolved=new Set(),memoHitNodes=new Set(),gridFinalized=new Set();
@@ -1794,6 +2053,7 @@ function buildReverseDigits(n){
 // Linked list (two pointers): slots 0 = dummy, 1..L = nodes, L+1 = NULL.
 // Pointer labels are <g> elements moved with CSS transforms so they slide.
 let llVals=[],llN=0,llG=null,llRowY=270,llDrop=110;
+let mwsS1=[],mwsS2=[],mwsG=null,mwsRow1Y=230,mwsRow2Y=400,mwsBestStart=null,mwsBestEnd=null;
 function llX(k){let slots=llVals.length+2,w=Math.min(110,920/slots);return (1000-slots*w)/2+w*k+w/2}
 function llBoxW(){return Math.min(76,920/(llVals.length+2)-32)}
 function llPtr(name,cls){
@@ -1869,6 +2129,113 @@ function paintLinkedList(e){
 }
 function llDescribe(p){return p==null?"—":p===0?"dummy (0)":p===llVals.length+1?"NULL":String(llVals[p-1])}
 function llListText(removed){return llVals.filter((_,k)=>k+1!==removed).concat("NULL").join(" → ")}
+function buildMiddleList(values){
+ svg.innerHTML="";nodes.clear();llVals=values;llN=0;
+ let defs=el("defs"),m=el("marker",{id:"llArrow",viewBox:"0 0 10 10",refX:9,refY:5,markerWidth:7,markerHeight:7,orient:"auto-start-reverse"});
+ m.append(el("path",{d:"M0,0 L10,5 L0,10 z",class:"ll-arrowhead"}));defs.append(m);svg.append(defs);
+ llG=el("g");svg.append(llG);
+ let bw=llBoxW(),L=values.length;
+ for(let k=1;k<=L;k++){
+  let end=k===L?llX(k+1)-32:llX(k+1)-bw/2-3;
+  llG.append(el("line",{x1:llX(k)+bw/2,y1:llRowY,x2:end,y2:llRowY,class:"ll-edge","data-from":k,"marker-end":"url(#llArrow)"}));
+ }
+ for(let k=1;k<=L;k++){
+  let g=el("g",{class:"ll-node","data-slot":k});
+  g.append(el("rect",{x:llX(k)-bw/2,y:llRowY-28,width:bw,height:56,rx:8}));
+  let t=el("text",{x:llX(k),y:llRowY});t.textContent=values[k-1];g.append(t);
+  llG.append(g);
+ }
+ let nt=el("text",{x:llX(L+1),y:llRowY,class:"ll-null"});nt.textContent="NULL";llG.append(nt);
+ llPtr("head","head");llPtr("slow","slow");llPtr("fast","fast");
+ paintMiddleList(null);
+}
+function paintMiddleList(e){
+ let found=e&&e.action==="return"?e.slow:null;
+ llG.querySelectorAll(".ll-node").forEach(g=>{
+  let k=+g.dataset.slot;
+  g.classList.toggle("found",k===found);
+ });
+ let ptr=n=>llG.querySelector(`[data-ptr="${n}"]`);
+ let hasSlow=e&&e.slow!=null,hasFast=e&&e.fast!=null;
+ paintPtr(ptr("head"),"head",llX(1),"above",0,!hasSlow);
+ paintPtr(ptr("slow"),"slow",llX(hasSlow?e.slow:1),"above",0,hasSlow);
+ paintPtr(ptr("fast"),"fast",llX(hasFast?e.fast:1),"below",0,hasFast);
+}
+// Minimum Window Subsequence: two character rows (s1, s2) with floating
+// pointer labels (index_s1/index_s2/start/end), mirroring the ll-ptr pattern
+// above but driven by its own row coordinates instead of llRowY/llG.
+function mwsX1(k){let n=mwsS1.length,w=Math.min(64,900/n);return (1000-n*w)/2+w*k+w/2}
+function mwsX2(k){let n=Math.max(mwsS2.length,1),w=Math.min(64,900/n);return (1000-n*w)/2+w*k+w/2}
+function mwsW1(){return Math.min(52,900/mwsS1.length-6)}
+function mwsW2(){return Math.min(52,900/Math.max(mwsS2.length,1)-6)}
+function mwsPtr(name,cls){let g=el("g",{class:"ll-ptr ll-move "+cls,"data-ptr":name});mwsG.append(g);return g}
+function mwsPaintPtr(g,text,x,rowY,side,extra,visible){
+ g.style.opacity=visible?1:0;
+ g.style.transform=`translate(${x}px,0px)`;
+ let key=text+"|"+side+"|"+extra+"|"+rowY;
+ if(g.dataset.key===key)return;
+ g.dataset.key=key;g.innerHTML="";
+ let w=18+text.length*10,h=32,sign=side==="above"?-1:1;
+ let near=rowY+sign*30,labelEdge=rowY+sign*(66+extra),cy=labelEdge+sign*h/2;
+ g.append(el("line",{x1:0,y1:labelEdge,x2:0,y2:near+sign*4,class:"ll-ptr-line","marker-end":"url(#mwsArrow)"}));
+ g.append(el("rect",{x:-w/2,y:cy-h/2,width:w,height:h,rx:6}));
+ let t=el("text",{x:0,y:cy});t.textContent=text;g.append(t);
+}
+function buildMinWindowSubseq(s1,s2){
+ svg.innerHTML="";nodes.clear();mwsS1=s1.split("");mwsS2=s2.split("");mwsBestStart=null;mwsBestEnd=null;
+ let defs=el("defs"),m=el("marker",{id:"mwsArrow",viewBox:"0 0 10 10",refX:9,refY:5,markerWidth:7,markerHeight:7,orient:"auto-start-reverse"});
+ m.append(el("path",{d:"M0,0 L10,5 L0,10 z",class:"ll-arrowhead"}));defs.append(m);svg.append(defs);
+ mwsG=el("g");svg.append(mwsG);
+ let bw1=mwsW1();
+ for(let k=0;k<mwsS1.length;k++){
+  let id="s1-"+k,x=mwsX1(k)-bw1/2,y=mwsRow1Y-28;
+  nodes.set(id,{id,k,cx:mwsX1(k),cy:mwsRow1Y});
+  let g=el("g",{class:"cell","data-id":id});
+  g.append(el("rect",{x,y,width:bw1,height:56,rx:8}));
+  let t=el("text",{x:mwsX1(k),y:mwsRow1Y,class:"cell-val"});t.textContent=mwsS1[k];
+  g.append(t);mwsG.append(g);
+ }
+ let l1=el("text",{x:mwsX1(0)-bw1/2-26,y:mwsRow1Y,class:"ax-label"});l1.textContent="s1";mwsG.append(l1);
+ let bw2=mwsW2();
+ for(let k=0;k<mwsS2.length;k++){
+  let id="s2-"+k,x=mwsX2(k)-bw2/2,y=mwsRow2Y-28;
+  nodes.set(id,{id,k,cx:mwsX2(k),cy:mwsRow2Y});
+  let g=el("g",{class:"cell","data-id":id});
+  g.append(el("rect",{x,y,width:bw2,height:56,rx:8}));
+  let t=el("text",{x:mwsX2(k),y:mwsRow2Y,class:"cell-val"});t.textContent=mwsS2[k];
+  g.append(t);mwsG.append(g);
+ }
+ let l2=el("text",{x:mwsX2(0)-bw2/2-26,y:mwsRow2Y,class:"ax-label"});l2.textContent="s2";mwsG.append(l2);
+ mwsPtr("index_s1","idx1");mwsPtr("index_s2","idx2");mwsPtr("start","start");mwsPtr("end","end");
+ paintMinWindowSubseq(null);
+}
+function paintMinWindowSubseq(e){
+ document.querySelectorAll('.cell[data-id^="s1-"]').forEach(x=>x.classList.remove("current","in-current","in-best"));
+ document.querySelectorAll('.cell[data-id^="s2-"]').forEach(x=>x.classList.remove("current"));
+ let ptr=n=>mwsG.querySelector(`[data-ptr="${n}"]`);
+ if(!e){
+  mwsPaintPtr(ptr("index_s1"),"index s1",mwsX1(0),mwsRow1Y,"above",0,false);
+  mwsPaintPtr(ptr("index_s2"),"index s2",mwsX2(0),mwsRow2Y,"above",0,false);
+  mwsPaintPtr(ptr("start"),"start",mwsX1(0),mwsRow1Y,"above",58,false);
+  mwsPaintPtr(ptr("end"),"end",mwsX1(0),mwsRow1Y,"above",112,false);
+  return;
+ }
+ if(mwsBestStart!=null)for(let k=mwsBestStart;k<=mwsBestEnd;k++)document.querySelector(`.cell[data-id="s1-${k}"]`)?.classList.add("in-best");
+ if(e.start!=null&&e.end!=null){
+  let lo=Math.max(0,e.start),hi=Math.min(e.end,mwsS1.length-1);
+  for(let k=lo;k<=hi;k++)document.querySelector(`.cell[data-id="s1-${k}"]`)?.classList.add("in-current");
+ }
+ let hasS1=e.index_s1!=null&&e.index_s1<mwsS1.length;
+ if(hasS1)document.querySelector(`.cell[data-id="s1-${e.index_s1}"]`)?.classList.add("current");
+ let hasS2=e.index_s2!=null&&e.index_s2>=0&&e.index_s2<mwsS2.length;
+ if(hasS2)document.querySelector(`.cell[data-id="s2-${e.index_s2}"]`)?.classList.add("current");
+ mwsPaintPtr(ptr("index_s1"),"index s1",mwsX1(hasS1?e.index_s1:0),mwsRow1Y,"above",0,hasS1);
+ mwsPaintPtr(ptr("index_s2"),"index s2",mwsX2(hasS2?e.index_s2:0),mwsRow2Y,"above",0,hasS2);
+ let hasStart=e.start!=null,startAt=hasStart?Math.min(Math.max(e.start,0),mwsS1.length-1):0;
+ mwsPaintPtr(ptr("start"),"start",mwsX1(startAt),mwsRow1Y,"above",58,hasStart);
+ let hasEnd=e.end!=null,endAt=hasEnd?Math.min(Math.max(e.end,0),mwsS1.length-1):0;
+ mwsPaintPtr(ptr("end"),"end",mwsX1(endAt),mwsRow1Y,"above",112,hasEnd);
+}
 function buildSpiralGrid(matrix){
  svg.innerHTML="";nodes.clear();
  let m=matrix.length,n=matrix[0].length;
@@ -2206,10 +2573,18 @@ function applyKindUI(){
   lblA.textContent="slow";lblB.textContent="fast";lblC.textContent="list (from dummy.next)";lblD.textContent="status";
   treeTitle.textContent="LINKED LIST · TWO POINTERS";
   legend.innerHTML="🟢 head　 🟣 slow　 🔵 fast　 ⬜ dummy　 🔴 node to remove";
+ }else if(kind==="middle_list"){
+  lblA.textContent="slow";lblB.textContent="fast";lblC.textContent="res";lblD.textContent="status";
+  treeTitle.textContent="LINKED LIST · FAST & SLOW POINTERS";
+  legend.innerHTML="🟢 head　 🟣 slow　 🔵 fast　 🟪 middle node";
  }else if(kind==="gas"){
   lblA.textContent="index i";lblB.textContent="tank";lblC.textContent="start";lblD.textContent="status";
   treeTitle.textContent="ARRAY SCAN (LEFT TO RIGHT)";
   legend.innerHTML="🔴 current index　 🟡 start candidate　 🔵 current window";
+ }else if(kind==="min_window_subseq"){
+  lblA.textContent="index_s1";lblB.textContent="index_s2 (start,end)";lblC.textContent="min_subsequence (len)";lblD.textContent="status";
+  treeTitle.textContent="SLIDING WINDOW · MIN WINDOW SUBSEQUENCE";
+  legend.innerHTML="🔴 index_s1 / current char　 🩵 index_s2　 🔵 candidate window (start..end)　 🟢 best window so far";
  }else{
   lblA.textContent="candidate";lblB.textContent="used";lblC.textContent="res";lblD.textContent="call stack";
   treeTitle.textContent="RECURSION TREE";
@@ -2472,6 +2847,12 @@ function render(e){
   res.textContent=llListText(e.removed);
   stack.textContent=e.action;
   paintLinkedList(e);
+ }else if(kind==="middle_list"){
+  candidate.textContent=llDescribe(e.slow);
+  used.textContent=llDescribe(e.fast);
+  res.textContent=e.result==null?"—":e.result;
+  stack.textContent=e.action;
+  paintMiddleList(e);
  }else if(kind==="gas"){
   candidate.textContent=e.i==null?"—":e.i;
   used.textContent=e.tank==null?"—":e.tank;
@@ -2481,6 +2862,13 @@ function render(e){
   if(e.start!=null&&e.i!=null&&e.i>=e.start)for(let k=e.start;k<=e.i;k++)document.querySelector(`.cell[data-id="${k}"]`)?.classList.add("in-current");
   if(e.start!=null)document.querySelector(`.cell[data-id="${e.start}"]`)?.classList.add("destination");
   if(e.i!=null)document.querySelector(`.cell[data-id="${e.i}"]`)?.classList.add("current");
+ }else if(kind==="min_window_subseq"){
+  candidate.textContent=e.index_s1==null?"—":e.index_s1;
+  used.textContent=e.start!=null?`index_s2=${e.index_s2}, start=${e.start}, end=${e.end}`:(e.index_s2==null?"—":"index_s2="+e.index_s2);
+  res.textContent=(e.min_subsequence?`"${e.min_subsequence}"`:'""')+" (len "+(e.length==null?"∞":e.length)+")";
+  stack.textContent=e.action;
+  if(e.action==="update"&&e.start!=null){mwsBestStart=e.start;mwsBestEnd=e.end}
+  paintMinWindowSubseq(e);
  }else{
   candidate.textContent=JSON.stringify(e.candidate);used.textContent=e.used.length?"{"+e.used.join(", ")+"}":"∅";res.textContent=JSON.stringify(e.res);stack.textContent=e.call_stack.join(" → ")||"—";
   document.querySelectorAll(".node").forEach(x=>x.classList.remove("current","complete","visited"));
@@ -2565,9 +2953,16 @@ function reset(){
  }else if(kind==="linked_list"){
   candidate.textContent="—";used.textContent="—";res.textContent=llListText(null);stack.textContent="—";
   paintLinkedList(null);
+ }else if(kind==="middle_list"){
+  candidate.textContent="—";used.textContent="—";res.textContent="—";stack.textContent="—";
+  paintMiddleList(null);
  }else if(kind==="gas"){
   candidate.textContent="—";used.textContent="—";res.textContent="—";stack.textContent="—";
   document.querySelectorAll(".cell").forEach(x=>x.classList.remove("current","in-current","destination"));
+ }else if(kind==="min_window_subseq"){
+  candidate.textContent="—";used.textContent="—";res.textContent='"" (len ∞)';stack.textContent="—";
+  mwsBestStart=null;mwsBestEnd=null;
+  paintMinWindowSubseq(null);
  }else{
   candidate.textContent="[]";used.textContent="∅";res.textContent="[]";stack.textContent="—";
   document.querySelectorAll(".node").forEach(x=>x.classList.remove("current","complete","visited"));
@@ -2605,6 +3000,8 @@ function applyTraceData(d,slug){
  else if(kind==="spiral"){renderSource(slug);buildSpiralGrid(d.matrix)}
  else if(kind==="reverse_int"){renderSource(slug);buildReverseDigits(d.n)}
  else if(kind==="linked_list"){renderSource(slug);buildLinkedList(d.values,d.n)}
+ else if(kind==="middle_list"){renderSource(slug);buildMiddleList(d.values)}
+ else if(kind==="min_window_subseq"){renderSource(slug);buildMinWindowSubseq(d.s1,d.s2)}
  else{nums=d.nums;renderSource(slug);build()}
  reset();
  document.getElementById("descText").textContent=d.description||"No description available for this problem yet.";

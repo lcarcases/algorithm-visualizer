@@ -71,6 +71,7 @@ footer{height:47px;padding:0 20px;border-top:1px solid #1c2a3c;display:flex;just
 .ll-node.dummy rect{fill:#1f2733;stroke:#6b7787}.ll-node.dummy text{fill:#c3ccd8}
 .ll-node.target rect{stroke:#ef4444;stroke-width:3;stroke-dasharray:5 3}
 .ll-node.removed rect{fill:#3a1216;stroke:#ef4444;stroke-width:3}.ll-node.removed text{fill:#fca5a5}
+.ll-node.found rect{fill:#2e1a4a;stroke:#a855f7;stroke-width:3}.ll-node.found text{fill:#e9d5ff}
 .ll-node.hidden,.ll-edge.hidden{opacity:0}
 .ll-edge{stroke:#7f93ab;stroke-width:2;transition:opacity .25s ease}.ll-edge.bypass{stroke:#f59e0b;stroke-width:2.5}
 .ll-arrowhead{fill:#7f93ab}.ll-null{fill:#d8e5f3;font:19px monospace;text-anchor:middle;dominant-baseline:middle}
@@ -78,6 +79,10 @@ footer{height:47px;padding:0 20px;border-top:1px solid #1c2a3c;display:flex;just
 .ll-ptr.head rect{fill:#123821;stroke:#22c55e;stroke-width:2}.ll-ptr.head text{fill:#bbf7d0}
 .ll-ptr.slow rect{fill:#2e1a4a;stroke:#a855f7;stroke-width:2}.ll-ptr.slow text{fill:#e9d5ff}
 .ll-ptr.fast rect{fill:#0b3446;stroke:#22d3ee;stroke-width:2}.ll-ptr.fast text{fill:#a5f3fc}
+.ll-ptr.idx1 rect{fill:#30151b;stroke:#ef4444;stroke-width:2}.ll-ptr.idx1 text{fill:#fecaca}
+.ll-ptr.idx2 rect{fill:#0b3446;stroke:#22d3ee;stroke-width:2}.ll-ptr.idx2 text{fill:#a5f3fc}
+.ll-ptr.start rect{fill:#2e1a4a;stroke:#a855f7;stroke-width:2}.ll-ptr.start text{fill:#e9d5ff}
+.ll-ptr.end rect{fill:#3a2a0c;stroke:#f59e0b;stroke-width:2}.ll-ptr.end text{fill:#fde68a}
 .ll-nbox rect{stroke:#4b5d73;stroke-width:1.5}.ll-nbox-key{fill:#1f2733}.ll-nbox-val{fill:#2a230c}
 .ll-nbox text{fill:#e8eef8;font:20px monospace;text-anchor:middle;dominant-baseline:middle}
 .ll-step{fill:#8ea3bb;font:17px monospace;dominant-baseline:middle}
