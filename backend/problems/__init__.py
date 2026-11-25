@@ -21,13 +21,15 @@ from . import reverse_32_bit_integer
 from . import remove_nth_last_node
 from . import middle_of_linked_list
 from . import minimum_window_subsequence
+from . import interval_list_intersections
+from . import reverse_linked_list
 
 # Sidebar category order. A category stays in the list (shown empty) even
 # before any problem is registered under it, so the frontend can render it
 # as a "coming soon" placeholder.
 CATEGORY_ORDER = ["Two Pointers", "Sliding Window", "Backtracking", "Graphs", "Heaps",
                    "Dynamic Programming", "Greedy", "Sort and Search", "Math and Geometry",
-                   "Fast and Slow Pointers"]
+                   "Fast and Slow Pointers", "Intervals", "Merge Intervals"]
 
 # Register new problems here as they're added.
 PROBLEMS = [permutations.PROBLEM, subsets.PROBLEM, n_queens.PROBLEM, prerequisites.PROBLEM,
@@ -38,7 +40,8 @@ PROBLEMS = [permutations.PROBLEM, subsets.PROBLEM, n_queens.PROBLEM, prerequisit
             kth_largest_integer.PROBLEM, kth_largest_integer_quickselect.PROBLEM,
             spiral_matrix.PROBLEM, reverse_32_bit_integer.PROBLEM,
             remove_nth_last_node.PROBLEM, middle_of_linked_list.PROBLEM,
-            minimum_window_subsequence.PROBLEM]
+            minimum_window_subsequence.PROBLEM, interval_list_intersections.PROBLEM,
+            reverse_linked_list.PROBLEM]
 
 
 def get_problem(slug: str):

@@ -74,6 +74,8 @@ footer{height:47px;padding:0 20px;border-top:1px solid #1c2a3c;display:flex;just
 .ll-node.found rect{fill:#2e1a4a;stroke:#a855f7;stroke-width:3}.ll-node.found text{fill:#e9d5ff}
 .ll-node.hidden,.ll-edge.hidden{opacity:0}
 .ll-edge{stroke:#7f93ab;stroke-width:2;transition:opacity .25s ease}.ll-edge.bypass{stroke:#f59e0b;stroke-width:2.5}
+.ll-edge.reversed{stroke:#22c55e;stroke-width:2.5}
+.ll-node.reversed-node rect{stroke:#22c55e}
 .ll-arrowhead{fill:#7f93ab}.ll-null{fill:#d8e5f3;font:19px monospace;text-anchor:middle;dominant-baseline:middle}
 .ll-ptr text{font:700 18px monospace;text-anchor:middle;dominant-baseline:middle}.ll-ptr-line{stroke:#9fb4cc;stroke-width:2.5}
 .ll-ptr.head rect{fill:#123821;stroke:#22c55e;stroke-width:2}.ll-ptr.head text{fill:#bbf7d0}

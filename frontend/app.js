@@ -1924,6 +1924,231 @@ const PROBLEM_UI={
    map:{1:0,2:1,3:2,4:3,5:4,6:5,7:6,8:7,9:8,10:9,11:10,12:11,13:13,14:15,15:16,16:17,17:18,18:20,19:23,20:25}
   }
  }
+},
+"interval-list-intersections":{
+ langs:{
+  python:{
+   src:[
+"def intervals_intersection(interval_list_a, interval_list_b):",
+"    # To store all intersecting intervals.",
+"    intersections = []",
+"    # Index i iterates over interval_list_a, index j over interval_list_b.",
+"    i = j = 0",
+"    # The loop breaks whenever either of the lists ends.",
+"    while i < len(interval_list_a) and j < len(interval_list_b):",
+"        # Check if interval_list_a[i] intersects interval_list_b[j].",
+"        # start - the potential startpoint of the intersection.",
+"        start = max(interval_list_a[i][0], interval_list_b[j][0])",
+"        # end - the potential endpoint of the intersection.",
+"        end = min(interval_list_a[i][1], interval_list_b[j][1])",
+"        if start <= end:  # if this is an actual intersection",
+"            intersections.append([start, end])",
+"        # Move forward in the list whose interval ends earlier.",
+"        if interval_list_a[i][1] < interval_list_b[j][1]:",
+"            i += 1",
+"        else:",
+"            j += 1",
+"    return intersections"
+   ],
+   map:{1:0,2:2,3:4,4:6,5:9,6:11,7:12,8:13,9:15,10:16,11:18,12:19}
+  },
+  javascript:{
+   src:[
+"function intervalsIntersection(intervalListA, intervalListB) {",
+"  // To store all intersecting intervals.",
+"  const intersections = [];",
+"  // Index i iterates over intervalListA, index j over intervalListB.",
+"  let i = 0, j = 0;",
+"  // The loop breaks whenever either of the lists ends.",
+"  while (i < intervalListA.length && j < intervalListB.length) {",
+"    // Check if intervalListA[i] intersects intervalListB[j].",
+"    // start - the potential startpoint of the intersection.",
+"    const start = Math.max(intervalListA[i][0], intervalListB[j][0]);",
+"    // end - the potential endpoint of the intersection.",
+"    const end = Math.min(intervalListA[i][1], intervalListB[j][1]);",
+"    if (start <= end) {  // if this is an actual intersection",
+"      intersections.push([start, end]);",
+"    }",
+"    // Move forward in the list whose interval ends earlier.",
+"    if (intervalListA[i][1] < intervalListB[j][1]) {",
+"      i += 1;",
+"    } else {",
+"      j += 1;",
+"    }",
+"  }",
+"  return intersections;",
+"}"
+   ],
+   map:{1:0,2:2,3:4,4:6,5:9,6:11,7:12,8:13,9:16,10:17,11:19,12:22}
+  },
+  java:{
+   src:[
+"public static int[][] intervalsIntersection(int[][] intervalLista, int[][] intervalListb) {",
+"    List<int[]> intersections = new ArrayList<>(); // to store all intersecting intervals",
+"    // index \"i\" to iterate over the length of list a and index \"j\"",
+"    // to iterate over the length of list b",
+"    int i = 0, j = 0;",
+"    // while loop will break whenever either of the lists ends",
+"    while (i < intervalLista.length && j < intervalListb.length) {",
+"        // Let's check if intervalLista[i] intersects intervalListb[j]",
+"        // 1. start - the potential startpoint of the intersection",
+"        // 2. end - the potential endpoint of the intersection",
+"        int start = Math.max(intervalLista[i][0], intervalListb[j][0]);",
+"        int end = Math.min(intervalLista[i][1], intervalListb[j][1]);",
+"",
+"        if (start <= end) // if this is an actual intersection",
+"            intersections.add(new int[]{start, end}); // add it to the list",
+"        // Move forward in the list whose interval ends earlier",
+"        if (intervalLista[i][1] < intervalListb[j][1])",
+"            i += 1;",
+"        else",
+"            j += 1;",
+"    }",
+"",
+"    return intersections.toArray(new int[0][]);",
+"}"
+   ],
+   map:{1:0,2:1,3:4,4:6,5:10,6:11,7:13,8:14,9:16,10:17,11:19,12:22}
+  },
+  csharp:{
+   src:[
+"public static int[][] IntervalsIntersection(int[][] intervalListA, int[][] intervalListB) {",
+"    var intersections = new List<int[]>(); // to store all intersecting intervals",
+"    // index i iterates over intervalListA, index j over intervalListB",
+"    int i = 0, j = 0;",
+"    // The loop breaks whenever either of the lists ends.",
+"    while (i < intervalListA.Length && j < intervalListB.Length) {",
+"        // Check if intervalListA[i] intersects intervalListB[j].",
+"        // start - the potential startpoint of the intersection.",
+"        int start = Math.Max(intervalListA[i][0], intervalListB[j][0]);",
+"        // end - the potential endpoint of the intersection.",
+"        int end = Math.Min(intervalListA[i][1], intervalListB[j][1]);",
+"        if (start <= end) { // if this is an actual intersection",
+"            intersections.Add(new int[] { start, end });",
+"        }",
+"        // Move forward in the list whose interval ends earlier.",
+"        if (intervalListA[i][1] < intervalListB[j][1]) {",
+"            i += 1;",
+"        } else {",
+"            j += 1;",
+"        }",
+"    }",
+"    return intersections.ToArray();",
+"}"
+   ],
+   map:{1:0,2:1,3:3,4:5,5:8,6:10,7:11,8:12,9:15,10:16,11:18,12:21}
+  }
+ }
+},
+"reverse-linked-list":{
+ langs:{
+  python:{
+   src:[
+"def reverse(head):",
+"    # Initialize prev and next pointer to None.",
+"    prev = None",
+"    next = None",
+"    # Set current pointer to the head node.",
+"    curr = head",
+"    # While the current pointer is not None.",
+"    while curr is not None:",
+"        # Set the next pointer to the next node in the list.",
+"        next = curr.next",
+"        # Reverse the current node's pointer to point to the previous node.",
+"        curr.next = prev",
+"        # Set the previous pointer to the current node.",
+"        prev = curr",
+"        # Move the current pointer to the next node.",
+"        curr = next",
+"    # Set the head pointer to the last node, the new first node after reversal.",
+"    head = prev",
+"    # Return the new head pointer.",
+"    return head"
+   ],
+   map:{1:0,2:2,3:3,4:5,5:7,6:9,7:11,8:13,9:15,10:17,11:19}
+  },
+  javascript:{
+   src:[
+"function reverse(head) {",
+"  // Initialize prev and next pointer to null.",
+"  let prev = null;",
+"  let next = null;",
+"  // Set current pointer to the head node.",
+"  let curr = head;",
+"  // While the current pointer is not null.",
+"  while (curr !== null) {",
+"    // Set the next pointer to the next node in the list.",
+"    next = curr.next;",
+"    // Reverse the current node's pointer to point to the previous node.",
+"    curr.next = prev;",
+"    // Set the previous pointer to the current node.",
+"    prev = curr;",
+"    // Move the current pointer to the next node.",
+"    curr = next;",
+"  }",
+"  // Set the head pointer to the last node, the new first node after reversal.",
+"  head = prev;",
+"  // Return the new head pointer.",
+"  return head;",
+"}"
+   ],
+   map:{1:0,2:2,3:3,4:5,5:7,6:9,7:11,8:13,9:15,10:18,11:20}
+  },
+  java:{
+   src:[
+"public static ListNode reverse(ListNode head) {",
+"    // initialize prev and next pointer to NULL",
+"    ListNode prev = null;",
+"    ListNode next = null;",
+"    // set current pointer to the head node",
+"    ListNode curr = head;",
+"    // while the current pointer is not NULL",
+"    while (curr != null) {",
+"        // set the next pointer to the next node in the list",
+"        next = curr.next;",
+"        // reverse the current node's pointer to point to the previous node",
+"        curr.next = prev;",
+"        // set the previous pointer to the current node",
+"        prev = curr;",
+"        // move the current pointer to the next node",
+"        curr = next;",
+"    }",
+"    // set the head pointer to the last node, which is the new first node after reversal",
+"    head = prev;",
+"    // return the new head pointer",
+"    return head;",
+"}"
+   ],
+   map:{1:0,2:2,3:3,4:5,5:7,6:9,7:11,8:13,9:15,10:18,11:20}
+  },
+  csharp:{
+   src:[
+"public static ListNode Reverse(ListNode head) {",
+"    // Initialize prev and next pointer to null.",
+"    ListNode prev = null;",
+"    ListNode next = null;",
+"    // Set current pointer to the head node.",
+"    ListNode curr = head;",
+"    // While the current pointer is not null.",
+"    while (curr != null) {",
+"        // Set the next pointer to the next node in the list.",
+"        next = curr.Next;",
+"        // Reverse the current node's pointer to point to the previous node.",
+"        curr.Next = prev;",
+"        // Set the previous pointer to the current node.",
+"        prev = curr;",
+"        // Move the current pointer to the next node.",
+"        curr = next;",
+"    }",
+"    // Set the head pointer to the last node, the new first node after reversal.",
+"    head = prev;",
+"    // Return the new head pointer.",
+"    return head;",
+"}"
+   ],
+   map:{1:0,2:2,3:3,4:5,5:7,6:9,7:11,8:13,9:15,10:18,11:20}
+  }
+ }
 }
 };
 let events=[],i=0,playing=false,timer,nums=[1,2,3],nodes=new Map(),currentMap={},currentSlug=null,currentLang="python",kind="tree",gN=0,gEdges=[],queensSolved=new Set(),memoResolved=new Set(),memoHitNodes=new Set(),gridFinalized=new Set();
@@ -2054,6 +2279,7 @@ function buildReverseDigits(n){
 // Pointer labels are <g> elements moved with CSS transforms so they slide.
 let llVals=[],llN=0,llG=null,llRowY=270,llDrop=110;
 let mwsS1=[],mwsS2=[],mwsG=null,mwsRow1Y=230,mwsRow2Y=400,mwsBestStart=null,mwsBestEnd=null;
+let ivA=[],ivB=[],ivR=[],ivG=null,ivRowAY=160,ivRowBY=320,ivRowRY=480,ivRevealed=0;
 function llX(k){let slots=llVals.length+2,w=Math.min(110,920/slots);return (1000-slots*w)/2+w*k+w/2}
 function llBoxW(){return Math.min(76,920/(llVals.length+2)-32)}
 function llPtr(name,cls){
@@ -2161,6 +2387,65 @@ function paintMiddleList(e){
  paintPtr(ptr("slow"),"slow",llX(hasSlow?e.slow:1),"above",0,hasSlow);
  paintPtr(ptr("fast"),"fast",llX(hasFast?e.fast:1),"below",0,hasFast);
 }
+// Reverse Linked List: nodes stay fixed in their original slots (1..L, with
+// slot 0 / slot L+1 as the left/right NULL anchors, reusing llX's existing
+// dummy+NULL slot convention); only each node's outgoing edge direction
+// flips as it gets reversed, tracked via reversed_upto from the trace.
+function buildReverseList(values){
+ svg.innerHTML="";nodes.clear();llVals=values;llN=0;
+ let defs=el("defs"),m=el("marker",{id:"llArrow",viewBox:"0 0 10 10",refX:9,refY:5,markerWidth:7,markerHeight:7,orient:"auto-start-reverse"});
+ m.append(el("path",{d:"M0,0 L10,5 L0,10 z",class:"ll-arrowhead"}));defs.append(m);svg.append(defs);
+ llG=el("g");svg.append(llG);
+ let L=values.length;
+ for(let k=1;k<=L;k++){
+  llG.append(el("line",{x1:0,y1:llRowY,x2:0,y2:llRowY,class:"ll-edge","data-from":k,"marker-end":"url(#llArrow)"}));
+ }
+ let bw=llBoxW();
+ for(let k=1;k<=L;k++){
+  let g=el("g",{class:"ll-node ll-move","data-slot":k});
+  g.append(el("rect",{x:llX(k)-bw/2,y:llRowY-28,width:bw,height:56,rx:8}));
+  let t=el("text",{x:llX(k),y:llRowY});t.textContent=values[k-1];g.append(t);
+  llG.append(g);
+ }
+ let ntL=el("text",{x:llX(0),y:llRowY,class:"ll-null"});ntL.textContent="NULL";llG.append(ntL);
+ let ntR=el("text",{x:llX(L+1),y:llRowY,class:"ll-null"});ntR.textContent="NULL";llG.append(ntR);
+ llPtr("head","head");llPtr("prev","start");llPtr("curr","idx1");llPtr("next","idx2");
+ paintReverseList(null);
+}
+function paintReverseList(e){
+ let L=llVals.length,bw=llBoxW(),rev=e?e.reversed_upto:0;
+ llG.querySelectorAll(".ll-edge").forEach(ln=>{
+  let k=+ln.dataset.from;
+  if(k<=rev){
+   let toK=k-1;
+   ln.setAttribute("x1",llX(k)-bw/2);
+   ln.setAttribute("x2",toK===0?llX(0)+32:llX(toK)+bw/2+3);
+   ln.classList.add("reversed");
+  }else{
+   let toK=k+1;
+   ln.setAttribute("x1",llX(k)+bw/2);
+   ln.setAttribute("x2",toK===L+1?llX(toK)-32:llX(toK)-bw/2-3);
+   ln.classList.remove("reversed");
+  }
+  ln.setAttribute("y1",llRowY);ln.setAttribute("y2",llRowY);
+ });
+ llG.querySelectorAll(".ll-node").forEach(g=>{
+  let k=+g.dataset.slot;
+  g.classList.toggle("reversed-node",k<=rev);
+ });
+ let ptr=n=>llG.querySelector(`[data-ptr="${n}"]`);
+ let act=e?e.action:null;
+ let showEnter=act==="enter",showEnd=act==="set_head"||act==="return",showMid=!!e&&!showEnter&&!showEnd;
+ let headSlot=showEnter?e.curr:(showEnd?(e.prev===L+1?0:e.prev):1);
+ paintPtr(ptr("head"),"head",llX(headSlot),"above",0,showEnter||showEnd);
+ let prevSlot=showMid?(e.prev===L+1?0:e.prev):0;
+ paintPtr(ptr("prev"),"prev",llX(prevSlot),"above",0,showMid);
+ let showCurr=showMid&&act!=="init_prev"&&act!=="init_next";
+ paintPtr(ptr("curr"),"curr",llX(showCurr?e.curr:1),"below",0,showCurr);
+ let showNext=showMid&&(act==="init_next"||act==="save_next"||act==="reverse_ptr");
+ paintPtr(ptr("next"),"next",llX(showNext?e.next:L+1),"below",0,showNext);
+}
+function rlDescribe(p){return p==null?"—":(p===0||p===llVals.length+1)?"NULL":String(llVals[p-1])}
 // Minimum Window Subsequence: two character rows (s1, s2) with floating
 // pointer labels (index_s1/index_s2/start/end), mirroring the ll-ptr pattern
 // above but driven by its own row coordinates instead of llRowY/llG.
@@ -2235,6 +2520,66 @@ function paintMinWindowSubseq(e){
  mwsPaintPtr(ptr("start"),"start",mwsX1(startAt),mwsRow1Y,"above",58,hasStart);
  let hasEnd=e.end!=null,endAt=hasEnd?Math.min(Math.max(e.end,0),mwsS1.length-1):0;
  mwsPaintPtr(ptr("end"),"end",mwsX1(endAt),mwsRow1Y,"above",112,hasEnd);
+}
+// Interval List Intersections: two rows of [start,end] interval boxes (list
+// A, list B) with floating i/j pointers (reusing mwsPaintPtr's generic
+// pointer-label drawing), plus a third row revealing intersections in order
+// as they're discovered.
+function ivBoxW(n){return Math.min(130,900/Math.max(n,1)-10)}
+function ivX(k,n){let w=ivBoxW(n);return (1000-n*w)/2+w*k+w/2}
+function ivPtr(name,cls){let g=el("g",{class:"ll-ptr ll-move "+cls,"data-ptr":name});ivG.append(g);return g}
+function buildIntervalsView(listA,listB,result){
+ svg.innerHTML="";nodes.clear();ivA=listA;ivB=listB;ivR=result;ivRevealed=0;
+ let defs=el("defs"),m=el("marker",{id:"mwsArrow",viewBox:"0 0 10 10",refX:9,refY:5,markerWidth:7,markerHeight:7,orient:"auto-start-reverse"});
+ m.append(el("path",{d:"M0,0 L10,5 L0,10 z",class:"ll-arrowhead"}));defs.append(m);svg.append(defs);
+ ivG=el("g");svg.append(ivG);
+ function row(list,prefix,rowY,label){
+  let n=list.length,bw=ivBoxW(n);
+  for(let k=0;k<n;k++){
+   let id=prefix+"-"+k,x=ivX(k,n)-bw/2,y=rowY-26;
+   nodes.set(id,{id,k});
+   let g=el("g",{class:"cell","data-id":id});
+   g.append(el("rect",{x,y,width:bw,height:52,rx:8}));
+   let t=el("text",{x:ivX(k,n),y:rowY,class:"cell-val"});t.textContent="["+list[k][0]+", "+list[k][1]+"]";
+   g.append(t);ivG.append(g);
+  }
+  let lbl=el("text",{x:ivX(0,n)-bw/2-56,y:rowY,class:"ax-label"});lbl.textContent=label;ivG.append(lbl);
+ }
+ row(listA,"a",ivRowAY,"list A");
+ row(listB,"b",ivRowBY,"list B");
+ let nR=result.length,bwR=ivBoxW(nR);
+ for(let k=0;k<nR;k++){
+  let id="r-"+k,x=ivX(k,nR)-bwR/2,y=ivRowRY-26;
+  nodes.set(id,{id,k});
+  let g=el("g",{class:"cell","data-id":id});
+  g.append(el("rect",{x,y,width:bwR,height:52,rx:8}));
+  let t=el("text",{x:ivX(k,nR),y:ivRowRY,class:"cell-val"});
+  g.append(t);ivG.append(g);
+ }
+ if(nR>0){let lbl=el("text",{x:ivX(0,nR)-bwR/2-90,y:ivRowRY,class:"ax-label"});lbl.textContent="intersections";ivG.append(lbl)}
+ ivPtr("i","idx1");ivPtr("j","idx2");
+ paintIntervals(null);
+}
+function paintIntervals(e){
+ document.querySelectorAll('.cell[data-id^="a-"]').forEach(x=>x.classList.remove("current"));
+ document.querySelectorAll('.cell[data-id^="b-"]').forEach(x=>x.classList.remove("current"));
+ let ptr=n=>ivG.querySelector(`[data-ptr="${n}"]`);
+ if(!e){
+  document.querySelectorAll('.cell[data-id^="r-"]').forEach(x=>{x.classList.remove("filled");let v=x.querySelector(".cell-val");if(v)v.textContent=""});
+  mwsPaintPtr(ptr("i"),"i",ivX(0,ivA.length),ivRowAY,"above",0,false);
+  mwsPaintPtr(ptr("j"),"j",ivX(0,ivB.length),ivRowBY,"above",0,false);
+  return;
+ }
+ if(e.action==="add")ivRevealed++;
+ for(let k=0;k<ivRevealed;k++){
+  let c=document.querySelector(`.cell[data-id="r-${k}"]`);
+  if(c){c.classList.add("filled");let v=c.querySelector(".cell-val");if(v&&!v.textContent)v.textContent="["+ivR[k][0]+", "+ivR[k][1]+"]"}
+ }
+ let hasI=e.i!=null&&e.i<ivA.length,hasJ=e.j!=null&&e.j<ivB.length;
+ if(hasI)document.querySelector(`.cell[data-id="a-${e.i}"]`)?.classList.add("current");
+ if(hasJ)document.querySelector(`.cell[data-id="b-${e.j}"]`)?.classList.add("current");
+ mwsPaintPtr(ptr("i"),"i",ivX(hasI?e.i:0,ivA.length),ivRowAY,"above",0,hasI);
+ mwsPaintPtr(ptr("j"),"j",ivX(hasJ?e.j:0,ivB.length),ivRowBY,"above",0,hasJ);
 }
 function buildSpiralGrid(matrix){
  svg.innerHTML="";nodes.clear();
@@ -2585,6 +2930,14 @@ function applyKindUI(){
   lblA.textContent="index_s1";lblB.textContent="index_s2 (start,end)";lblC.textContent="min_subsequence (len)";lblD.textContent="status";
   treeTitle.textContent="SLIDING WINDOW · MIN WINDOW SUBSEQUENCE";
   legend.innerHTML="🔴 index_s1 / current char　 🩵 index_s2　 🔵 candidate window (start..end)　 🟢 best window so far";
+ }else if(kind==="intervals"){
+  lblA.textContent="i (list A)";lblB.textContent="j (list B) / start,end";lblC.textContent="intersections";lblD.textContent="status";
+  treeTitle.textContent="TWO POINTERS · INTERVAL LIST INTERSECTIONS";
+  legend.innerHTML="🔴 current interval (i / j)　 🟢 revealed intersection";
+ }else if(kind==="reverse_list"){
+  lblA.textContent="prev";lblB.textContent="curr / next";lblC.textContent="reversed so far";lblD.textContent="status";
+  treeTitle.textContent="LINKED LIST · REVERSE IN PLACE";
+  legend.innerHTML="🟢 head　 🟣 prev　 🔴 curr　 🩵 next　 🟢 edge reversed";
  }else{
   lblA.textContent="candidate";lblB.textContent="used";lblC.textContent="res";lblD.textContent="call stack";
   treeTitle.textContent="RECURSION TREE";
@@ -2869,6 +3222,18 @@ function render(e){
   stack.textContent=e.action;
   if(e.action==="update"&&e.start!=null){mwsBestStart=e.start;mwsBestEnd=e.end}
   paintMinWindowSubseq(e);
+ }else if(kind==="intervals"){
+  candidate.textContent=e.i==null?"—":e.i;
+  used.textContent=(e.j==null?"—":"j="+e.j)+(e.start!=null?`, start=${e.start}, end=${e.end}`:"");
+  res.textContent=e.intersections?JSON.stringify(e.intersections):"[]";
+  stack.textContent=e.action;
+  paintIntervals(e);
+ }else if(kind==="reverse_list"){
+  candidate.textContent=rlDescribe(e.prev);
+  used.textContent=`curr=${rlDescribe(e.curr)}, next=${rlDescribe(e.next)}`;
+  res.textContent=e.reversed_upto;
+  stack.textContent=e.action;
+  paintReverseList(e);
  }else{
   candidate.textContent=JSON.stringify(e.candidate);used.textContent=e.used.length?"{"+e.used.join(", ")+"}":"∅";res.textContent=JSON.stringify(e.res);stack.textContent=e.call_stack.join(" → ")||"—";
   document.querySelectorAll(".node").forEach(x=>x.classList.remove("current","complete","visited"));
@@ -2963,6 +3328,13 @@ function reset(){
   candidate.textContent="—";used.textContent="—";res.textContent='"" (len ∞)';stack.textContent="—";
   mwsBestStart=null;mwsBestEnd=null;
   paintMinWindowSubseq(null);
+ }else if(kind==="intervals"){
+  candidate.textContent="—";used.textContent="—";res.textContent="[]";stack.textContent="—";
+  ivRevealed=0;
+  paintIntervals(null);
+ }else if(kind==="reverse_list"){
+  candidate.textContent="—";used.textContent="—";res.textContent="0";stack.textContent="—";
+  paintReverseList(null);
  }else{
   candidate.textContent="[]";used.textContent="∅";res.textContent="[]";stack.textContent="—";
   document.querySelectorAll(".node").forEach(x=>x.classList.remove("current","complete","visited"));
@@ -3002,6 +3374,8 @@ function applyTraceData(d,slug){
  else if(kind==="linked_list"){renderSource(slug);buildLinkedList(d.values,d.n)}
  else if(kind==="middle_list"){renderSource(slug);buildMiddleList(d.values)}
  else if(kind==="min_window_subseq"){renderSource(slug);buildMinWindowSubseq(d.s1,d.s2)}
+ else if(kind==="intervals"){renderSource(slug);buildIntervalsView(d.list_a,d.list_b,d.result)}
+ else if(kind==="reverse_list"){renderSource(slug);buildReverseList(d.values)}
  else{nums=d.nums;renderSource(slug);build()}
  reset();
  document.getElementById("descText").textContent=d.description||"No description available for this problem yet.";
