@@ -2442,7 +2442,7 @@ function paintReverseList(e){
  paintPtr(ptr("prev"),"prev",llX(prevSlot),"above",0,showMid);
  let showCurr=showMid&&act!=="init_prev"&&act!=="init_next";
  paintPtr(ptr("curr"),"curr",llX(showCurr?e.curr:1),"below",0,showCurr);
- let showNext=showMid&&(act==="init_next"||act==="save_next"||act==="reverse_ptr");
+ let showNext=showMid&&(act==="init_next"||act==="save_next"||act==="reverse_ptr"||act==="advance_prev");
  paintPtr(ptr("next"),"next",llX(showNext?e.next:L+1),"below",0,showNext);
 }
 function rlDescribe(p){return p==null?"—":(p===0||p===llVals.length+1)?"NULL":String(llVals[p-1])}
