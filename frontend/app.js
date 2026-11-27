@@ -2149,6 +2149,106 @@ const PROBLEM_UI={
    map:{1:0,2:2,3:3,4:5,5:7,6:9,7:11,8:13,9:15,10:18,11:20}
   }
  }
+},
+"ipo":{
+ langs:{
+  python:{
+   src:[
+"import heapq",
+"def find_max_capital(k, capital, profits, w):",
+"    min_capital_heap = []",
+"    for i in range(len(capital)):",
+"        heapq.heappush(min_capital_heap, (capital[i], profits[i], i))",
+"    max_profit_heap = []",
+"    available_capital = w",
+"    for _ in range(k):",
+"        while min_capital_heap and min_capital_heap[0][0] <= available_capital:",
+"            capital_i, profit_i, i = heapq.heappop(min_capital_heap)",
+"            heapq.heappush(max_profit_heap, (-profit_i, i))",
+"        if not max_profit_heap:",
+"            break",
+"        neg_profit, i = heapq.heappop(max_profit_heap)",
+"        available_capital += -neg_profit",
+"    return available_capital"
+   ],
+   map:{1:2,2:3,3:4,4:5,5:6,6:7,7:8,8:9,9:10,10:11,11:13,12:14,13:15}
+  },
+  javascript:{
+   src:[
+"function findMaxCapital(k, capital, profits, w) {",
+"  const minCapitalHeap = new MinHeap();  // ordered by capital",
+"  for (let i = 0; i < capital.length; i++) {",
+"    minCapitalHeap.push([capital[i], profits[i], i]);",
+"  }",
+"  const maxProfitHeap = new MaxHeap();  // ordered by profit",
+"  let availableCapital = w;",
+"  for (let sel = 0; sel < k; sel++) {",
+"    while (!minCapitalHeap.isEmpty() && minCapitalHeap.top()[0] <= availableCapital) {",
+"      const [capitalI, profitI, i] = minCapitalHeap.pop();",
+"      maxProfitHeap.push([profitI, i]);",
+"    }",
+"    if (maxProfitHeap.isEmpty()) {",
+"      break;",
+"    }",
+"    const [profit, i] = maxProfitHeap.pop();",
+"    availableCapital += profit;",
+"  }",
+"  return availableCapital;",
+"}"
+   ],
+   map:{1:1,2:2,3:3,4:5,5:6,6:7,7:8,8:9,9:10,10:12,11:15,12:16,13:18}
+  },
+  java:{
+   src:[
+"public static int findMaxCapital(int k, int[] capital, int[] profits, int w) {",
+"    PriorityQueue<int[]> minCapitalHeap = new PriorityQueue<>((a, b) -> a[0] - b[0]);",
+"    for (int i = 0; i < capital.length; i++) {",
+"        minCapitalHeap.offer(new int[]{capital[i], profits[i], i});",
+"    }",
+"    PriorityQueue<int[]> maxProfitHeap = new PriorityQueue<>((a, b) -> b[0] - a[0]);",
+"    int availableCapital = w;",
+"    for (int sel = 0; sel < k; sel++) {",
+"        while (!minCapitalHeap.isEmpty() && minCapitalHeap.peek()[0] <= availableCapital) {",
+"            int[] project = minCapitalHeap.poll();",
+"            maxProfitHeap.offer(new int[]{project[1], project[2]});",
+"        }",
+"        if (maxProfitHeap.isEmpty()) {",
+"            break;",
+"        }",
+"        int[] best = maxProfitHeap.poll();",
+"        availableCapital += best[0];",
+"    }",
+"    return availableCapital;",
+"}"
+   ],
+   map:{1:1,2:2,3:3,4:5,5:6,6:7,7:8,8:9,9:10,10:12,11:15,12:16,13:18}
+  },
+  csharp:{
+   src:[
+"public static int FindMaxCapital(int k, int[] capital, int[] profits, int w) {",
+"    var minCapitalHeap = new PriorityQueue<(int capital, int profit, int idx), int>();",
+"    for (int i = 0; i < capital.Length; i++) {",
+"        minCapitalHeap.Enqueue((capital[i], profits[i], i), capital[i]);",
+"    }",
+"    var maxProfitHeap = new PriorityQueue<(int profit, int idx), int>();",
+"    int availableCapital = w;",
+"    for (int sel = 0; sel < k; sel++) {",
+"        while (minCapitalHeap.Count > 0 && minCapitalHeap.Peek().capital <= availableCapital) {",
+"            var project = minCapitalHeap.Dequeue();",
+"            maxProfitHeap.Enqueue((project.profit, project.idx), -project.profit);",
+"        }",
+"        if (maxProfitHeap.Count == 0) {",
+"            break;",
+"        }",
+"        var best = maxProfitHeap.Dequeue();",
+"        availableCapital += best.profit;",
+"    }",
+"    return availableCapital;",
+"}"
+   ],
+   map:{1:1,2:2,3:3,4:5,5:6,6:7,7:8,8:9,9:10,10:12,11:15,12:16,13:18}
+  }
+ }
 }
 };
 let events=[],i=0,playing=false,timer,nums=[1,2,3],nodes=new Map(),currentMap={},currentSlug=null,currentLang="python",kind="tree",gN=0,gEdges=[],queensSolved=new Set(),memoResolved=new Set(),memoHitNodes=new Set(),gridFinalized=new Set();
@@ -2235,6 +2335,82 @@ function paintHeap(heapArr,highlightTop){
   let t=el("text",{x:p.x,y:p.y});t.textContent=heapArr[i];
   g.append(t);heapTreeG.append(g);
  }
+}
+// IPO: two independent heap trees (min-heap of capitals on the left, max-heap
+// of profits on the right), each laid out with the same recursive scheme as
+// paintHeap above but confined to its own half of the canvas, plus the
+// Capitals/Profits arrays and a running "current capital" readout.
+let ipoCapital=[],ipoProfits=[],ipoMinG=null,ipoMaxG=null,ipoCapText=null;
+function ipoCellX(k,n){let w=Math.min(110,900/n);return (1000-n*w)/2+w*k+w/2}
+function buildIPOView(capital,profits){
+ svg.innerHTML="";nodes.clear();ipoCapital=capital;ipoProfits=profits;
+ let n=capital.length,cw=Math.min(90,900/n-8);
+ function row(arr,prefix,y,label){
+  for(let k=0;k<n;k++){
+   let id=prefix+"-"+k,x=ipoCellX(k,n)-cw/2;
+   nodes.set(id,{id,k});
+   let g=el("g",{class:"cell","data-id":id});
+   g.append(el("rect",{x,y:y-24,width:cw,height:48,rx:6}));
+   let t=el("text",{x:ipoCellX(k,n),y,class:"cell-val"});t.textContent=arr[k];
+   g.append(t);svg.append(g);
+  }
+  let lbl=el("text",{x:ipoCellX(0,n)-cw/2-50,y,class:"ax-label"});lbl.textContent=label;svg.append(lbl);
+ }
+ row(capital,"cap",55,"Capitals");
+ row(profits,"prof",125,"Profits");
+ ipoMinG=el("g",{id:"ipoMinG"});svg.append(ipoMinG);
+ ipoMaxG=el("g",{id:"ipoMaxG"});svg.append(ipoMaxG);
+ let lblMin=el("text",{x:250,y:565,class:"ax-label"});lblMin.textContent="Min-heap";svg.append(lblMin);
+ let lblMax=el("text",{x:750,y:565,class:"ax-label"});lblMax.textContent="Max-heap";svg.append(lblMax);
+ ipoCapText=el("text",{x:500,y:195,class:"ax-label"});svg.append(ipoCapText);
+ paintIPO(null);
+}
+function paintHeapIn(g,heapArr,xMin,xMax,topY,highlightTop){
+ g.innerHTML="";
+ let n=heapArr.length;
+ if(n===0)return;
+ let levelH=58,pos=new Array(n);
+ function layout(i,lo,hi,depth){
+  if(i>=n)return;
+  let x=(lo+hi)/2,y=topY+depth*levelH;
+  pos[i]={x,y};
+  layout(2*i+1,lo,x,depth+1);
+  layout(2*i+2,x,hi,depth+1);
+ }
+ layout(0,xMin,xMax,0);
+ for(let i=1;i<n;i++){
+  let p=pos[i],pp=pos[Math.floor((i-1)/2)];
+  g.appendChild(el("line",{x1:pp.x,y1:pp.y,x2:p.x,y2:p.y,class:"edge"}));
+ }
+ for(let i=0;i<n;i++){
+  let p=pos[i],node=el("g",{class:"node"+(i===0&&highlightTop?" current":"")});
+  node.append(el("circle",{cx:p.x,cy:p.y,r:20}));
+  let t=el("text",{x:p.x,y:p.y});t.textContent=heapArr[i];
+  node.append(t);g.append(node);
+ }
+}
+function paintIPO(e){
+ document.querySelectorAll('.cell[data-id^="cap-"]').forEach(x=>x.classList.remove("current","filled"));
+ document.querySelectorAll('.cell[data-id^="prof-"]').forEach(x=>x.classList.remove("current","filled"));
+ if(!e){
+  paintHeapIn(ipoMinG,[],60,440,250,false);
+  paintHeapIn(ipoMaxG,[],560,940,250,false);
+  ipoCapText.textContent="";
+  return;
+ }
+ (e.consumed||[]).forEach(idx=>{
+  document.querySelector(`.cell[data-id="cap-${idx}"]`)?.classList.add("filled");
+  document.querySelector(`.cell[data-id="prof-${idx}"]`)?.classList.add("filled");
+ });
+ if(e.idx!=null){
+  document.querySelector(`.cell[data-id="cap-${e.idx}"]`)?.classList.add("current");
+  document.querySelector(`.cell[data-id="prof-${e.idx}"]`)?.classList.add("current");
+ }
+ paintHeapIn(ipoMinG,e.min_heap||[],60,440,250,e.action==="check_afford");
+ paintHeapIn(ipoMaxG,e.max_heap||[],560,940,250,false);
+ let txt=e.available_capital!=null?`Current Capital = ${e.available_capital}`:"";
+ if(e.k_total!=null)txt+=`   (selected ${e.k_done} / ${e.k_total})`;
+ ipoCapText.textContent=txt;
 }
 let spiralBoundary=null,spiralVisited=new Set();
 function paintSpiralBoundaries(e){
@@ -2938,6 +3114,10 @@ function applyKindUI(){
   lblA.textContent="prev";lblB.textContent="curr / next";lblC.textContent="reversed so far";lblD.textContent="status";
   treeTitle.textContent="LINKED LIST · REVERSE IN PLACE";
   legend.innerHTML="🟢 head　 🟣 prev　 🔴 curr　 🩵 next　 🟢 edge reversed";
+ }else if(kind==="ipo"){
+  lblA.textContent="idx";lblB.textContent="min-heap (capitals)";lblC.textContent="capital (selected)";lblD.textContent="status";
+  treeTitle.textContent="HEAPS · IPO (TWO-HEAP)";
+  legend.innerHTML="🔴 current project / heap top being checked　 🟢 project moved between heaps";
  }else{
   lblA.textContent="candidate";lblB.textContent="used";lblC.textContent="res";lblD.textContent="call stack";
   treeTitle.textContent="RECURSION TREE";
@@ -3234,6 +3414,12 @@ function render(e){
   res.textContent=e.reversed_upto;
   stack.textContent=e.action;
   paintReverseList(e);
+ }else if(kind==="ipo"){
+  candidate.textContent=e.idx==null?"—":e.idx;
+  used.textContent=e.min_heap?JSON.stringify(e.min_heap):"[]";
+  res.textContent=(e.available_capital==null?"—":e.available_capital)+(e.k_total!=null?` (selected ${e.k_done}/${e.k_total})`:"");
+  stack.textContent=e.action;
+  paintIPO(e);
  }else{
   candidate.textContent=JSON.stringify(e.candidate);used.textContent=e.used.length?"{"+e.used.join(", ")+"}":"∅";res.textContent=JSON.stringify(e.res);stack.textContent=e.call_stack.join(" → ")||"—";
   document.querySelectorAll(".node").forEach(x=>x.classList.remove("current","complete","visited"));
@@ -3335,6 +3521,9 @@ function reset(){
  }else if(kind==="reverse_list"){
   candidate.textContent="—";used.textContent="—";res.textContent="0";stack.textContent="—";
   paintReverseList(null);
+ }else if(kind==="ipo"){
+  candidate.textContent="—";used.textContent="[]";res.textContent="—";stack.textContent="—";
+  paintIPO(null);
  }else{
   candidate.textContent="[]";used.textContent="∅";res.textContent="[]";stack.textContent="—";
   document.querySelectorAll(".node").forEach(x=>x.classList.remove("current","complete","visited"));
@@ -3376,6 +3565,7 @@ function applyTraceData(d,slug){
  else if(kind==="min_window_subseq"){renderSource(slug);buildMinWindowSubseq(d.s1,d.s2)}
  else if(kind==="intervals"){renderSource(slug);buildIntervalsView(d.list_a,d.list_b,d.result)}
  else if(kind==="reverse_list"){renderSource(slug);buildReverseList(d.values)}
+ else if(kind==="ipo"){renderSource(slug);buildIPOView(d.capital,d.profits)}
  else{nums=d.nums;renderSource(slug);build()}
  reset();
  document.getElementById("descText").textContent=d.description||"No description available for this problem yet.";
